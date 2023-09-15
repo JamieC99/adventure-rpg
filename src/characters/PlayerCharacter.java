@@ -69,7 +69,7 @@ public class PlayerCharacter extends Character
 	// Top collision box
 	public Rectangle topBounds()
 	{
-		return new Rectangle(x + 3, y, width - 5, 1);
+		return new Rectangle(x + 3, y-1, width - 5, 1);
 	}
 	
 	// Bottom collision box
@@ -81,7 +81,7 @@ public class PlayerCharacter extends Character
 	// Left collision box
 	public Rectangle leftBounds()
 	{
-		return new Rectangle(x, y + 3, 1, height - 5);
+		return new Rectangle(x - 1, y + 3, 1, height - 5);
 	}
 	
 	// Right collision box
