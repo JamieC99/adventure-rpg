@@ -1,8 +1,11 @@
 package main;
 
+import input.*;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -25,6 +28,7 @@ public class Window extends JPanel
 		
 		// Add panel to window
 		frame.add(this);
+		frame.addKeyListener(new KeyInput());
 	}
 	
 	// Rendering
@@ -35,6 +39,8 @@ public class Window extends JPanel
 		// Fill black background
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 0, 0, 1536, 960, null);
 		
 		// Draw game objects
 		Handler.paintComponent(g);

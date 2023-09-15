@@ -1,14 +1,21 @@
 package main;
 
 import characters.PlayerCharacter;
+import world.*;
 
 public class Main
 {
 	public Main()
 	{
-		new Window(); // Create the game window
+		Handler.addObject(new PlayerCharacter(256, 0, 1));
+		Handler.addObject(new PlayerCharacter(256, 0, 2));
 		
-		Handler.addObject(new PlayerCharacter(0, 0, 1));
+		for (int i = 0; i < 1536; i += 64)
+			for (int j = 0; j < 256; j += 64)
+				if (i != 256)
+					Handler.addObject(new Tree(i, j));
+		
+		new Window(); // Create the game window
 		
 		run(); // Run the game
 	}

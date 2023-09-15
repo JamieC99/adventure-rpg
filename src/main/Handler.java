@@ -32,4 +32,10 @@ public class Handler
 	{
 		objectList.remove(object);
 	}
+	
+	/** Return the object list */
+	public static LinkedList<GameObject> getObjectList()
+	{
+		return objectList;
+	}
 }

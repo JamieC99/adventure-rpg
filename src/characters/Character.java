@@ -1,14 +1,15 @@
 package characters;
 
+import main.GameObject;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
-
-import main.GameObject;
 
 public class Character extends GameObject
 {
@@ -26,11 +27,11 @@ public class Character extends GameObject
 	protected int spriteX = 0, spriteY = 0;
 	
 	/** Sprite sheet */
-	protected BufferedImage spriteSheet; 
+	protected BufferedImage spriteSheet;
 	/** Sub image */
 	protected BufferedImage characterSprite;
 	// Sprite path
-	protected String imagePath = "resources/sprites/characters/char_blue_sheet.png";
+	protected String imagePath;
 	
 	// Time elapsed since last frame
 	private int animationTimer = 0;
@@ -46,6 +47,14 @@ public class Character extends GameObject
 		width = 48;
 		height = 64;
 		
+		Random rand = new Random();
+		int sprite = rand.nextInt(2)+1;
+		
+		if (sprite == 1)
+			imagePath = "resources/sprites/characters/char_blue_sheet.png";
+		else
+			imagePath = "resources/sprites/characters/char_orange_sheet.png";
+		
 		// Load the sprite
 		try
 		{
@@ -56,9 +65,6 @@ public class Character extends GameObject
 		{
 			e.printStackTrace();
 		}
-		
-		// Assign image of the character standing still
-		characterSprite = spriteSheet.getSubimage(48, spriteY, width, height);
 	}
 	
 	private void animate()
@@ -82,9 +88,14 @@ public class Character extends GameObject
 		}
 		else
 			spriteX = 48; // Standing still image
-			
+		
+		if (velY > 0) spriteY = 0; // Move down
+		if (velY < 0) spriteY = 192; // Move up
+		if (velX > 0) spriteY = 128; // Move right
+		if (velX < 0) spriteY = 64; // Move left
+		
 		// Reassign image	
-		characterSprite = spriteSheet.getSubimage(spriteX, spriteY, width, height);	
+		characterSprite = spriteSheet.getSubimage(spriteX, spriteY, width, height);
 	}
 	
 	public void tick() 
@@ -95,22 +106,29 @@ public class Character extends GameObject
 		// Update movement
 		x += velX;
 		y += velY;
+		
+		// Clamp movement to screen
+		if (x > 1488) x = 1488;
+		if (x < 0) x = 0;
+		if (y > 896) y = 896;
+		if (y < 0) y = 0;
 	}
 	
+	/** Horizontal movement speed */
 	public void moveX(int speed)
 	{
 		velX = speed;
-		
-		if (velX > 0) spriteY = 128; // Move right
-		if (velX < 0) spriteY = 64; // Move left
 	}
 	
+	/** Vertical movement speed */
 	public void moveY(int speed)
 	{
 		velY = speed;
-		
-		if (velY > 0) spriteY = 192; // Move down
-		if (velY < 0) spriteY = 0; // Move up
+	}
+	
+	public int getMoveSpeed()
+	{
+		return moveSpeed;
 	}
 	
 	public void paintComponent(Graphics g) {}

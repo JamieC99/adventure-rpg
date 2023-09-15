@@ -32,6 +32,18 @@ public abstract class GameObject
 		return y;
 	}
 	
+	/** Return the object width */
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	/** Return the object height */
+	public int getHeight()
+	{
+		return height;
+	}
+	
 	/** Update the object's behaviours */
 	public abstract void tick();
 	
