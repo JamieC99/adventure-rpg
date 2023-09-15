@@ -38,5 +38,7 @@ public class Window extends JPanel
 		
 		// Draw game objects
 		Handler.paintComponent(g);
+		
+		repaint();
 	}
 }

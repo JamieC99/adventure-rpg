@@ -5,8 +5,14 @@ import java.awt.Rectangle;
 
 public abstract class GameObject 
 {
-	// Location, width and height of the object
-	protected int x, y, width, height;
+	/** x coordinate */
+	protected int x;
+	/** y coordinate */
+	protected int y;
+	/** object width */
+	protected int width;
+	/** object height */
+	protected int height;
 	
 	public GameObject(int x, int y)
 	{
@@ -14,22 +20,24 @@ public abstract class GameObject
 		this.y = y;
 	}
 	
+	/** Return the x position */
 	public int getX()
 	{
 		return x;
 	}
 	
+	/** Return the y position */
 	public int getY()
 	{
 		return y;
 	}
 	
-	// Update the object's behaviours
+	/** Update the object's behaviours */
 	public abstract void tick();
 	
-	// Draw the object
+	/** Draw the object */
 	public abstract void paintComponent(Graphics g);
 	
-	// Collision box
+	/** Collision box */
 	public abstract Rectangle getBounds();
 }

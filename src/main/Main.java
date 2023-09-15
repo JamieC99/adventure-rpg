@@ -1,14 +1,19 @@
 package main;
 
+import characters.PlayerCharacter;
+
 public class Main
 {
 	public Main()
 	{
-		new Window();
+		new Window(); // Create the game window
 		
-		run();
+		Handler.addObject(new PlayerCharacter(0, 0, 1));
+		
+		run(); // Run the game
 	}
 	
+	// Main game loop
 	public void run()
 	{
 		long lastTime = System.nanoTime();
@@ -29,6 +34,7 @@ public class Main
 		}
 	}
 	
+	// Main tick method. Updates every game object
 	public void tick()
 	{
 		Handler.tick();
