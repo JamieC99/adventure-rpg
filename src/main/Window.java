@@ -29,6 +29,8 @@ public class Window extends JPanel
 		// Add panel to window
 		frame.add(this);
 		frame.addKeyListener(new KeyInput());
+		frame.addMouseListener(new MouseInput());
+		frame.addMouseMotionListener(new MouseInput());
 	}
 	
 	// Rendering

@@ -17,13 +17,15 @@ public class Tree extends GameObject
 {
 	private BufferedImage spriteSheet, treeSprite;
 	
+	int treeType;
+	
 	public Tree(int x, int y) 
 	{
 		super(x, y);
 		
 		Random random = new Random();
-		int spriteIndex = random.nextInt(3);
-		spriteIndex = 128 * spriteIndex;
+		treeType = random.nextInt(3);
+		treeType = 128 * treeType;
 		
 		// Load sprite sheet
 		try
@@ -36,7 +38,7 @@ public class Tree extends GameObject
 			e.printStackTrace();
 		}
 		
-		treeSprite = spriteSheet.getSubimage(spriteIndex, 0, 128, 160);
+		treeSprite = spriteSheet.getSubimage(treeType, 0, 128, 160);
 		
 		width = 64;
 		height = 96;
@@ -50,7 +52,7 @@ public class Tree extends GameObject
 	public void paintComponent(Graphics g) 
 	{
 		// Draw tree
-		g.drawImage(treeSprite, x, y-height, width, height, null);
+		g.drawImage(treeSprite, x, y - height, width, height, null);
 		
 		// Show collision box
 		if (Debug.getCollisionBounds())

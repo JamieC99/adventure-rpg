@@ -23,6 +23,11 @@ public class PlayerCharacter extends Character
 		moveSpeed = 3;
 	}
 	
+	public int getY()
+	{
+		return y;
+	}
+	
 	// Perform collision checking
 	public void collision()
 	{
