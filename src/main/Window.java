@@ -19,7 +19,7 @@ public class Window extends JPanel
 	JFrame frame = new JFrame("Adventure RPG");
 	
 	// Default window size
-	private final int WIDTH = 1920, HEIGHT = 999;
+	private final int WIDTH = 1872, HEIGHT = 999;
 	
 	private float windowScale;
 	
@@ -58,7 +58,7 @@ public class Window extends JPanel
 		g2d.setTransform(transform);
 		
 		// Draw background
-		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 0, 0, 1920, 960, null);
+		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 0, 0, 1856, 960, null);
 		
 		// Draw game objects
 		Handler.paintComponent(g);

@@ -10,7 +10,7 @@ import java.awt.Graphics;
 
 public class LevelEditor
 {
-	public static boolean editMode = false;
+	public static boolean editMode = true;
 	
 	// Cursor position
 	private static int cursorX, cursorY;
@@ -27,7 +27,7 @@ public class LevelEditor
 	
 	public LevelEditor()
 	{
-		selectedObjectType = ObjectType.house;
+		selectedObjectType = ObjectType.tree;
 	}
 	
 	public void tick() 

@@ -1,11 +1,12 @@
 package main;
 
+import editor.LevelEditor;
+import world.*;
+
 import java.awt.Graphics;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
-
-import editor.LevelEditor;
 
 public class Handler 
 {
