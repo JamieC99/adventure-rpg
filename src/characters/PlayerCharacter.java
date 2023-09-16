@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import javax.swing.ImageIcon;
+
 public class PlayerCharacter extends Character
 {
 	// Player 1 or player 2
@@ -31,8 +33,10 @@ public class PlayerCharacter extends Character
 	// Perform collision checking
 	public void collision()
 	{
-		for (GameObject object : Handler.getObjectList())
+		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
+			GameObject object = Handler.getObjectList().get(i);
+			
 			// Check if the objects bounds are not null
 			if (object.getBounds() != null)
 			{
@@ -74,7 +78,7 @@ public class PlayerCharacter extends Character
 	// Top collision box
 	public Rectangle topBounds()
 	{
-		return new Rectangle(x + 3, y-1, width - 5, 1);
+		return new Rectangle(x + 3, y + 24, width - 5, 1);
 	}
 	
 	// Bottom collision box
@@ -86,17 +90,20 @@ public class PlayerCharacter extends Character
 	// Left collision box
 	public Rectangle leftBounds()
 	{
-		return new Rectangle(x - 1, y + 3, 1, height - 5);
-	}
+		return new Rectangle(x - 1, y + 27, 1, height - 29);
+	} 
 	
 	// Right collision box
 	public Rectangle rightBounds()
 	{
-		return new Rectangle(x + width, y + 3, 1, height - 5);
+		return new Rectangle(x + width, y + 27, 1, height - 29);
 	}
 	
 	public void paintComponent(Graphics g)
 	{
+		// Draw shadow
+		g.drawImage(new ImageIcon("resources/sprites/characters/char_shadow.png").getImage(), x, y + 48, width, height / 2, null);
+		
 		// Draw player sprite
 		g.drawImage(characterSprite, x, y, width, height, null);
 		

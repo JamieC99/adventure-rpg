@@ -43,16 +43,11 @@ public class Tree extends GameObject
 		width = 64;
 		height = 96;
 	}
-	
-	public void tick() 
-	{
-		
-	}
 
 	public void paintComponent(Graphics g) 
 	{
 		// Draw tree
-		g.drawImage(treeSprite, x, y - height, width, height, null);
+		g.drawImage(treeSprite, x, y, width, height, null);
 		
 		// Show collision box
 		if (Debug.getCollisionBounds())
@@ -64,6 +59,6 @@ public class Tree extends GameObject
 
 	public Rectangle getBounds()
 	{
-		return new Rectangle(x + 14, y-32, width-32, height-64);
+		return new Rectangle(x + 14, y + 62, width-32, height-62);
 	}
 }

@@ -10,8 +10,10 @@ public class Main
 		Handler.addObject(new PlayerCharacter(256, 0, 1));
 		Handler.addObject(new PlayerCharacter(256, 0, 2));
 		
+		Handler.addObject(new House(320, 192));
+		
 		for (int i = 0; i < 1536; i += 64)
-			for (int j = 0; j < 256; j += 64)
+			for (int j =- 32; j < 128; j += 64)
 				if (i != 256)
 					Handler.addObject(new Tree(i, j));
 		

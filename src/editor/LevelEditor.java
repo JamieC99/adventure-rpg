@@ -3,7 +3,7 @@ package editor;
 import input.*;
 import main.GameObject;
 import main.Handler;
-import world.Tree;
+import world.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,16 +18,16 @@ public class LevelEditor
 	private int gridSize = 64;
 	
 	// Object type
-	private enum ObjectType
+	public enum ObjectType
 	{
 		tree,
 		house
 	}
-	private static ObjectType selectedObjectType;
+	public static ObjectType selectedObjectType;
 	
 	public LevelEditor()
 	{
-		selectedObjectType = ObjectType.tree;
+		selectedObjectType = ObjectType.house;
 	}
 	
 	public void tick() 
@@ -56,9 +56,13 @@ public class LevelEditor
 	{
 		if (editMode)
 		{
-			// Place a new object at the cursor
+			// Place tree
 			if (selectedObjectType == ObjectType.tree)
-				Handler.addObject(new Tree(cursorX, cursorY + 64));
+				Handler.addObject(new Tree(cursorX, cursorY - 32));
+			
+			// Place house
+			if (selectedObjectType == ObjectType.house)
+				Handler.addObject(new House(cursorX, cursorY));
 		}
 	}
 	
@@ -77,7 +81,7 @@ public class LevelEditor
 						Handler.removeObject(object);
 				}
 				else // Remove tree
-					if (object.getX() == cursorX && object.getY() == cursorY + 64)
+					if (object.getX() == cursorX && object.getY() == cursorY - 32)
 						Handler.removeObject(object);
 			}
 		}

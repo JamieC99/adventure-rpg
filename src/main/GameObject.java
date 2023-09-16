@@ -45,7 +45,7 @@ public abstract class GameObject
 	}
 	
 	/** Update the object's behaviours */
-	public abstract void tick();
+	public void tick() {}
 	
 	/** Draw the object */
 	public abstract void paintComponent(Graphics g);
