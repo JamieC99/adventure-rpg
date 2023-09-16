@@ -10,7 +10,7 @@ import java.awt.Graphics;
 
 public class LevelEditor
 {
-	public static boolean editMode = true;
+	public static boolean editMode = false;
 	
 	// Cursor position
 	private static int cursorX, cursorY;

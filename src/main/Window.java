@@ -2,7 +2,7 @@ package main;
 
 import input.*;
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -19,7 +19,7 @@ public class Window extends JPanel
 	JFrame frame = new JFrame("Adventure RPG");
 	
 	// Default window size
-	private final int WIDTH = 1552, HEIGHT = 999;
+	private final int WIDTH = 1920, HEIGHT = 999;
 	
 	private float windowScale;
 	
@@ -28,8 +28,9 @@ public class Window extends JPanel
 		// Setup window
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(true);
-		frame.setLocationRelativeTo(null);
+		//frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setMaximumSize(new Dimension(1920, 999));
 		frame.setVisible(true);
 		
 		// Add panel to window
@@ -52,14 +53,12 @@ public class Window extends JPanel
 		// Calculate the window scale
 		windowScale = 1.0f * frame.getWidth() / WIDTH;
 		
-		//frame.setSize(frame.getWidth(), (int) (frame.getWidth() * windowScale));
-		
 		// Apply scale
 		transform.scale(windowScale, windowScale);
 		g2d.setTransform(transform);
 		
 		// Draw background
-		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 0, 0, 1536, 960, null);
+		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 0, 0, 1920, 960, null);
 		
 		// Draw game objects
 		Handler.paintComponent(g);

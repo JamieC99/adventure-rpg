@@ -108,7 +108,7 @@ public class Character extends GameObject
 		y += velY;
 		
 		// Clamp movement to screen
-		if (x > 1488) x = 1488;
+		if (x > 1856) x = 1856;
 		if (x < 0) x = 0;
 		if (y > 896) y = 896;
 		if (y < 0) y = 0;
