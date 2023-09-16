@@ -2,6 +2,7 @@ package main;
 
 import input.*;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,7 +22,8 @@ public class Window extends JPanel
 	// Default window size
 	private final int WIDTH = 1872, HEIGHT = 999;
 	
-	private float windowScale;
+	// The scale of the image based on the window width
+	private static float frameScale;
 	
 	public Window()
 	{
@@ -44,18 +46,19 @@ public class Window extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		
 		Graphics2D g2d = (Graphics2D) g;
-		
-		// Apply scaling to the window
 		AffineTransform transform = new AffineTransform();
 		
 		// Calculate the window scale
-		windowScale = 1.0f * frame.getWidth() / WIDTH;
+		frameScale = 1.0f * frame.getWidth() / WIDTH;
 		
 		// Apply scale
-		transform.scale(windowScale, windowScale);
+		transform.scale(frameScale, frameScale);
 		g2d.setTransform(transform);
+		
+		
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, WIDTH, HEIGHT * 2);
 		
 		// Draw background
 		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 0, 0, 1856, 960, null);
@@ -64,5 +67,11 @@ public class Window extends JPanel
 		Handler.paintComponent(g);
 		
 		repaint();
+	}
+	
+	/** Return the scale of the frame */
+	public static float getFrameScale()
+	{
+		return frameScale;
 	}
 }

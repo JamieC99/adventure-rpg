@@ -1,7 +1,6 @@
 package main;
 
 import editor.LevelEditor;
-import world.*;
 
 import java.awt.Graphics;
 import java.util.Collections;

@@ -18,7 +18,7 @@ public class PlayerCharacter extends Character
 	
 	public PlayerCharacter(int x, int y, int playerNumber)
 	{
-		super(x, y);
+		super(x, y, playerNumber);
 		
 		this.playerNumber = playerNumber;
 		

@@ -1,10 +1,10 @@
 package input;
 
+import editor.LevelEditor;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
-import editor.LevelEditor;
 
 public class MouseInput implements MouseListener, MouseMotionListener
 {

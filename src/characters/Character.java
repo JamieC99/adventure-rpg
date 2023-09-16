@@ -13,9 +13,11 @@ import javax.imageio.ImageIO;
 
 public class Character extends GameObject
 {
-	// Character movement
+	// Character attributes
 	protected int velX, velY;
 	protected int moveSpeed = 2;
+	protected int healthPoints = 100;
+	
 	
 	/** 
 		Position of the desired image in the sprite sheet
@@ -30,7 +32,6 @@ public class Character extends GameObject
 	protected BufferedImage spriteSheet;
 	/** Sub image */
 	protected BufferedImage characterSprite;
-	// Sprite path
 	protected String imagePath;
 	
 	// Time elapsed since last frame
@@ -39,7 +40,7 @@ public class Character extends GameObject
 	private int animationDelay = 20;
 	
 	// Constructor
-	public Character(int x, int y)
+	public Character(int x, int y, int characterNumber)
 	{
 		super(x, y);
 		

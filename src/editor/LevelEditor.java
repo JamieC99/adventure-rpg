@@ -4,6 +4,7 @@ import input.*;
 import main.GameObject;
 import main.Handler;
 import world.*;
+import main.Window;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -30,16 +31,16 @@ public class LevelEditor
 		selectedObjectType = ObjectType.tree;
 	}
 	
-	public void tick() 
+	public void tick()
 	{
 		if (editMode)
 		{
 			// Position the cursor
-			if (MouseInput.getMouseX() > cursorX + gridSize) cursorX += gridSize;
-			if (MouseInput.getMouseX() < cursorX) cursorX -= gridSize;
+			if (MouseInput.getMouseY() < cursorY * Window.getFrameScale()) cursorY -= gridSize; // Move up
+			if (MouseInput.getMouseY() > cursorY * Window.getFrameScale()) cursorY += gridSize; // Move down
 			
-			if (MouseInput.getMouseY() > cursorY + gridSize) cursorY += gridSize;
-			if (MouseInput.getMouseY() < cursorY) cursorY -= gridSize;
+			if (MouseInput.getMouseX() < cursorX * Window.getFrameScale()) cursorX -= gridSize; // Move left
+			if (MouseInput.getMouseX() > cursorX * Window.getFrameScale()) cursorX += gridSize; // Move right
 		}
 	}
 
