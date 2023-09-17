@@ -1,6 +1,7 @@
 package main;
 
 import editor.LevelEditor;
+import userinterface.*;
 
 import java.awt.Graphics;
 import java.util.Collections;
@@ -9,15 +10,19 @@ import java.util.LinkedList;
 
 public class Handler 
 {
+	/** Linked list containing every game object */
 	private static LinkedList<GameObject> objectList = new LinkedList<GameObject>();
-	
 	public static LevelEditor levelEditor = new LevelEditor();
+	
+	public static GUI gui = new GUI();
+	
+	// Player objects
+	private boolean player1Active = true;
+	private boolean player2Active = false;
 	
 	/** Paint the objects */
 	public static void paintComponent(Graphics g)
 	{
-		objectSort();
-		
 		// Draw world objects
 		for (int i = 0; i < objectList.size(); i++)
 		{
@@ -25,12 +30,16 @@ public class Handler
 			object.paintComponent(g);
 		}
 		
-		levelEditor.paintComponent(g);
+		levelEditor.drawCursor(g);
+		
+		gui.paintComponent(g);
 	}
 	
 	/** Update game objects */
 	public static void tick()
 	{
+		objectSort();
+		
 		for (int i = 0; i < objectList.size(); i++)
 		{
 			GameObject object = objectList.get(i);
@@ -38,6 +47,8 @@ public class Handler
 		}
 		
 		levelEditor.tick();
+		
+		gui.tick();
 	}
 	
 	/** Add a new object to the list */
@@ -58,6 +69,7 @@ public class Handler
 		return objectList;
 	}
 	
+	/** Sorts through every object in the object list to draw them in the correct order */
 	private static void objectSort()
 	{
 		Collections.sort(objectList, new Comparator<GameObject>()

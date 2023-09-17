@@ -50,7 +50,7 @@ public class Tree extends GameObject
 		g.drawImage(treeSprite, x, y, width, height, null);
 		
 		// Show collision box
-		if (Debug.getCollisionBounds())
+		if (Debug.collisionBounds)
 		{
 			g.setColor(Color.RED);
 			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);

@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 
 public class KeyInput implements KeyListener
 {
-	public void keyPressed(KeyEvent e) 
+	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
 		

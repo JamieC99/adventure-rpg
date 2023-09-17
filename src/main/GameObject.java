@@ -13,6 +13,8 @@ public abstract class GameObject
 	protected int width;
 	/** object height */
 	protected int height;
+	/** Is the object solid */
+	protected boolean solid = true;
 	
 	public GameObject(int x, int y)
 	{
@@ -42,6 +44,12 @@ public abstract class GameObject
 	public int getHeight()
 	{
 		return height;
+	}
+	
+	/** Gets if this is a solid object */
+	public boolean isSolid()
+	{
+		return solid;
 	}
 	
 	/** Update the object's behaviours */

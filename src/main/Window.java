@@ -30,9 +30,10 @@ public class Window extends JPanel
 		// Setup window
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(true);
-		//frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMaximumSize(new Dimension(1920, 999));
+		frame.setMaximumSize(new Dimension(1872, 999));
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		
 		// Add panel to window

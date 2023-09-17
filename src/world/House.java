@@ -25,7 +25,7 @@ public class House extends GameObject
 		g.drawImage(new ImageIcon("resources/sprites/environment/buildings/house2.png").getImage(), x, y, width, height, null);
 		
 		// Draw collision box
-		if (Debug.getCollisionBounds())
+		if (Debug.collisionBounds)
 		{
 			g.setColor(Color.RED);
 			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);

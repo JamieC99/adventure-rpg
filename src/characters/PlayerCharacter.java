@@ -18,11 +18,11 @@ public class PlayerCharacter extends Character
 	
 	public PlayerCharacter(int x, int y, int playerNumber)
 	{
-		super(x, y, playerNumber);
+		super(x, y);
 		
 		this.playerNumber = playerNumber;
 		
-		moveSpeed = 3;
+		moveSpeed = 2;
 	}
 	
 	public int getY()
@@ -37,8 +37,8 @@ public class PlayerCharacter extends Character
 		{
 			GameObject object = Handler.getObjectList().get(i);
 			
-			// Check if the objects bounds are not null
-			if (object.getBounds() != null)
+			// Check if the objects bounds are not null and is solid
+			if (object.getBounds() != null && object.isSolid())						 
 			{
 		        if (topBounds().intersects(object.getBounds()))
 		        {
@@ -108,7 +108,7 @@ public class PlayerCharacter extends Character
 		g.drawImage(characterSprite, x, y, width, height, null);
 		
 		// Draw collision bounds
-		if (Debug.getCollisionBounds())
+		if (Debug.collisionBounds)
 		{
 			g.setColor(Color.RED);
 			g.fillRect(topBounds().x, topBounds().y, topBounds().width, topBounds().height);

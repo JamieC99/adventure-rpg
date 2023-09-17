@@ -8,13 +8,7 @@ public class Main
 	public Main()
 	{
 		Handler.addObject(new PlayerCharacter(256, 256, 1));
-		Handler.addObject(new PlayerCharacter(256, 256, 2));
-		
-		Handler.addObject(new House(768, 256));
-		
-		for (int i = 0; i < 1920; i += 64)
-			for (int j =- 32; j < 128; j += 64)
-				Handler.addObject(new Tree(i, j));
+		Handler.addObject(new PlayerCharacter(128, 256, 2));
 		
 		new Window(); // Create the game window
 		

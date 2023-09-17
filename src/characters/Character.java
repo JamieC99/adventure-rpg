@@ -40,9 +40,11 @@ public class Character extends GameObject
 	private int animationDelay = 20;
 	
 	// Constructor
-	public Character(int x, int y, int characterNumber)
+	public Character(int x, int y)
 	{
 		super(x, y);
+		
+		solid = false;
 		
 		// Width and height of characters
 		width = 48;
@@ -136,8 +138,9 @@ public class Character extends GameObject
 
 	public void collision() {}
 	
-	public Rectangle getBounds() 
+	/** Collision box used for triggers */
+	public Rectangle getBounds()
 	{
-		return null;
+		return new Rectangle(x, y, width, height);
 	}
 }
