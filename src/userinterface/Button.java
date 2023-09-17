@@ -95,11 +95,11 @@ public class Button
 			
 			// Save level
 			if (buttonName == "Save Level")
-				Handler.saveLevel("level.csv");
+				Handler.saveLevel();
 			
 			// Load level
 			if (buttonName == "Load Level")
-				Handler.loadLevel("level.csv");
+				Handler.loadLevel();
 		}
 	}
 	

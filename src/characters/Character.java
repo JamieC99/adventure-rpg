@@ -7,14 +7,11 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 public class Character extends GameObject
 {
-	private static final long serialVersionUID = -203762403236310543L;
-	
 	// Character attributes
 	protected float velX, velY;
 	protected float moveSpeed = 2f;
@@ -41,24 +38,16 @@ public class Character extends GameObject
 	private int animationDelay = 20;
 	
 	// Constructor
-	public Character(int x, int y)
+	public Character(int x, int y, String imagePath)
 	{
 		super(x, y);
+		this.imagePath = imagePath;
 		
 		solid = false;
 		
 		// Width and height of characters
 		width = 48;
 		height = 64;
-		
-		Random rand = new Random();
-		int sprite = rand.nextInt(2)+1;
-		
-		if (sprite == 1)
-			imagePath = "resources/sprites/characters/char_blue_sheet.png";
-		else
-			imagePath = "resources/sprites/characters/char_orange_sheet.png";
-		
 		// Load the sprite
 		try
 		{

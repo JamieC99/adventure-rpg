@@ -2,12 +2,9 @@ package main;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.io.Serializable;
 
-public abstract class GameObject implements Serializable
+public abstract class GameObject
 {
-	private static final long serialVersionUID = 3071488924048562755L;
-	
 	/** x coordinate */
 	protected int x;
 	/** y coordinate */

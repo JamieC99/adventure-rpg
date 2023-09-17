@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Tree extends GameObject
 {
@@ -23,9 +24,11 @@ public class Tree extends GameObject
 	{
 		super(x, y);
 		
+		width = 64;
+		height = 96;
+		
 		Random random = new Random();
-		treeType = random.nextInt(3);
-		treeType = 128 * treeType;
+		treeType = 128 * random.nextInt(3);
 		
 		// Load sprite sheet
 		try
@@ -39,13 +42,13 @@ public class Tree extends GameObject
 		}
 		
 		treeSprite = spriteSheet.getSubimage(treeType, 0, 128, 160);
-		
-		width = 64;
-		height = 96;
 	}
 
 	public void paintComponent(Graphics g) 
 	{
+		// Draw shadow
+		g.drawImage(new ImageIcon("resources/sprites/characters/char_shadow.png").getImage(), x, y+80, 64, 32, null);
+		
 		// Draw tree
 		g.drawImage(treeSprite, x, y, width, height, null);
 		

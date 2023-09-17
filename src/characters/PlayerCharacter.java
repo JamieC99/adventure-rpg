@@ -10,8 +10,6 @@ import javax.swing.ImageIcon;
 
 public class PlayerCharacter extends Character
 {
-	private static final long serialVersionUID = 6759520375724747726L;
-
 	// Player 1 or player 2
 	private int playerNumber;
 	
@@ -20,9 +18,23 @@ public class PlayerCharacter extends Character
 	
 	public PlayerCharacter(int x, int y, int playerNumber)
 	{
-		super(x, y);
+		super(x, y, getPlayerImage(playerNumber));
 		
 		this.playerNumber = playerNumber;
+		
+		// Activate player control
+		if (playerNumber == 1)
+		{
+			Handler.player1Active = true;
+			
+			imagePath = "resources/sprites/characters/char_blue_sheet.png";
+		}
+		if (playerNumber == 2)
+		{
+			Handler.player2Active = true;
+			
+			imagePath = "resources/sprites/characters/char_orange_sheet.png";
+		}
 	}
 	
 	public int getY()
@@ -98,6 +110,22 @@ public class PlayerCharacter extends Character
 	{
 		return new Rectangle(x + width, y + 27, 1, height - 29);
 	}
+	
+	private static String getPlayerImage(int playerNumber) 
+	{
+        if (playerNumber == 1) 
+        {
+            Handler.player1Active = true;
+            return "resources/sprites/characters/char_blue_sheet.png";
+        } 
+        else if (playerNumber == 2) 
+        {
+            Handler.player2Active = true;
+            return "resources/sprites/characters/char_orange_sheet.png";
+        }
+        else
+        	return null;
+    }
 	
 	public void paintComponent(Graphics g)
 	{

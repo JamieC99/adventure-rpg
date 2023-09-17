@@ -22,19 +22,22 @@ public class KeyInput implements KeyListener
 				PlayerCharacter playerObject = (PlayerCharacter) object;
 				
 				// Player 1
-				if (playerObject.getPlayerNumber() == 1)
+				if (Handler.player1Active)
 				{
-					if (!playerObject.topCollide)
-						if (key == KeyEvent.VK_W) playerObject.moveY(-playerObject.getMoveSpeed()); // Move up
-					
-					if (!playerObject.bottomCollide)
-						if (key == KeyEvent.VK_S) playerObject.moveY(playerObject.getMoveSpeed()); // Move down
-					
-					if (!playerObject.leftCollide)
-						if (key == KeyEvent.VK_A) playerObject.moveX(-playerObject.getMoveSpeed()); // Move left
-					
-					if (!playerObject.rightCollide)
-						if (key == KeyEvent.VK_D) playerObject.moveX(playerObject.getMoveSpeed()); // Move right
+					if (playerObject.getPlayerNumber() == 1)
+					{
+						if (!playerObject.topCollide)
+							if (key == KeyEvent.VK_W) playerObject.moveY(-playerObject.getMoveSpeed()); // Move up
+						
+						if (!playerObject.bottomCollide)
+							if (key == KeyEvent.VK_S) playerObject.moveY(playerObject.getMoveSpeed()); // Move down
+						
+						if (!playerObject.leftCollide)
+							if (key == KeyEvent.VK_A) playerObject.moveX(-playerObject.getMoveSpeed()); // Move left
+						
+						if (!playerObject.rightCollide)
+							if (key == KeyEvent.VK_D) playerObject.moveX(playerObject.getMoveSpeed()); // Move right
+					}
 				}
 				
 				// Player 2
@@ -54,6 +57,11 @@ public class KeyInput implements KeyListener
 						if (!playerObject.rightCollide)
 							if (key == KeyEvent.VK_RIGHT) playerObject.moveX(playerObject.getMoveSpeed()); // Move right
 					}
+				}
+				else // Spawn player 2 at player 1's position
+				{
+					if (key == KeyEvent.VK_UP)
+						Handler.addObject(new PlayerCharacter(playerObject.getX(), playerObject.getY(), 2));
 				}
 			}
 		}

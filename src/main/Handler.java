@@ -17,6 +17,9 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 public class Handler 
 {
 	/** Linked list containing every game object */
@@ -28,18 +31,22 @@ public class Handler
 	
 	public static GUI gui = new GUI();
 	
-	// Player objects
-	public static boolean player1Active = true;
-	public static boolean player2Active = true;
+	/** Active status for player 1 */
+	public static boolean player1Active = false;
+	/** Active status for player 2 */
+	public static boolean player2Active = false;
 	
 	/** Paint the objects */
 	public static void paintComponent(Graphics g)
 	{
 		// Draw world objects
-		for (int i = 0; i < objectList.size(); i++)
+		if (!loadingLevel)
 		{
-			GameObject object = objectList.get(i);
-			object.paintComponent(g);
+			for (int i = 0; i < objectList.size(); i++)
+			{
+				GameObject object = objectList.get(i);
+				object.paintComponent(g);
+			}
 		}
 		
 		levelEditor.drawCursor(g);
@@ -50,12 +57,15 @@ public class Handler
 	/** Update game objects */
 	public static void tick()
 	{
-		objectSort();
-		
-		for (int i = 0; i < objectList.size(); i++)
+		if (!loadingLevel)
 		{
-			GameObject object = objectList.get(i);
-			object.tick();
+			objectSort();
+			
+			for (int i = 0; i < objectList.size(); i++)
+			{
+				GameObject object = objectList.get(i);
+				object.tick();
+			}
 		}
 		
 		levelEditor.tick();
@@ -82,70 +92,91 @@ public class Handler
 	}
 	
 	/** Save level to a CSV file */
-	public static void saveLevel(String levelName)
+	public static void saveLevel()
 	{
-		String csvFileName = levelName;
+		JFileChooser fileChooser = new JFileChooser();
+		int returnValue = fileChooser.showSaveDialog(null);
 		
-		try (PrintWriter writer = new PrintWriter(new FileWriter(csvFileName)))
+		fileChooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
+		
+		if (returnValue == JFileChooser.APPROVE_OPTION)
 		{
-			for (int i = 0; i < objectList.size(); i++)
-			{
-				GameObject object = objectList.get(i);
-				
-				if (!(object instanceof PlayerCharacter))
-					writer.println(object.getClass().getSimpleName() + "," + object.getX() + "," + object.getY());
-			}
+			String csvFileName = fileChooser.getSelectedFile().toString();
 			
-			writer.close();
-			System.out.println("Level Saved");
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			try (PrintWriter writer = new PrintWriter(new FileWriter(csvFileName)))
+			{
+				for (int i = 0; i < objectList.size(); i++)
+				{
+					GameObject object = objectList.get(i);
+					
+					if (!(object instanceof PlayerCharacter))
+						writer.println(object.getClass().getSimpleName() + "," + object.getX() + "," + object.getY());
+				}
+				
+				writer.close();
+				System.out.println("Level Saved");
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	
-	/** Load selected level */
-	public static void loadLevel(String levelName)
+	/** Load a level in the level editor */
+	public static void loadLevel()
 	{
-		loadingLevel = true;
+		// Choose level file
+		JFileChooser fileChooser = new JFileChooser();
+		int returnValue = fileChooser.showOpenDialog(null);
 		
-		// Clear world objects
-		Iterator<GameObject> iterator = objectList.iterator();
-		while (iterator.hasNext())
+		fileChooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
+		
+		// Load the level
+		if (returnValue == JFileChooser.APPROVE_OPTION)
 		{
-			GameObject object = iterator.next();
-			if (!(object instanceof PlayerCharacter))
-				iterator.remove();
-		}
-		
-		String csvFileName = levelName;
-		
-		try (BufferedReader reader = new BufferedReader(new FileReader(csvFileName)))
-		{
-			String line;
-			while ((line = reader.readLine()) != null)
+			loadingLevel = true;
+
+			// Clear world objects
+			Iterator<GameObject> iterator = objectList.iterator();
+			while (iterator.hasNext())
 			{
-				String[] parts = line.split(",");
-				
-				if (parts.length == 3)
-				{
-					String className = parts[0];
-					int x = Integer.parseInt(parts[1]);
-					int y = Integer.parseInt(parts[2]);
-					
-					if (className.equals("Tree")) objectList.add(new Tree(x, y));
-					else if (className.equals("House")) objectList.add(new House(x, y));
-					else if (className.equals("Gate")) objectList.add(new Gate(x, y));
-				}
+				GameObject object = iterator.next();
+				if (!(object instanceof PlayerCharacter))
+					iterator.remove();
 			}
 			
-			reader.close();
-			System.out.println("Level loaded");
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			// Get the selected file
+			String csvFileName = fileChooser.getSelectedFile().getAbsolutePath();
+			
+			// Read file
+			try (BufferedReader reader = new BufferedReader(new FileReader(csvFileName)))
+			{
+				String line;
+				while ((line = reader.readLine()) != null)
+				{
+					String[] parts = line.split(",");
+					
+					if (parts.length == 3)
+					{
+						String className = parts[0];
+						int x = Integer.parseInt(parts[1]);
+						int y = Integer.parseInt(parts[2]);
+						
+						// Add objects to list
+						if (className.equals("Tree")) objectList.add(new Tree(x, y));
+						else if (className.equals("House")) objectList.add(new House(x, y));
+						else if (className.equals("Gate")) objectList.add(new Gate(x, y));
+					}
+				}
+				
+				reader.close();
+				System.out.println("Level loaded");
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		
 		loadingLevel = false;
@@ -156,23 +187,26 @@ public class Handler
 	{
 		if (objectList != null && !loadingLevel)
 		{
-			Collections.sort(objectList, new Comparator<GameObject>()
+			synchronized (objectList)
 			{
-			    public int compare(GameObject obj1, GameObject obj2)
-			    {
-			        // Compare objects based on their y-coordinates
-			    	int y1 = 0, y2 = 0;
-			    	
-			    	if (obj1 != null && obj2 != null)
-			    	{
-				        y1 = obj1.getY();
-				        y2 = obj2.getY();
-			    	}
-			        
-			        // Higher y-coordinates come first (lower in the list)
-			        return Integer.compare(y1, y2);
-			    }
-			});
+				Collections.sort(objectList, new Comparator<GameObject>()
+				{
+				    public int compare(GameObject obj1, GameObject obj2)
+				    {
+				        // Compare objects based on their y-coordinates
+				    	int y1 = 0, y2 = 0;
+				    	
+				    	if (obj1 != null && obj2 != null)
+				    	{
+					        y1 = obj1.getY();
+					        y2 = obj2.getY();
+				    	}
+				        
+				        // Higher y-coordinates come first (lower in the list)
+				        return Integer.compare(y1, y2);
+				    }
+				});
+			}
 		}
 	}
 }
