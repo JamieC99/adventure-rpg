@@ -12,8 +12,10 @@ public class KeyInput implements KeyListener
 	{
 		int key = e.getKeyCode();
 		
-		for (GameObject object : Handler.getObjectList())
+		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
+			GameObject object = Handler.getObjectList().get(i);
+			
 			// Player movement
 			if (object instanceof PlayerCharacter)
 			{
@@ -36,19 +38,22 @@ public class KeyInput implements KeyListener
 				}
 				
 				// Player 2
-				if (playerObject.getPlayerNumber() == 2)
+				if (Handler.player2Active)
 				{
-					if (!playerObject.topCollide)
-						if (key == KeyEvent.VK_UP) playerObject.moveY(-playerObject.getMoveSpeed()); // Move up
-					
-					if (!playerObject.bottomCollide)
-						if (key == KeyEvent.VK_DOWN) playerObject.moveY(playerObject.getMoveSpeed()); // Move down
-					
-					if (!playerObject.leftCollide)
-						if (key == KeyEvent.VK_LEFT) playerObject.moveX(-playerObject.getMoveSpeed()); // Move left
-					
-					if (!playerObject.rightCollide)
-						if (key == KeyEvent.VK_RIGHT) playerObject.moveX(playerObject.getMoveSpeed()); // Move right
+					if (playerObject.getPlayerNumber() == 2)
+					{
+						if (!playerObject.topCollide)
+							if (key == KeyEvent.VK_UP) playerObject.moveY(-playerObject.getMoveSpeed()); // Move up
+						
+						if (!playerObject.bottomCollide)
+							if (key == KeyEvent.VK_DOWN) playerObject.moveY(playerObject.getMoveSpeed()); // Move down
+						
+						if (!playerObject.leftCollide)
+							if (key == KeyEvent.VK_LEFT) playerObject.moveX(-playerObject.getMoveSpeed()); // Move left
+						
+						if (!playerObject.rightCollide)
+							if (key == KeyEvent.VK_RIGHT) playerObject.moveX(playerObject.getMoveSpeed()); // Move right
+					}
 				}
 			}
 		}
@@ -58,8 +63,10 @@ public class KeyInput implements KeyListener
 	{
 		int key = e.getKeyCode();
 		
-		for (GameObject object : Handler.getObjectList())
+		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
+			GameObject object = Handler.getObjectList().get(i);
+			
 			// Stop player movement
 			if (object instanceof PlayerCharacter)
 			{

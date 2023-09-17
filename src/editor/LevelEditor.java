@@ -54,10 +54,12 @@ public class LevelEditor extends JPanel
 		// Add buttons
 		buttonList.add(new Button(0, 0, "Toggle Edit Mode"));
 		buttonList.add(new Button(128, 0, "Toggle Collision Bounds"));
+		buttonList.add(new Button(0, 48, "Save Level"));
+		buttonList.add(new Button(128, 48, "Load Level"));
 		
-		buttonList.add(new Button(0, 64, "Add Tree"));
-		buttonList.add(new Button(0, 112, "Add House"));
-		buttonList.add(new Button(0, 160, "Add Gate"));
+		buttonList.add(new Button(0, 112, "Add Tree"));
+		buttonList.add(new Button(0, 160, "Add House"));
+		buttonList.add(new Button(0, 208, "Add Gate"));
 	}
 	
 	public void tick()

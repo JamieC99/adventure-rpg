@@ -13,11 +13,12 @@ import javax.imageio.ImageIO;
 
 public class Character extends GameObject
 {
-	// Character attributes
-	protected int velX, velY;
-	protected int moveSpeed = 2;
-	protected int healthPoints = 100;
+	private static final long serialVersionUID = -203762403236310543L;
 	
+	// Character attributes
+	protected float velX, velY;
+	protected float moveSpeed = 2f;
+	protected int healthPoints = 100;
 	
 	/** 
 		Position of the desired image in the sprite sheet
@@ -118,18 +119,18 @@ public class Character extends GameObject
 	}
 	
 	/** Horizontal movement speed */
-	public void moveX(int speed)
+	public void moveX(float speed)
 	{
 		velX = speed;
 	}
 	
 	/** Vertical movement speed */
-	public void moveY(int speed)
+	public void moveY(float speed)
 	{
 		velY = speed;
 	}
 	
-	public int getMoveSpeed()
+	public float getMoveSpeed()
 	{
 		return moveSpeed;
 	}

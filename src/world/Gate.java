@@ -6,14 +6,13 @@ import main.GameObject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.io.Serializable;
 
 import editor.LevelEditor;
 
 /** Loads different parts of the world when entered by the player */
-public class Gate extends GameObject implements Serializable
+public class Gate extends GameObject
 {
-	private static final long serialVersionUID = -8640294434879053738L;
+	private static final long serialVersionUID = 4810522481310547325L;
 
 	public Gate(int x, int y)
 	{

@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 
 public class PlayerCharacter extends Character
 {
+	private static final long serialVersionUID = 6759520375724747726L;
+
 	// Player 1 or player 2
 	private int playerNumber;
 	
@@ -21,8 +23,6 @@ public class PlayerCharacter extends Character
 		super(x, y);
 		
 		this.playerNumber = playerNumber;
-		
-		moveSpeed = 2;
 	}
 	
 	public int getY()

@@ -2,6 +2,7 @@ package userinterface;
 
 import input.MouseInput;
 import main.Debug;
+import main.Handler;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -91,6 +92,14 @@ public class Button
 			// Select gate
 			if (buttonName == "Add Gate")
 				LevelEditor.selectedObjectType = ObjectType.gate;
+			
+			// Save level
+			if (buttonName == "Save Level")
+				Handler.saveLevel("level.csv");
+			
+			// Load level
+			if (buttonName == "Load Level")
+				Handler.loadLevel("level.csv");
 		}
 	}
 	
