@@ -1,7 +1,6 @@
 package main;
 
 import characters.PlayerCharacter;
-import world.*;
 
 public class Main
 {

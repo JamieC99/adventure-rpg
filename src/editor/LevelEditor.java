@@ -18,13 +18,10 @@ public class LevelEditor extends JPanel
 	
 	// Create window
 	public static JFrame editorFrame = new JFrame("Editor Menu");
-	
 	/** List of buttons for the level editor */
 	private static LinkedList<Button> buttonList = new LinkedList<Button>();
-	
 	/** Edit mode */
 	public static boolean editMode = false;
-	
 	// Cursor position
 	private static int cursorX, cursorY;
 	// Size of the grid, linked to the size of the object
