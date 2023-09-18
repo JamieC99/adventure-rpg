@@ -75,13 +75,17 @@ public class Handler
 	/** Add a new object to the list */
 	public static void addObject(GameObject object)
 	{
+		modifyingObjectList = true;
 		objectList.add(object);
+		modifyingObjectList = false;
 	}
 	
 	/** Remove an object from the list */
 	public static void removeObject(GameObject object)
 	{
+		modifyingObjectList = true;
 		objectList.remove(object);
+		modifyingObjectList = false;
 	}
 	
 	/** Return the object list */

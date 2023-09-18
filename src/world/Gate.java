@@ -130,6 +130,7 @@ public class Gate extends GameObject
 		}
 	}
 	
+	// TODO - Assign the desired level to the gate in the level editor
 	private void assignLevel()
 	{
 		

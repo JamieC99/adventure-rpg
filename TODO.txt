@@ -1,0 +1,8 @@
+Adventure-RPG TODO
+
+LEVEL EDITOR
+	Gate
+		ADD level selection
+	
+	MENU
+		ADD 'Clear All' button

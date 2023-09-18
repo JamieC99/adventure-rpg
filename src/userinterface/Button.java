@@ -91,13 +91,9 @@ public class Button
 			{
 				if (LevelEditor.editMode)
 				{
-					Handler.modifyingObjectList = true;
-					
 					for (int i = 0; i < 1856; i += 64)
 						for (int j =- 32; j < 896; j += 64)
 							Handler.addObject(new Tree(i, j));
-					
-					Handler.modifyingObjectList = false;
 				}
 			}
 			
