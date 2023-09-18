@@ -2,8 +2,8 @@ package main;
 
 import editor.*;
 import userinterface.*;
-import world.*;
 import characters.*;
+import world.*;
 
 import java.awt.Graphics;
 import java.io.BufferedReader;
@@ -11,7 +11,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -142,6 +141,7 @@ public class Handler
 			while (iterator.hasNext())
 			{
 				GameObject object = iterator.next();
+				
 				if (!(object instanceof PlayerCharacter))
 					iterator.remove();
 			}
@@ -159,14 +159,18 @@ public class Handler
 					
 					if (parts.length == 3)
 					{
+						// Get the class name position
 						String className = parts[0];
 						int x = Integer.parseInt(parts[1]);
 						int y = Integer.parseInt(parts[2]);
 						
-						// Add objects to list
-						if (className.equals("Tree")) objectList.add(new Tree(x, y));
-						else if (className.equals("House")) objectList.add(new House(x, y));
-						else if (className.equals("Gate")) objectList.add(new Gate(x, y));
+						// Add the object to the list
+						switch (className)
+						{
+							case "Tree": objectList.add(new Tree(x, y)); break;
+							case "House": objectList.add(new House(x, y)); break;
+							case "Gate": objectList.add(new Gate(x, y)); break;
+						}
 					}
 				}
 				

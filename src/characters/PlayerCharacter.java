@@ -21,20 +21,6 @@ public class PlayerCharacter extends Character
 		super(x, y, getPlayerImage(playerNumber));
 		
 		this.playerNumber = playerNumber;
-		
-		// Activate player control
-		if (playerNumber == 1)
-		{
-			Handler.player1Active = true;
-			
-			imagePath = "resources/sprites/characters/char_blue_sheet.png";
-		}
-		if (playerNumber == 2)
-		{
-			Handler.player2Active = true;
-			
-			imagePath = "resources/sprites/characters/char_orange_sheet.png";
-		}
 	}
 	
 	public int getY()

@@ -7,7 +7,6 @@ public class Main
 	public Main()
 	{
 		Handler.addObject(new PlayerCharacter(256, 256, 1));
-		//Handler.addObject(new PlayerCharacter(256, 256, 2));
 		
 		// Create the game window
 		new Window();
