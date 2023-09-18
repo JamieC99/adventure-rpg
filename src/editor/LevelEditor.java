@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import characters.PlayerCharacter;
+
 public class LevelEditor extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -148,15 +150,19 @@ public class LevelEditor extends JPanel
 			{
 				GameObject object = Handler.getObjectList().get(i);
 				
-				// Remove the object selected by the cursor
-				if (!(object instanceof Tree))
+				// Check the object to remove is not a player
+				if (!(object instanceof PlayerCharacter))
 				{
-					if (object.getX() == cursorX && object.getY() == cursorY)
-						Handler.removeObject(object);
+					// Remove the object selected by the cursor
+					if (!(object instanceof Tree))
+					{
+						if (object.getX() == cursorX && object.getY() == cursorY)
+							Handler.removeObject(object);
+					}
+					else // Remove tree
+						if (object.getX() == cursorX && object.getY() == cursorY - 32)
+							Handler.removeObject(object);
 				}
-				else // Remove tree
-					if (object.getX() == cursorX && object.getY() == cursorY - 32)
-						Handler.removeObject(object);
 			}
 		}
 	}
@@ -167,12 +173,12 @@ public class LevelEditor extends JPanel
 		return buttonList;
 	}
 	
-	public int getCursorX()
+	public static int getCursorX()
 	{
 		return cursorX;
 	}
 	
-	public int getCursorY()
+	public static int getCursorY()
 	{
 		return cursorY;
 	}

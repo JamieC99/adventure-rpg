@@ -122,67 +122,74 @@ public class Handler
 		}
 	}
 	
-	/** Load a level in the level editor */
-	public static void loadLevel()
+	/** Load level when entered through a gate */
+	public static void loadLevelFromGate(String levelName)
+	{
+		loadLevel(levelName);
+	}
+	
+	/** Load level inside the level editor */
+	public static void loadLevelFromEditor()
 	{
 		// Choose level file
 		JFileChooser fileChooser = new JFileChooser();
 		int returnValue = fileChooser.showOpenDialog(null);
 		
-		fileChooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
-		
-		// Load the level
 		if (returnValue == JFileChooser.APPROVE_OPTION)
 		{
-			loadingLevel = true;
-
-			// Clear world objects
-			Iterator<GameObject> iterator = objectList.iterator();
-			while (iterator.hasNext())
-			{
-				GameObject object = iterator.next();
-				
-				if (!(object instanceof PlayerCharacter))
-					iterator.remove();
-			}
-			
-			// Get the selected file
 			String csvFileName = fileChooser.getSelectedFile().getAbsolutePath();
+			loadLevel(csvFileName);
+		}
+	}
+	
+	/** Level load function */
+	public static void loadLevel(String levelName)
+	{
+		loadingLevel = true;
+
+		// Clear world objects
+		Iterator<GameObject> iterator = objectList.iterator();
+		while (iterator.hasNext())
+		{
+			GameObject object = iterator.next();
 			
-			// Read file
-			try (BufferedReader reader = new BufferedReader(new FileReader(csvFileName)))
-			{
-				String line;
-				while ((line = reader.readLine()) != null)
-				{
-					String[] parts = line.split(",");
-					
-					if (parts.length == 3)
-					{
-						// Get the class name position
-						String className = parts[0];
-						int x = Integer.parseInt(parts[1]);
-						int y = Integer.parseInt(parts[2]);
-						
-						// Add the object to the list
-						switch (className)
-						{
-							case "Tree": objectList.add(new Tree(x, y)); break;
-							case "House": objectList.add(new House(x, y)); break;
-							case "Gate": objectList.add(new Gate(x, y)); break;
-						}
-					}
-				}
-				
-				reader.close();
-				System.out.println("Level loaded");
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			if (!(object instanceof PlayerCharacter))
+				iterator.remove();
 		}
 		
+		// Read file
+		try (BufferedReader reader = new BufferedReader(new FileReader(levelName)))
+		{
+			String line;
+			while ((line = reader.readLine()) != null)
+			{
+				String[] parts = line.split(",");
+				
+				if (parts.length == 3)
+				{
+					// Get the class name position
+					String className = parts[0];
+					int x = Integer.parseInt(parts[1]);
+					int y = Integer.parseInt(parts[2]);
+					
+					// Add the object to the list
+					switch (className)
+					{
+						case "Tree": objectList.add(new Tree(x, y)); break;
+						case "House": objectList.add(new House(x, y)); break;
+						case "Gate": objectList.add(new Gate(x, y)); break;
+					}
+				}
+			}
+			
+			reader.close();
+			System.out.println("Level loaded");
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+			
 		loadingLevel = false;
 	}
 	

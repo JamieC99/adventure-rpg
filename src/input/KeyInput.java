@@ -2,6 +2,7 @@ package input;
 
 import characters.*;
 import main.*;
+import world.Gate;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -62,6 +63,18 @@ public class KeyInput implements KeyListener
 				{
 					if (key == KeyEvent.VK_UP)
 						Handler.addObject(new PlayerCharacter(playerObject.getX(), playerObject.getY(), 2));
+				}
+			}
+			
+			// Move to a different part of the map when the player has entered a gate and pressed space
+			if (object instanceof Gate)
+			{
+				Gate gateObject = (Gate) object;
+				
+				if (gateObject.canMoveToNewMap())
+				{
+					if (key == KeyEvent.VK_SPACE)
+						gateObject.loadLevel();
 				}
 			}
 		}

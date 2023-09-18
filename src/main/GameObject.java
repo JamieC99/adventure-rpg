@@ -34,6 +34,18 @@ public abstract class GameObject
 		return y;
 	}
 	
+	/** Set x position */
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+	
+	/** Set y position */
+	public void setY(int y)
+	{
+		this.y = y;
+	}
+	
 	/** Return the object width */
 	public int getWidth()
 	{

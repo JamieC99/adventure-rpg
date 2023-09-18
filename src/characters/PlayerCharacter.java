@@ -23,11 +23,6 @@ public class PlayerCharacter extends Character
 		this.playerNumber = playerNumber;
 	}
 	
-	public int getY()
-	{
-		return y;
-	}
-	
 	// Perform collision checking
 	public void collision()
 	{

@@ -12,7 +12,7 @@ import java.awt.Rectangle;
 import editor.LevelEditor;
 import editor.LevelEditor.ObjectType;
 
-public class Button 
+public class Button
 {
 	private int x, y, width = 128, height = 48;
 	private String buttonName;
@@ -99,7 +99,7 @@ public class Button
 			
 			// Load level
 			if (buttonName == "Load Level")
-				Handler.loadLevel();
+				Handler.loadLevelFromEditor();
 		}
 	}
 	
