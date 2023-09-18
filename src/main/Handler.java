@@ -26,7 +26,7 @@ public class Handler
 	public static LevelEditor levelEditor = new LevelEditor();
 	
 	/** Checks if a level is being loaded. */
-	private static boolean loadingLevel = false;
+	public static boolean modifyingObjectList = false;
 	
 	public static GUI gui = new GUI();
 	
@@ -39,7 +39,7 @@ public class Handler
 	public static void paintComponent(Graphics g)
 	{
 		// Draw world objects
-		if (!loadingLevel)
+		if (!modifyingObjectList)
 		{
 			for (int i = 0; i < objectList.size(); i++)
 			{
@@ -56,7 +56,7 @@ public class Handler
 	/** Update game objects */
 	public static void tick()
 	{
-		if (!loadingLevel)
+		if (!modifyingObjectList)
 		{
 			objectSort();
 			
@@ -145,7 +145,7 @@ public class Handler
 	/** Level load function */
 	public static void loadLevel(String levelName)
 	{
-		loadingLevel = true;
+		modifyingObjectList = true;
 
 		// Clear world objects
 		Iterator<GameObject> iterator = objectList.iterator();
@@ -190,13 +190,13 @@ public class Handler
 			e.printStackTrace();
 		}
 			
-		loadingLevel = false;
+		modifyingObjectList = false;
 	}
 	
 	/** Sorts through every object in the object list to draw them in the correct order */
 	private static void objectSort()
 	{
-		if (objectList != null && !loadingLevel)
+		if (objectList != null && !modifyingObjectList)
 		{
 			synchronized (objectList)
 			{

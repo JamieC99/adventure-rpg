@@ -3,6 +3,7 @@ package userinterface;
 import input.MouseInput;
 import main.Debug;
 import main.Handler;
+import world.Tree;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -84,6 +85,21 @@ public class Button
 			// Select tree
 			if (buttonName == "Add Tree")
 				LevelEditor.selectedObjectType = ObjectType.tree;
+			
+			// Mass place trees
+			if (buttonName == "Mass Place Trees")
+			{
+				if (LevelEditor.editMode)
+				{
+					Handler.modifyingObjectList = true;
+					
+					for (int i = 0; i < 1856; i += 64)
+						for (int j =- 32; j < 896; j += 64)
+							Handler.addObject(new Tree(i, j));
+					
+					Handler.modifyingObjectList = false;
+				}
+			}
 			
 			// Select house
 			if (buttonName == "Add House")

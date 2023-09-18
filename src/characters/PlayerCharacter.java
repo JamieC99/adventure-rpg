@@ -28,44 +28,47 @@ public class PlayerCharacter extends Character
 	{
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
-			GameObject object = Handler.getObjectList().get(i);
-			
-			// Check if the objects bounds are not null and is solid
-			if (object.getBounds() != null && object.isSolid())						 
+			if (Handler.getObjectList().size() != 0)
 			{
-		        if (topBounds().intersects(object.getBounds()))
-		        {
-		        	if (velY < 0) velY = 0;
-		        	topCollide = true;
-		        }
-		        else
-		        	topCollide = false;
-		        
-		        if (bottomBounds().intersects(object.getBounds()))
-		        {
-		        	if (velY > 0) velY = 0;
-		        	bottomCollide = true;
-		        }
-		        else
-		        	bottomCollide = false;
-		        
-		        if (leftBounds().intersects(object.getBounds()))
-		        {
-		        	if (velX < 0) velX = 0;
-		        	leftCollide = true;
-		        }
-		        else
-		        	leftCollide = false;
-		        
-		        if (rightBounds().intersects(object.getBounds()))
-		        {
-		        	if (velX > 0) velX = 0;
-		        	rightCollide = true;
-		        }
-		        else
-		        	rightCollide = false;
-			}
-	    }
+				GameObject object = Handler.getObjectList().get(i);
+				
+				// Check if the objects bounds are not null and is solid
+				if (object.getBounds() != null && object.isSolid())						 
+				{
+			        if (topBounds().intersects(object.getBounds()))
+			        {
+			        	if (velY < 0) velY = 0;
+			        	topCollide = true;
+			        }
+			        else
+			        	topCollide = false;
+			        
+			        if (bottomBounds().intersects(object.getBounds()))
+			        {
+			        	if (velY > 0) velY = 0;
+			        	bottomCollide = true;
+			        }
+			        else
+			        	bottomCollide = false;
+			        
+			        if (leftBounds().intersects(object.getBounds()))
+			        {
+			        	if (velX < 0) velX = 0;
+			        	leftCollide = true;
+			        }
+			        else
+			        	leftCollide = false;
+			        
+			        if (rightBounds().intersects(object.getBounds()))
+			        {
+			        	if (velX > 0) velX = 0;
+			        	rightCollide = true;
+			        }
+			        else
+			        	rightCollide = false;
+				}
+		    }
+		}
 	}
 	
 	// Top collision box

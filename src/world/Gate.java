@@ -52,23 +52,26 @@ public class Gate extends GameObject
 	public void tick()
 	{
 		moveToNewMap = false;
-		
-		// Move to a different part of the map
+
+		// Move to a different map
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
-			GameObject object = Handler.getObjectList().get(i);
-			
-			// Get the player object
-			if (object instanceof PlayerCharacter)
+			if (Handler.getObjectList().size() != 0)
 			{
-				PlayerCharacter playerObject = (PlayerCharacter) object;
+				GameObject object = Handler.getObjectList().get(i);
 				
-				// Check for collision with the players
-				if (getBounds().intersects(playerObject.getBounds()))
-					moveToNewMap = true;
+				// Get the player object
+				if (object instanceof PlayerCharacter)
+				{
+					PlayerCharacter playerObject = (PlayerCharacter) object;
+					
+					// Check for collision with the players
+					if (getBounds().intersects(playerObject.getBounds()))
+						moveToNewMap = true;
+				}
 			}
 		}
-		
+	
 		//System.out.println(moveToNewMap);
 	}
 

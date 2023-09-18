@@ -60,6 +60,7 @@ public class LevelEditor extends JPanel
 		buttonList.add(new Button(128, 48, "Load Level"));
 		
 		buttonList.add(new Button(0, 112, "Add Tree"));
+		buttonList.add(new Button(128, 112, "Mass Place Trees"));
 		buttonList.add(new Button(0, 160, "Add House"));
 		buttonList.add(new Button(0, 208, "Add Gate"));
 	}
@@ -146,6 +147,8 @@ public class LevelEditor extends JPanel
 	{
 		if (editMode && !editorFrame.getBounds().contains(MouseInput.getMousePoint()))
 		{
+			Handler.modifyingObjectList = true;
+			
 			for (int i = 0; i < Handler.getObjectList().size(); i++)
 			{
 				GameObject object = Handler.getObjectList().get(i);
@@ -164,6 +167,8 @@ public class LevelEditor extends JPanel
 							Handler.removeObject(object);
 				}
 			}
+			
+			Handler.modifyingObjectList = false;
 		}
 	}
 	
