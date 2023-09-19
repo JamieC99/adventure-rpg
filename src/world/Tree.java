@@ -24,7 +24,7 @@ public class Tree extends GameObject
 		width = 64;
 		height = 96;
 
-		type = 128 * type;
+		type *= 128;
 		
 		// Load sprite sheet
 		try

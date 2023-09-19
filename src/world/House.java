@@ -22,7 +22,7 @@ public class House extends GameObject
 	public void paintComponent(Graphics g) 
 	{
 		// Draw house
-		g.drawImage(new ImageIcon("resources/sprites/environment/buildings/house2.png").getImage(), x, y, width, height, null);
+		g.drawImage(new ImageIcon("resources/sprites/environment/buildings/house1.png").getImage(), x, y, width, height, null);
 		
 		// Draw collision box
 		if (Debug.collisionBounds)

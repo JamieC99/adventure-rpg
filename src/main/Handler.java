@@ -86,8 +86,6 @@ public class Handler
 	/** Clears all objects in a level except the players */
 	public static void clearLevel()
 	{
-		modifyingObjectList = true;
-		
 		Iterator<GameObject> iterator = objectList.iterator();
 		while (iterator.hasNext())
 		{
@@ -96,8 +94,6 @@ public class Handler
 			if (!(object instanceof PlayerCharacter))
 				iterator.remove();
 		}
-		
-		modifyingObjectList = false;
 	}
 	
 	/** Return the object list */
@@ -122,8 +118,14 @@ public class Handler
 				{
 					GameObject object = objectList.get(i);
 					
-					if (!(object instanceof PlayerCharacter))
+					if (!(object instanceof PlayerCharacter) && !(object instanceof Gate))
+					{
 						writer.println(object.getClass().getSimpleName() + "," + object.getX() + "," + object.getY() + "," + object.getType());
+					}
+					else if (object instanceof Gate) // Write the gate object
+					{
+						writer.println(object.getClass().getSimpleName() + "," + object.getX() + "," + object.getY() + "," + object.getLevelToLoad());
+					}
 				}
 				
 				writer.close();
@@ -153,15 +155,16 @@ public class Handler
 		{
 			String csvFileName = fileChooser.getSelectedFile().getAbsolutePath();
 			loadLevel(csvFileName);
+			//System.out.println(csvFileName);
 		}
 	}
 	
 	/** Level load function */
 	public static void loadLevel(String levelName)
 	{
+		// Clear world objects
 		modifyingObjectList = true;
 		
-		// Clear world objects
 		clearLevel();
 		
 		// Read file
@@ -178,14 +181,21 @@ public class Handler
 					String className = parts[0];
 					int x = Integer.parseInt(parts[1]);
 					int y = Integer.parseInt(parts[2]);
-					int type = Integer.parseInt(parts[3]);
+					int type = 0;
+					String levelToLoad = "";
+					
+					if (!className.equals("Gate"))
+						type = Integer.parseInt(parts[3]);
+					else
+						levelToLoad = parts[3];
 					
 					// Add the object to the list
 					switch (className)
 					{
 						case "Tree": objectList.add(new Tree(x, y, type)); break;
 						case "House": objectList.add(new House(x, y, type)); break;
-						case "Gate": objectList.add(new Gate(x, y, type)); break;
+						case "Path": objectList.add(new Path(x, y, type)); break;
+						case "Gate": objectList.add(new Gate(x, y, levelToLoad)); break;
 					}
 				}
 			}
@@ -208,21 +218,24 @@ public class Handler
 		{
 			synchronized (objectList)
 			{
-				Collections.sort(objectList, new Comparator<GameObject>()
+				Collections.sort(objectList, new Comparator<GameObject>() 
 				{
-				    public int compare(GameObject obj1, GameObject obj2)
+				    public int compare(GameObject obj1, GameObject obj2) 
 				    {
-				        // Compare objects based on their y-coordinates
-				    	int y1 = 0, y2 = 0;
-				    	
-				    	if (obj1 != null && obj2 != null)
-				    	{
-					        y1 = obj1.getY();
-					        y2 = obj2.getY();
-				    	}
-				        
-				        // Higher y-coordinates come first (lower in the list)
-				        return Integer.compare(y1, y2);
+				        // Check if either obj1 or obj2 is a Path
+				        boolean isObj1Path = obj1 instanceof Path;
+				        boolean isObj2Path = obj2 instanceof Path;
+
+				        // If both are Paths or neither is a Path, compare based on y-coordinates
+				        if (isObj1Path == isObj2Path) 
+				        {
+				            int y1 = (isObj1Path) ? Integer.MIN_VALUE : obj1.getY();
+				            int y2 = (isObj2Path) ? Integer.MIN_VALUE : obj2.getY();
+				            return Integer.compare(y1, y2);
+				        }
+
+				        // If obj1 is a Path, it should come first
+				        return (isObj1Path) ? -1 : 1;
 				    }
 				});
 			}

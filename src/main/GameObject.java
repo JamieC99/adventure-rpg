@@ -17,6 +17,8 @@ public abstract class GameObject
 	protected boolean solid = true;
 	/** The variation of the object */
 	protected int type;
+	/** The level to load for a Gate object */
+	protected String levelToLoad;
 	
 	public GameObject(int x, int y, int type)
 	{
@@ -25,9 +27,11 @@ public abstract class GameObject
 		this.type = type;
 	}
 	
-	public GameObject(int x2, int y2, String type2) 
+	public GameObject(int x, int y, String levelToLoad) 
 	{
-		
+		this.x = x;
+		this.y = y;
+		this.levelToLoad = levelToLoad;
 	}
 
 	/** Return the x position */
@@ -76,6 +80,11 @@ public abstract class GameObject
 	public int getType()
 	{
 		return type;
+	}
+	
+	public String getLevelToLoad()
+	{
+		return levelToLoad;
 	}
 	
 	/** Update the object's behaviours */

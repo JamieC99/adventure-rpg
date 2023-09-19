@@ -82,6 +82,25 @@ public class Button
 			if (buttonName == "Toggle Collision Bounds")
 				Debug.collisionBounds = !Debug.collisionBounds;
 			
+			// Save level
+			if (buttonName == "Save Level")
+				Handler.saveLevel();
+			
+			// Load level
+			if (buttonName == "Load Level")
+				Handler.loadLevelFromEditor();
+			
+			// Clear level
+			if (buttonName == "Clear Level")
+			{
+				if (Handler.levelEditor.editMode)
+				{
+					Handler.modifyingObjectList = true;
+					Handler.clearLevel();
+					Handler.modifyingObjectList = false;
+				}
+			}
+			
 			// Select tree
 			if (buttonName == "Add Tree")
 				Handler.levelEditor.selectedObjectType = ObjectType.tree;
@@ -94,22 +113,13 @@ public class Button
 			if (buttonName == "Add House")
 				Handler.levelEditor.selectedObjectType = ObjectType.house;
 			
-			// Clear level
-			if (buttonName == "Clear Level")
-				if (Handler.levelEditor.editMode)
-					Handler.clearLevel();
+			// Select path
+			if (buttonName == "Add Path")
+				Handler.levelEditor.selectedObjectType = ObjectType.path;
 			
 			// Select gate
 			if (buttonName == "Add Gate")
 				Handler.levelEditor.selectedObjectType = ObjectType.gate;
-			
-			// Save level
-			if (buttonName == "Save Level")
-				Handler.saveLevel();
-			
-			// Load level
-			if (buttonName == "Load Level")
-				Handler.loadLevelFromEditor();
 		}
 	}
 	

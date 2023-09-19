@@ -8,7 +8,6 @@ import characters.PlayerCharacter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -20,16 +19,15 @@ public class Gate extends GameObject
 	
 	private String levelToLoad;
 	
-	public Gate(int x, int y, int type)
+	public Gate(int x, int y, String levelToLoad)
 	{
-		super(x, y, type);
+		super(x, y, levelToLoad);
+		this.levelToLoad = levelToLoad;
 		
 		width = 64;
 		height = 64;
 		
 		solid = false;
-		
-		assignLevel();
 	}
 
 	public void paintComponent(Graphics g)
@@ -92,7 +90,7 @@ public class Gate extends GameObject
 		else
 			selected = false;
 		
-		System.out.println(selected);
+		//System.out.println(selected);
 	}
 
 	public void loadLevel()
@@ -161,16 +159,14 @@ public class Gate extends GameObject
 			
 			if (returnValue == JFileChooser.APPROVE_OPTION)
 			{
-				try
-				{
-					levelToLoad = fileChooser.getSelectedFile().getCanonicalPath();
-				} 
-				catch (IOException e) 
-				{
-					e.printStackTrace();
-				}
+				levelToLoad = fileChooser.getSelectedFile().getAbsolutePath();
 			}
 		}
+	}
+	
+	public String getLevelToLoad()
+	{
+		return levelToLoad;
 	}
 	
 	public boolean getSelected()

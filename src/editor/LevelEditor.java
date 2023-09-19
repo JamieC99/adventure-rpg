@@ -36,6 +36,7 @@ public class LevelEditor extends JPanel
 	{
 		tree,
 		house,
+		path,
 		gate
 	}
 	public ObjectType selectedObjectType;
@@ -65,13 +66,15 @@ public class LevelEditor extends JPanel
 		buttonList.add(new Button(0, 160, "Mass Place Trees"));
 		buttonList.add(new Button(0, 208, "Add Tree"));
 		buttonList.add(new Button(0, 256, "Add House"));
-		buttonList.add(new Button(0, 304, "Add Gate"));
+		buttonList.add(new Button(0, 304, "Add Path"));
+		buttonList.add(new Button(0, 352, "Add Gate"));
 	}
 	
 	public void tick()
 	{
 		if (editMode)
 		{
+			// Set size of cursor based on the selected object
 			if (selectedObjectType == ObjectType.tree || selectedObjectType == ObjectType.gate)
 			{
 				gridSizeX = 64;
@@ -97,10 +100,10 @@ public class LevelEditor extends JPanel
 		}
 		
 		for (Button button : buttonList)
-				button.tick();
+			button.tick();
 	}
 	
-	// Draw the cursor for placing objects in the main game window
+	// Draw the cursor
 	public void drawCursor(Graphics g) 
 	{
 		if (editMode)
@@ -125,11 +128,6 @@ public class LevelEditor extends JPanel
 		for (Button button : buttonList)
 			button.paintComponent(g);
 		
-		repaint();
-	}
-	
-	public void repaintFrame()
-	{
 		repaint();
 	}
 	
@@ -169,9 +167,13 @@ public class LevelEditor extends JPanel
 			if (selectedObjectType == ObjectType.house)
 				Handler.addObject(new House(cursorX, cursorY, 0));
 			
+			// Place path
+			if (selectedObjectType == ObjectType.path)
+				Handler.addObject(new Path(cursorX, cursorY, 2));
+			
 			// Place gate
 			if (selectedObjectType == ObjectType.gate)
-				Handler.addObject(new Gate(cursorX, cursorY, 0));
+				Handler.addObject(new Gate(cursorX, cursorY, ""));
 		}
 	}
 	
