@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import editor.LevelEditor;
 import editor.LevelEditor.ObjectType;
 
 public class Button
@@ -46,7 +45,7 @@ public class Button
 		g.setColor(Color.WHITE);
 		
 		if (buttonName == "Toggle Edit Mode")
-			g.drawString("Edit Mode: " + LevelEditor.editMode, x + 5, y + 32);
+			g.drawString("Edit Mode: " + Handler.levelEditor.editMode, x + 5, y + 32);
 		else if (buttonName == "Toggle Collision Bounds")
 			g.drawString("Col Bounds: " + Debug.collisionBounds, x + 5, y + 32);
 		else
@@ -57,10 +56,12 @@ public class Button
 	
 	public void tick()
 	{
-		if (LevelEditor.editorFrame.getBounds().contains(MouseInput.getMousePoint()))
+		if (Handler.levelEditor.editorFrame.getBounds().contains(MouseInput.getMousePoint()))
 		{
 			if (getBounds().intersects(MouseInput.getBounds()))
+			{
 				selected = true;
+			}
 			else
 				selected = false;
 		}
@@ -75,7 +76,7 @@ public class Button
 		{
 			// Toggle edit mode on and off
 			if (buttonName == "Toggle Edit Mode")
-				LevelEditor.editMode = !LevelEditor.editMode;
+				Handler.levelEditor.editMode = !Handler.levelEditor.editMode;
 			
 			// Toggle show collision bounds
 			if (buttonName == "Toggle Collision Bounds")
@@ -83,24 +84,24 @@ public class Button
 			
 			// Select tree
 			if (buttonName == "Add Tree")
-				LevelEditor.selectedObjectType = ObjectType.tree;
+				Handler.levelEditor.selectedObjectType = ObjectType.tree;
 			
 			// Mass place trees
 			if (buttonName == "Mass Place Trees")
-				LevelEditor.massPlaceTrees();
+				Handler.levelEditor.massPlaceTrees();
 			
 			// Select house
 			if (buttonName == "Add House")
-				LevelEditor.selectedObjectType = ObjectType.house;
+				Handler.levelEditor.selectedObjectType = ObjectType.house;
 			
 			// Clear level
 			if (buttonName == "Clear Level")
-				if (LevelEditor.editMode)
+				if (Handler.levelEditor.editMode)
 					Handler.clearLevel();
 			
 			// Select gate
 			if (buttonName == "Add Gate")
-				LevelEditor.selectedObjectType = ObjectType.gate;
+				Handler.levelEditor.selectedObjectType = ObjectType.gate;
 			
 			// Save level
 			if (buttonName == "Save Level")

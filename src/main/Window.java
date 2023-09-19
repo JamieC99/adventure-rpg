@@ -57,7 +57,7 @@ public class Window extends JPanel
 		transform.scale(frameScale, frameScale);
 		g2d.setTransform(transform);
 		
-		
+		// Create black background
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT * 2);
 		

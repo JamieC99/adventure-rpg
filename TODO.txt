@@ -2,7 +2,9 @@ Adventure-RPG TODO
 
 LEVEL EDITOR
 	Gate
-		ADD level selection
+		ADD level selection - DONE
+		Refine level assigning
 	
 	MENU
-		ADD 'Clear All' button
+		ADD 'Clear All' button - DONE
+		ADD Display for current level name

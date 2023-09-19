@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 
 public class KeyInput implements KeyListener
 {
+	private static boolean shiftPressed = false;
+	
 	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
@@ -78,6 +80,10 @@ public class KeyInput implements KeyListener
 				}
 			}
 		}
+		
+		// Check if shift is pressed
+		if (key == KeyEvent.VK_SHIFT)
+			shiftPressed = true;
 	}
 	
 	public void keyReleased(KeyEvent e) 
@@ -108,10 +114,19 @@ public class KeyInput implements KeyListener
 				}
 			}
 		}
+		
+		// Check if shift is released
+		if (key == KeyEvent.VK_SHIFT)
+			shiftPressed = false;
 	}
 	
 	public void keyTyped(KeyEvent e) 
 	{
 
+	}
+	
+	public static boolean getShiftPressed()
+	{
+		return shiftPressed;
 	}
 }

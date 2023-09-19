@@ -7,6 +7,7 @@ import userinterface.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -20,13 +21,13 @@ public class LevelEditor extends JPanel
 	private static final long serialVersionUID = 1L;
 	
 	// Create window
-	public static JFrame editorFrame = new JFrame("Editor Menu");
+	public JFrame editorFrame = new JFrame("Editor Menu");
 	/** List of buttons for the level editor */
-	private static LinkedList<Button> buttonList = new LinkedList<Button>();
+	private LinkedList<Button> buttonList = new LinkedList<Button>();
 	/** Edit mode */
-	public static boolean editMode = false;
+	public boolean editMode = false;
 	// Cursor position
-	private static int cursorX, cursorY;
+	private int cursorX, cursorY;
 	// Size of the grid, linked to the size of the object
 	private int gridSizeX = 64, gridSizeY;
 	
@@ -37,7 +38,7 @@ public class LevelEditor extends JPanel
 		house,
 		gate
 	}
-	public static ObjectType selectedObjectType;
+	public ObjectType selectedObjectType;
 	
 	public LevelEditor()
 	{
@@ -48,11 +49,11 @@ public class LevelEditor extends JPanel
 		editorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		editorFrame.setResizable(false);
 		editorFrame.setAlwaysOnTop(true);
-		editorFrame.setVisible(true);
 		
 		editorFrame.add(this);
 		editorFrame.addMouseMotionListener(new MouseInput());
 		editorFrame.addMouseListener(new MouseInput());
+		editorFrame.setVisible(true);
 		
 		// Add buttons
 		buttonList.add(new Button(0, 0, "Toggle Edit Mode"));
@@ -127,10 +128,15 @@ public class LevelEditor extends JPanel
 		repaint();
 	}
 	
-	/** Creates trees across the whole level */
-	public static void massPlaceTrees()
+	public void repaintFrame()
 	{
-		if (LevelEditor.editMode)
+		repaint();
+	}
+	
+	/** Creates trees across the whole level */
+	public void massPlaceTrees()
+	{
+		if (editMode)
 		{
 			Random random = new Random();
 			int treeType = 0;
@@ -151,7 +157,7 @@ public class LevelEditor extends JPanel
 		}
 	}
 	
-	public static void placeObject()
+	public void placeObject()
 	{
 		if (editMode && !editorFrame.getBounds().contains(MouseInput.getMousePoint()))
 		{
@@ -169,7 +175,7 @@ public class LevelEditor extends JPanel
 		}
 	}
 	
-	public static void removeObject()
+	public void removeObject()
 	{
 		if (editMode && !editorFrame.getBounds().contains(MouseInput.getMousePoint()))
 		{
@@ -199,18 +205,23 @@ public class LevelEditor extends JPanel
 	}
 	
 	/** Return the list of buttons */
-	public static LinkedList<Button> getButtonList()
+	public LinkedList<Button> getButtonList()
 	{
 		return buttonList;
 	}
 	
-	public static int getCursorX()
+	public int getCursorX()
 	{
 		return cursorX;
 	}
 	
-	public static int getCursorY()
+	public int getCursorY()
 	{
 		return cursorY;
+	}
+	
+	public Rectangle getCursorBounds()
+	{
+		return new Rectangle(cursorX, cursorY, gridSizeX, gridSizeY);
 	}
 }

@@ -17,9 +17,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class Handler 
+public class Handler
 {
 	/** Linked list containing every game object */
 	private static LinkedList<GameObject> objectList = new LinkedList<GameObject>();
@@ -81,9 +80,7 @@ public class Handler
 	/** Remove an object from the list */
 	public static void removeObject(GameObject object)
 	{
-		modifyingObjectList = true;
 		objectList.remove(object);
-		modifyingObjectList = false;
 	}
 
 	/** Clears all objects in a level except the players */
@@ -163,7 +160,7 @@ public class Handler
 	public static void loadLevel(String levelName)
 	{
 		modifyingObjectList = true;
-
+		
 		// Clear world objects
 		clearLevel();
 		
@@ -200,7 +197,7 @@ public class Handler
 		{
 			e.printStackTrace();
 		}
-			
+
 		modifyingObjectList = false;
 	}
 	
@@ -227,7 +224,6 @@ public class Handler
 				        // Higher y-coordinates come first (lower in the list)
 				        return Integer.compare(y1, y2);
 				    }
-				    
 				});
 			}
 		}

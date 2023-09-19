@@ -1,7 +1,8 @@
 package input;
 
-import editor.LevelEditor;
+import main.*;
 import userinterface.*;
+import world.Gate;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -13,20 +14,25 @@ import java.awt.event.MouseMotionListener;
 public class MouseInput implements MouseListener, MouseMotionListener
 {
 	private static int mouseX, mouseY;
+	
 	private static Point mousePoint = MouseInfo.getPointerInfo().getLocation();
+	private Point mouseOffset = new Point(8, 32);
+	
+	// Object selection
+	private boolean objectIsSelected = false;
 	
 	public void mouseDragged(MouseEvent e)
 	{
-		mouseX = e.getX() - 12;
-		mouseY = e.getY() - 39;
+		mouseX = e.getX() - mouseOffset.x;
+		mouseY = e.getY() - mouseOffset.y;
 		
 		mousePoint = MouseInfo.getPointerInfo().getLocation();
 	}
 
 	public void mouseMoved(MouseEvent e) 
 	{
-		mouseX = e.getX() - 12;
-		mouseY = e.getY() - 39;
+		mouseX = e.getX() - mouseOffset.x;
+		mouseY = e.getY() - mouseOffset.y;
 		
 		mousePoint = MouseInfo.getPointerInfo().getLocation();
 	}
@@ -48,39 +54,71 @@ public class MouseInput implements MouseListener, MouseMotionListener
 
 	public void mousePressed(MouseEvent e) 
 	{
+		checkIfObjectSelected();
+		
 		int button = e.getButton();
 		
 		// Level editor button press
-		for (Button buttonPressed : LevelEditor.getButtonList())
+		for (Button buttonPressed : Handler.levelEditor.getButtonList())
 			if (buttonPressed.isSelected())
 				buttonPressed.action();
 			
 		// If the level editor is in edit mode
-		if (LevelEditor.editMode)
+		if (Handler.levelEditor.editMode)
 		{
-			// Add object
-			if (button == MouseEvent.BUTTON1)
-				LevelEditor.placeObject();
+			// Add object. Only place an object if the grid is clear or shift is pressed
+			if (button == MouseEvent.BUTTON1 && (!objectIsSelected || KeyInput.getShiftPressed()))
+				Handler.levelEditor.placeObject();
 			
 			// Remove object
 			if (button == MouseEvent.BUTTON3)
-				LevelEditor.removeObject();
+				Handler.levelEditor.removeObject();
+			
+			// Assign level to gate
+			for (int i = 0; i < Handler.getObjectList().size(); i++)
+			{
+				GameObject object = Handler.getObjectList().get(i);
+				
+				if (object instanceof Gate)
+				{
+					Gate gateObject = (Gate) object;
+					
+					if (gateObject.getSelected())
+						gateObject.assignLevel();
+				}
+			}
 		}
 	}
 
-	public void mouseReleased(MouseEvent e) 
+	public void mouseReleased(MouseEvent e)
 	{
 		
 	}
 
-	public void mouseEntered(MouseEvent e) 
+	public void mouseEntered(MouseEvent e)
+	{
+		
+	}
+
+	public void mouseExited(MouseEvent e)
 	{
 
 	}
-
-	public void mouseExited(MouseEvent e) 
+	
+	/** Check if an object is selected by the mouse */
+	private void checkIfObjectSelected()
 	{
-
+		objectIsSelected = false;
+		
+		for (int i = 0; i < Handler.getObjectList().size(); i++)
+		{
+			GameObject object = Handler.getObjectList().get(i);
+			
+			if (Handler.levelEditor.getCursorBounds().intersects(object.getBounds()))
+			{
+				objectIsSelected = true;
+			}
+		}
 	}
 	
 	public static Point getMousePoint()

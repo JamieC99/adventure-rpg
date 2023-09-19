@@ -25,6 +25,11 @@ public abstract class GameObject
 		this.type = type;
 	}
 	
+	public GameObject(int x2, int y2, String type2) 
+	{
+		
+	}
+
 	/** Return the x position */
 	public int getX()
 	{

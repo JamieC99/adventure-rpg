@@ -8,15 +8,17 @@ import characters.PlayerCharacter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.io.IOException;
 
-import editor.LevelEditor;
+import javax.swing.JFileChooser;
 
 /** Loads different parts of the world when entered by the player */
 public class Gate extends GameObject
 {
 	public boolean moveToNewMap = false;
+	private boolean selected = false;
 	
-	private String levelToLoad = "resources/levels/level1.csv";
+	private String levelToLoad;
 	
 	public Gate(int x, int y, int type)
 	{
@@ -26,11 +28,13 @@ public class Gate extends GameObject
 		height = 64;
 		
 		solid = false;
+		
+		assignLevel();
 	}
 
 	public void paintComponent(Graphics g)
 	{
-		if (LevelEditor.editMode)
+		if (Handler.levelEditor.editMode)
 		{
 			g.setColor(Color.BLUE);
 			g.fillRect(x, y, width, height);
@@ -38,8 +42,11 @@ public class Gate extends GameObject
 			// Draw level name
 			g.setColor(Color.WHITE);
 			
-			String[] parts = levelToLoad.split("/");
-			g.drawString(parts[parts.length - 1], x, y + height / 2);
+			if (levelToLoad != null)
+			{
+				String[] parts = levelToLoad.split("/");
+				g.drawString(parts[parts.length - 1], x, y + height / 2);
+			}
 		}
 		
 		if (Debug.collisionBounds)
@@ -52,7 +59,7 @@ public class Gate extends GameObject
 	public void tick()
 	{
 		moveToNewMap = false;
-
+		
 		// Move to a different map
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
@@ -71,8 +78,21 @@ public class Gate extends GameObject
 				}
 			}
 		}
-	
-		//System.out.println(moveToNewMap);
+		
+		// Check if the gate is selected by the editor cursor
+		if (Handler.levelEditor.editMode)
+		{
+			if (getBounds().intersects(Handler.levelEditor.getCursorBounds()))
+			{
+				selected = true;
+			}
+			else
+				selected = false;
+		}
+		else
+			selected = false;
+		
+		System.out.println(selected);
 	}
 
 	public void loadLevel()
@@ -130,10 +150,32 @@ public class Gate extends GameObject
 		}
 	}
 	
-	// TODO - Assign the desired level to the gate in the level editor
-	private void assignLevel()
+	// Assign the desired level to the gate in the level editor
+	public void assignLevel()
 	{
-		
+		if (selected)
+		{
+			// Choose level file
+			JFileChooser fileChooser = new JFileChooser();
+			int returnValue = fileChooser.showOpenDialog(null);
+			
+			if (returnValue == JFileChooser.APPROVE_OPTION)
+			{
+				try
+				{
+					levelToLoad = fileChooser.getSelectedFile().getCanonicalPath();
+				} 
+				catch (IOException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public boolean getSelected()
+	{
+		return selected;
 	}
 	
 	public boolean canMoveToNewMap()
