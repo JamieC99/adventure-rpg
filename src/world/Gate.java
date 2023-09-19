@@ -18,9 +18,9 @@ public class Gate extends GameObject
 	
 	private String levelToLoad = "resources/levels/level1.csv";
 	
-	public Gate(int x, int y)
+	public Gate(int x, int y, int type)
 	{
-		super(x, y);
+		super(x, y, type);
 		
 		width = 64;
 		height = 64;

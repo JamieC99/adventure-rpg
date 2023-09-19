@@ -16,9 +16,9 @@ public class PlayerCharacter extends Character
 	// Collision bounds
 	public boolean topCollide, bottomCollide, leftCollide, rightCollide;
 	
-	public PlayerCharacter(int x, int y, int playerNumber)
+	public PlayerCharacter(int x, int y, int playerNumber, int type)
 	{
-		super(x, y, getPlayerImage(playerNumber));
+		super(x, y, getPlayerImage(playerNumber), type);
 		
 		this.playerNumber = playerNumber;
 	}

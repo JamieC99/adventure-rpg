@@ -8,6 +8,7 @@ import userinterface.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -58,11 +59,12 @@ public class LevelEditor extends JPanel
 		buttonList.add(new Button(128, 0, "Toggle Collision Bounds"));
 		buttonList.add(new Button(0, 48, "Save Level"));
 		buttonList.add(new Button(128, 48, "Load Level"));
+		buttonList.add(new Button(0, 96, "Clear Level"));
 		
-		buttonList.add(new Button(0, 112, "Add Tree"));
-		buttonList.add(new Button(128, 112, "Mass Place Trees"));
-		buttonList.add(new Button(0, 160, "Add House"));
-		buttonList.add(new Button(0, 208, "Add Gate"));
+		buttonList.add(new Button(0, 160, "Mass Place Trees"));
+		buttonList.add(new Button(0, 208, "Add Tree"));
+		buttonList.add(new Button(0, 256, "Add House"));
+		buttonList.add(new Button(0, 304, "Add Gate"));
 	}
 	
 	public void tick()
@@ -125,21 +127,45 @@ public class LevelEditor extends JPanel
 		repaint();
 	}
 	
+	/** Creates trees across the whole level */
+	public static void massPlaceTrees()
+	{
+		if (LevelEditor.editMode)
+		{
+			Random random = new Random();
+			int treeType = 0;
+			
+			Handler.modifyingObjectList = true;
+			
+			for (int i = 0; i < 1856; i += 64)
+			{
+				for (int j =- 32; j < 896; j += 64)
+				{
+					treeType = random.nextInt(3); // Choose a random tree type
+					
+					Handler.addObject(new Tree(i, j, treeType));
+				}
+			}
+			
+			Handler.modifyingObjectList = false;
+		}
+	}
+	
 	public static void placeObject()
 	{
 		if (editMode && !editorFrame.getBounds().contains(MouseInput.getMousePoint()))
 		{
 			// Place tree
 			if (selectedObjectType == ObjectType.tree)
-				Handler.addObject(new Tree(cursorX, cursorY - 32));
+				Handler.addObject(new Tree(cursorX, cursorY - 32, 0));
 			
 			// Place house
 			if (selectedObjectType == ObjectType.house)
-				Handler.addObject(new House(cursorX, cursorY));
+				Handler.addObject(new House(cursorX, cursorY, 0));
 			
 			// Place gate
 			if (selectedObjectType == ObjectType.gate)
-				Handler.addObject(new Gate(cursorX, cursorY));
+				Handler.addObject(new Gate(cursorX, cursorY, 0));
 		}
 	}
 	

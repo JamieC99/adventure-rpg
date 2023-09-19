@@ -62,7 +62,7 @@ public class KeyInput implements KeyListener
 				else // Spawn player 2 at player 1's position
 				{
 					if (key == KeyEvent.VK_UP)
-						Handler.addObject(new PlayerCharacter(playerObject.getX(), playerObject.getY(), 2));
+						Handler.addObject(new PlayerCharacter(playerObject.getX(), playerObject.getY(), 2, 0));
 				}
 			}
 			

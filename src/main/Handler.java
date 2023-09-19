@@ -25,7 +25,7 @@ public class Handler
 	private static LinkedList<GameObject> objectList = new LinkedList<GameObject>();
 	public static LevelEditor levelEditor = new LevelEditor();
 	
-	/** Checks if a level is being loaded. */
+	/** Checks if the objectList is being loaded. */
 	public static boolean modifyingObjectList = false;
 	
 	public static GUI gui = new GUI();
@@ -58,13 +58,13 @@ public class Handler
 	{
 		if (!modifyingObjectList)
 		{
-			objectSort();
-			
 			for (int i = 0; i < objectList.size(); i++)
 			{
 				GameObject object = objectList.get(i);
 				object.tick();
 			}
+			
+			objectSort();
 		}
 		
 		levelEditor.tick();
@@ -75,9 +75,7 @@ public class Handler
 	/** Add a new object to the list */
 	public static void addObject(GameObject object)
 	{
-		modifyingObjectList = true;
 		objectList.add(object);
-		modifyingObjectList = false;
 	}
 	
 	/** Remove an object from the list */
@@ -85,6 +83,23 @@ public class Handler
 	{
 		modifyingObjectList = true;
 		objectList.remove(object);
+		modifyingObjectList = false;
+	}
+
+	/** Clears all objects in a level except the players */
+	public static void clearLevel()
+	{
+		modifyingObjectList = true;
+		
+		Iterator<GameObject> iterator = objectList.iterator();
+		while (iterator.hasNext())
+		{
+			GameObject object = iterator.next();
+			
+			if (!(object instanceof PlayerCharacter))
+				iterator.remove();
+		}
+		
 		modifyingObjectList = false;
 	}
 	
@@ -100,11 +115,9 @@ public class Handler
 		JFileChooser fileChooser = new JFileChooser();
 		int returnValue = fileChooser.showSaveDialog(null);
 		
-		fileChooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
-		
 		if (returnValue == JFileChooser.APPROVE_OPTION)
 		{
-			String csvFileName = fileChooser.getSelectedFile().toString();
+			String csvFileName = fileChooser.getSelectedFile().toString() + ".csv";
 			
 			try (PrintWriter writer = new PrintWriter(new FileWriter(csvFileName)))
 			{
@@ -113,7 +126,7 @@ public class Handler
 					GameObject object = objectList.get(i);
 					
 					if (!(object instanceof PlayerCharacter))
-						writer.println(object.getClass().getSimpleName() + "," + object.getX() + "," + object.getY());
+						writer.println(object.getClass().getSimpleName() + "," + object.getX() + "," + object.getY() + "," + object.getType());
 				}
 				
 				writer.close();
@@ -152,14 +165,7 @@ public class Handler
 		modifyingObjectList = true;
 
 		// Clear world objects
-		Iterator<GameObject> iterator = objectList.iterator();
-		while (iterator.hasNext())
-		{
-			GameObject object = iterator.next();
-			
-			if (!(object instanceof PlayerCharacter))
-				iterator.remove();
-		}
+		clearLevel();
 		
 		// Read file
 		try (BufferedReader reader = new BufferedReader(new FileReader(levelName)))
@@ -169,19 +175,20 @@ public class Handler
 			{
 				String[] parts = line.split(",");
 				
-				if (parts.length == 3)
+				if (parts.length == 4)
 				{
 					// Get the class name position
 					String className = parts[0];
 					int x = Integer.parseInt(parts[1]);
 					int y = Integer.parseInt(parts[2]);
+					int type = Integer.parseInt(parts[3]);
 					
 					// Add the object to the list
 					switch (className)
 					{
-						case "Tree": objectList.add(new Tree(x, y)); break;
-						case "House": objectList.add(new House(x, y)); break;
-						case "Gate": objectList.add(new Gate(x, y)); break;
+						case "Tree": objectList.add(new Tree(x, y, type)); break;
+						case "House": objectList.add(new House(x, y, type)); break;
+						case "Gate": objectList.add(new Gate(x, y, type)); break;
 					}
 				}
 			}
@@ -220,6 +227,7 @@ public class Handler
 				        // Higher y-coordinates come first (lower in the list)
 				        return Integer.compare(y1, y2);
 				    }
+				    
 				});
 			}
 		}

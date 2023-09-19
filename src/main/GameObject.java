@@ -15,11 +15,14 @@ public abstract class GameObject
 	protected int height;
 	/** Is the object solid */
 	protected boolean solid = true;
+	/** The variation of the object */
+	protected int type;
 	
-	public GameObject(int x, int y)
+	public GameObject(int x, int y, int type)
 	{
 		this.x = x;
 		this.y = y;
+		this.type = type;
 	}
 	
 	/** Return the x position */
@@ -62,6 +65,12 @@ public abstract class GameObject
 	public boolean isSolid()
 	{
 		return solid;
+	}
+	
+	/** Return the variation of the object */
+	public int getType()
+	{
+		return type;
 	}
 	
 	/** Update the object's behaviours */

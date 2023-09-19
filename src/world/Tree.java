@@ -18,17 +18,14 @@ public class Tree extends GameObject
 {
 	private BufferedImage spriteSheet, treeSprite;
 	
-	int treeType;
-	
-	public Tree(int x, int y) 
+	public Tree(int x, int y, int type)
 	{
-		super(x, y);
+		super(x, y, type);
 		
 		width = 64;
 		height = 96;
-		
-		Random random = new Random();
-		treeType = 128 * random.nextInt(3);
+
+		type = 128 * type;
 		
 		// Load sprite sheet
 		try
@@ -41,7 +38,7 @@ public class Tree extends GameObject
 			e.printStackTrace();
 		}
 		
-		treeSprite = spriteSheet.getSubimage(treeType, 0, 128, 160);
+		treeSprite = spriteSheet.getSubimage(type, 0, 128, 160);
 	}
 
 	public void paintComponent(Graphics g) 

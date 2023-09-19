@@ -11,11 +11,9 @@ import main.GameObject;
 
 public class House extends GameObject
 {
-	private static final long serialVersionUID = 775347847431924582L;
-
-	public House(int x, int y) 
+	public House(int x, int y, int type) 
 	{
-		super(x, y);
+		super(x, y, type);
 		
 		width = 256;
 		height = 320;

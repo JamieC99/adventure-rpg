@@ -38,9 +38,9 @@ public class Character extends GameObject
 	private int animationDelay = 20;
 	
 	// Constructor
-	public Character(int x, int y, String imagePath)
+	public Character(int x, int y, String imagePath, int type)
 	{
-		super(x, y);
+		super(x, y, type);
 		this.imagePath = imagePath;
 		
 		solid = false;
