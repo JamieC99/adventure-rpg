@@ -101,6 +101,10 @@ public class Button
 				}
 			}
 			
+			// Toggle grid lines
+			if (buttonName == "Toggle Grid Lines")
+				Handler.levelEditor.showGridLines = !Handler.levelEditor.showGridLines;
+				
 			// Select tree
 			if (buttonName == "Add Tree")
 				Handler.levelEditor.selectedObjectType = ObjectType.tree;

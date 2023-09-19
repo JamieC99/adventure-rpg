@@ -300,11 +300,11 @@ Tree,1792,352,1
 Tree,1664,416,2
 Tree,1728,416,0
 Tree,1792,416,0
-Gate,0,448,D:\Programming\adventure-rpg\resources\levels\forest1.csv
+Gate,0,448,resources/levels/forest1.csv
 Tree,1664,480,2
 Tree,1728,480,0
 Tree,1792,480,0
-Gate,0,512,D:\Programming\adventure-rpg\resources\levels\forest1.csv
+Gate,0,512,resources/levels/forest1.csv
 Tree,0,544,2
 Tree,64,544,2
 Tree,128,544,2

@@ -7,6 +7,7 @@ import world.*;
 
 import java.awt.Graphics;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -106,11 +107,14 @@ public class Handler
 	public static void saveLevel()
 	{
 		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("resources/levels/"));
 		int returnValue = fileChooser.showSaveDialog(null);
 		
 		if (returnValue == JFileChooser.APPROVE_OPTION)
 		{
-			String csvFileName = fileChooser.getSelectedFile().toString() + ".csv";
+			String csvFileName = "resources/levels/" + fileChooser.getSelectedFile().getName() + ".csv";
+			
+			System.out.println(csvFileName);
 			
 			try (PrintWriter writer = new PrintWriter(new FileWriter(csvFileName)))
 			{
@@ -149,13 +153,13 @@ public class Handler
 	{
 		// Choose level file
 		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("resources/levels/"));
 		int returnValue = fileChooser.showOpenDialog(null);
 		
 		if (returnValue == JFileChooser.APPROVE_OPTION)
 		{
-			String csvFileName = fileChooser.getSelectedFile().getAbsolutePath();
+			String csvFileName = "resources/levels/" + fileChooser.getSelectedFile().getName();
 			loadLevel(csvFileName);
-			//System.out.println(csvFileName);
 		}
 	}
 	
@@ -164,6 +168,7 @@ public class Handler
 	{
 		// Clear world objects
 		modifyingObjectList = true;
+		levelEditor.currentLevel = levelName;
 		
 		clearLevel();
 		

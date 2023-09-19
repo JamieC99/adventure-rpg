@@ -28,7 +28,7 @@ public class PlayerCharacter extends Character
 	{
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
-			if (Handler.getObjectList().size() != 0)
+			if (Handler.getObjectList().size() != 0 && !Handler.modifyingObjectList)
 			{
 				GameObject object = Handler.getObjectList().get(i);
 				

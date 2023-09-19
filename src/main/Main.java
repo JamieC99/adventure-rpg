@@ -6,13 +6,13 @@ public class Main
 {
 	public Main()
 	{
-		Handler.addObject(new PlayerCharacter(256, 256, 1, 0));
+		Handler.addObject(new PlayerCharacter(928, 480, 1, 0));
 		
 		// Create the game window
 		new Window();
 		
 		// Run the game
-		run(); 
+		run();
 	}
 	
 	// Main game loop

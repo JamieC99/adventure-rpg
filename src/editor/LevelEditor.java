@@ -6,6 +6,7 @@ import main.*;
 import userinterface.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -30,6 +31,10 @@ public class LevelEditor extends JPanel
 	private int cursorX, cursorY;
 	// Size of the grid, linked to the size of the object
 	private int gridSizeX = 64, gridSizeY;
+	// Toggle grid lines
+	public boolean showGridLines = true;
+	/** Display the current level in the editor menu */
+	public String currentLevel;
 	
 	// Object type
 	public enum ObjectType
@@ -62,12 +67,13 @@ public class LevelEditor extends JPanel
 		buttonList.add(new Button(0, 48, "Save Level"));
 		buttonList.add(new Button(128, 48, "Load Level"));
 		buttonList.add(new Button(0, 96, "Clear Level"));
+		buttonList.add(new Button(128, 96, "Toggle Grid Lines"));
 		
 		buttonList.add(new Button(0, 160, "Mass Place Trees"));
-		buttonList.add(new Button(0, 208, "Add Tree"));
-		buttonList.add(new Button(0, 256, "Add House"));
-		buttonList.add(new Button(0, 304, "Add Path"));
-		buttonList.add(new Button(0, 352, "Add Gate"));
+		buttonList.add(new Button(0, 224, "Add Tree"));
+		buttonList.add(new Button(0, 272, "Add House"));
+		buttonList.add(new Button(0, 320, "Add Path"));
+		buttonList.add(new Button(0, 368, "Add Gate"));
 	}
 	
 	public void tick()
@@ -75,16 +81,15 @@ public class LevelEditor extends JPanel
 		if (editMode)
 		{
 			// Set size of cursor based on the selected object
-			if (selectedObjectType == ObjectType.tree || selectedObjectType == ObjectType.gate)
-			{
-				gridSizeX = 64;
-				gridSizeY = 64;
-			}
-			
 			if (selectedObjectType == ObjectType.house)
 			{
 				gridSizeX = 256;
 				gridSizeY = 320;
+			}
+			else
+			{
+				gridSizeX = 64;
+				gridSizeY = 64;
 			}
 			
 			// Check if the cursor is in the main window
@@ -97,6 +102,18 @@ public class LevelEditor extends JPanel
 				if (MouseInput.getMouseY() > cursorY * Window.getFrameScale()) cursorY += 64; // Move down
 				if (MouseInput.getMouseY() < cursorY * Window.getFrameScale()) cursorY -= 64; // Move up
 			}
+			
+			// Clamp cursor to frame bounds
+			if (cursorX <= 0) cursorX = 0;
+			if (cursorX >= 1792) cursorX = 1792;
+			
+			if (cursorY <= 0) cursorY = 0;
+			if (cursorY >= 896) cursorY = 896;
+		}
+		else 
+		{
+			cursorX = 0;
+			cursorY = 0;
 		}
 		
 		for (Button button : buttonList)
@@ -108,6 +125,18 @@ public class LevelEditor extends JPanel
 	{
 		if (editMode)
 		{
+			if (showGridLines)
+			{
+				g.setColor(Color.BLACK);
+				for (int i = 0; i < 1856; i += 64)
+				{
+					for (int j = 0; j < 960; j += 64)
+					{
+						g.drawRect(i, j, 64, 64);
+					}
+				}
+			}
+			
 			g.setColor(Color.WHITE);
 			g.drawRect(cursorX, cursorY, gridSizeX, gridSizeY);
 			
@@ -127,6 +156,26 @@ public class LevelEditor extends JPanel
 		// Draw buttons
 		for (Button button : buttonList)
 			button.paintComponent(g);
+		
+		// Change font
+		
+		Font originalFont = g.getFont();
+		Font menuFont = originalFont.deriveFont(Font.BOLD, 18);
+		g.setFont(menuFont);
+		g.setColor(Color.WHITE);
+		
+		// Show level name
+		if (currentLevel != null)
+		{
+			currentLevel = currentLevel.replace(".csv", "");
+			String[] parts = currentLevel.split("/");
+			g.drawString("Level: " + parts[parts.length - 1], 4, 488);
+		}
+		
+		// Show cursor coordinates
+		g.drawString("X: " + cursorX + "  Y: " + cursorY, 4, 508);
+		
+		g.setFont(originalFont);
 		
 		repaint();
 	}

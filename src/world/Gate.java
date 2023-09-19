@@ -6,8 +6,10 @@ import main.Handler;
 import characters.PlayerCharacter;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.io.File;
 
 import javax.swing.JFileChooser;
 
@@ -17,7 +19,7 @@ public class Gate extends GameObject
 	public boolean moveToNewMap = false;
 	private boolean selected = false;
 	
-	private String levelToLoad;
+	private String levelToLoad = null;
 	
 	public Gate(int x, int y, String levelToLoad)
 	{
@@ -34,16 +36,24 @@ public class Gate extends GameObject
 	{
 		if (Handler.levelEditor.editMode)
 		{
-			g.setColor(Color.BLUE);
+			g.setColor(Color.CYAN);
 			g.fillRect(x, y, width, height);
 			
 			// Draw level name
-			g.setColor(Color.WHITE);
+			g.setColor(Color.BLACK);
 			
 			if (levelToLoad != null)
 			{
-				String[] parts = levelToLoad.split("/");
-				g.drawString(parts[parts.length - 1], x, y + height / 2);
+				Font originalFont = g.getFont();
+				Font gateFont = originalFont.deriveFont(Font.BOLD, 15);
+				g.setFont(gateFont);
+				
+				String displayLevelName = levelToLoad.replace(".csv", "");
+				String[] parts = displayLevelName.split("/");
+				
+				g.drawString(parts[parts.length - 1], x + 6, y + 38);
+
+				g.setFont(originalFont);
 			}
 		}
 		
@@ -61,18 +71,18 @@ public class Gate extends GameObject
 		// Move to a different map
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
-			if (Handler.getObjectList().size() != 0)
-			{
-				GameObject object = Handler.getObjectList().get(i);
+			GameObject object = Handler.getObjectList().get(i);
 				
-				// Get the player object
-				if (object instanceof PlayerCharacter)
+			// Get the player object
+			if (object instanceof PlayerCharacter)
+			{
+				PlayerCharacter playerObject = (PlayerCharacter) object;
+				
+				// Check for collision with the players
+				if (getBounds().intersects(playerObject.getBounds()))
 				{
-					PlayerCharacter playerObject = (PlayerCharacter) object;
-					
-					// Check for collision with the players
-					if (getBounds().intersects(playerObject.getBounds()))
-						moveToNewMap = true;
+					moveToNewMap = true;
+					break;
 				}
 			}
 		}
@@ -81,21 +91,17 @@ public class Gate extends GameObject
 		if (Handler.levelEditor.editMode)
 		{
 			if (getBounds().intersects(Handler.levelEditor.getCursorBounds()))
-			{
 				selected = true;
-			}
 			else
 				selected = false;
 		}
 		else
 			selected = false;
-		
-		//System.out.println(selected);
 	}
-
+	
+	/** Move to another level when the player enters the gate */
 	public void loadLevel()
 	{
-		// Load map
 		if (canMoveToNewMap())
 		{
 			Handler.loadLevelFromGate(levelToLoad);
@@ -103,6 +109,7 @@ public class Gate extends GameObject
 		}
 	}
 	
+	/** Shift players to the opposite side of the frame */
 	private void movePlayers()
 	{
 		if (Handler.player1Active)
@@ -148,18 +155,19 @@ public class Gate extends GameObject
 		}
 	}
 	
-	// Assign the desired level to the gate in the level editor
+	/** Assign the desired level to the gate in the level editor */
 	public void assignLevel()
 	{
 		if (selected)
 		{
 			// Choose level file
 			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File("resources/levels/"));
 			int returnValue = fileChooser.showOpenDialog(null);
 			
 			if (returnValue == JFileChooser.APPROVE_OPTION)
 			{
-				levelToLoad = fileChooser.getSelectedFile().getAbsolutePath();
+				levelToLoad = "resources/levels/" + fileChooser.getSelectedFile().getName();
 			}
 		}
 	}

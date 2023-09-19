@@ -62,10 +62,8 @@ public class KeyInput implements KeyListener
 					}
 				}
 				else // Spawn player 2 at player 1's position
-				{
 					if (key == KeyEvent.VK_UP)
 						Handler.addObject(new PlayerCharacter(playerObject.getX(), playerObject.getY(), 2, 0));
-				}
 			}
 			
 			// Move to a different part of the map when the player has entered a gate and pressed space
@@ -74,10 +72,8 @@ public class KeyInput implements KeyListener
 				Gate gateObject = (Gate) object;
 				
 				if (gateObject.canMoveToNewMap())
-				{
 					if (key == KeyEvent.VK_SPACE)
 						gateObject.loadLevel();
-				}
 			}
 		}
 		
