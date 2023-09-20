@@ -22,7 +22,7 @@ public class PlayerCharacter extends Character
 		
 		this.playerNumber = playerNumber;
 	}
-	
+
 	// Perform collision checking
 	public void collision()
 	{
@@ -33,7 +33,7 @@ public class PlayerCharacter extends Character
 				GameObject object = Handler.getObjectList().get(i);
 				
 				// Check if the objects bounds are not null and is solid
-				if (object.getBounds() != null && object.isSolid())						 
+				if (object.getBounds() != null && object.isSolid())
 				{
 			        if (topBounds().intersects(object.getBounds()))
 			        {

@@ -21,18 +21,16 @@ public class Path extends GameObject
 	{
 		super(x, y, type);
 		
-		solid = false;
-		
 		width = 64;
 		height = 64;
 		
 		// Assign path type
 		switch(type)
 		{
-			case 0: spriteX = 0;  spriteY = 0;  			 break; // Stone
-			case 1: spriteX = 64; spriteY = 0; solid = true; break; // Water
-			case 2: spriteX = 0;  spriteY = 64; 			 break; // Dirt
-			case 3: spriteX = 64; spriteY = 64; 			 break; // Sand
+			case 0: spriteX = 0;  spriteY = 0;  solid = false; break; // Stone
+			case 1: spriteX = 64; spriteY = 0;  solid = true;  break; // Water
+			case 2: spriteX = 0;  spriteY = 64; solid = false; break; // Dirt
+			case 3: spriteX = 64; spriteY = 64; solid = false; break; // Sand
 		}
 		
 		// Load sprite sheet

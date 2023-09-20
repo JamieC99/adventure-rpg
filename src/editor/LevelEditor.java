@@ -214,6 +214,8 @@ public class LevelEditor extends JPanel
 	{
 		if (editMode && !editorFrame.getBounds().contains(MouseInput.getMousePoint()))
 		{
+			Handler.modifyingObjectList = true;
+			
 			// Place tree
 			if (selectedObjectType == ObjectType.tree)
 				addTree(cursorX, cursorY);
@@ -229,6 +231,8 @@ public class LevelEditor extends JPanel
 			// Place gate
 			if (selectedObjectType == ObjectType.gate)
 				Handler.addObject(new Gate(cursorX, cursorY, ""));
+			
+			Handler.modifyingObjectList = false;
 		}
 	}
 	

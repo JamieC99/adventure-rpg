@@ -63,12 +63,9 @@ public class Handler
 			for (int i = 0; i < objectList.size(); i++)
 			{
 				GameObject object = objectList.get(i);
-				
-				if (!modifyingObjectList)
-				{
-					if (object != null)
-						object.tick();
-				}
+
+				if (object != null)
+					object.tick();
 			}
 			
 			objectSort();
@@ -175,10 +172,10 @@ public class Handler
 	{
 		if (!modifyingObjectList)
 		{
-			// Clear world objects
 			modifyingObjectList = true;
 			levelEditor.currentLevel = levelName;
 			
+			// Clear world objects
 			clearLevel();
 			
 			// Read file
@@ -242,7 +239,7 @@ public class Handler
 				        boolean isObj2Path = obj2 instanceof Path;
 
 				        // If both are Paths or neither is a Path, compare based on y-coordinates
-				        if (isObj1Path == isObj2Path) 
+				        if (isObj1Path == isObj2Path)
 				        {
 				            int y1 = (isObj1Path) ? Integer.MIN_VALUE : obj1.getY();
 				            int y2 = (isObj2Path) ? Integer.MIN_VALUE : obj2.getY();

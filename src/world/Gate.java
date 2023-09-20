@@ -70,7 +70,8 @@ public class Gate extends GameObject
 	
 	public void tick()
 	{
-		moveToNewMap = false;
+		if (!isLoading)
+			moveToNewMap = false;
 		
 		// Move to the assigned level
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
@@ -80,6 +81,9 @@ public class Gate extends GameObject
 			
 			if (!Handler.modifyingObjectList && !isLoading)
 			{
+				if (Handler.getObjectList() == null)
+					break;
+				
 			    GameObject object = Handler.getObjectList().get(i);
 			    
 		        // Get the player object
@@ -130,7 +134,7 @@ public class Gate extends GameObject
 	/** Shift players to the opposite side of the frame */
 	private void movePlayers()
 	{
-		if (Handler.player1Active && !Handler.modifyingObjectList)
+		if (!Handler.modifyingObjectList)
 		{
 			for (int i = 0; i < Handler.getObjectList().size(); i++)
 			{
@@ -143,29 +147,29 @@ public class Gate extends GameObject
 						PlayerCharacter playerObject = (PlayerCharacter) object;
 						
 						// Move to right
-						if (getX() <= 64) 
-						{ 
-							playerObject.setX(1808); 
-							playerObject.setY(getY()); 
+						if (getX() <= 64)
+						{
+							playerObject.setX(1808);
+							playerObject.setY(getY());
 							continue;
 						}
 						// Move to left
-						if (getX() >= 1744) 
-						{ 
-							playerObject.setX(0); 
-							playerObject.setY(getY()); 
+						if (getX() >= 1744)
+						{
+							playerObject.setX(0);
+							playerObject.setY(getY());
 							continue;
 						}
 						// Move to bottom
-						if (getY() <= 64) 
-						{ 
+						if (getY() <= 64)
+						{
 							playerObject.setY(896);
-							playerObject.setX(getX()); 
+							playerObject.setX(getX());
 							continue;
 						}
 						// Move to top
-						if (getY() >= 832) 
-						{ 
+						if (getY() >= 832)
+						{
 							playerObject.setY(0);
 							playerObject.setX(getX());
 							continue;
@@ -208,7 +212,7 @@ public class Gate extends GameObject
 		return moveToNewMap;
 	}
 	
-	public Rectangle getBounds() 
+	public Rectangle getBounds()
 	{
 		return new Rectangle(x, y, width, height);
 	}

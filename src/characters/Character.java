@@ -18,13 +18,14 @@ public class Character extends GameObject
 	protected float moveSpeed = 2f;
 	protected int healthPoints = 100;
 	
-	/** 
+	/**
 		Position of the desired image in the sprite sheet
 		spriteY = 0   // DOWN
 		spriteY = 64  // LEFT
 		spriteY = 128 // RIGHT
 		spriteY = 192 // UP
 	*/
+	
 	protected int spriteX = 0, spriteY = 0;
 	
 	/** Sprite sheet */
@@ -123,6 +124,23 @@ public class Character extends GameObject
 	public float getMoveSpeed()
 	{
 		return moveSpeed;
+	}
+	
+	public int getHealthPoints()
+	{
+		return healthPoints;
+	}
+	
+	public void damageCharacter(int damage)
+	{
+		if (healthPoints > 0)
+			healthPoints -= damage;
+	}
+	
+	public void healCharacter(int heal)
+	{
+		if (healthPoints < 100)
+			healthPoints += heal;
 	}
 	
 	public void paintComponent(Graphics g) {}

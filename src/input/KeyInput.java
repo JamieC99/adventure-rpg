@@ -82,8 +82,13 @@ public class KeyInput implements KeyListener
 				{
 					Gate gateObject = (Gate) object;
 					
-					if (key == KeyEvent.VK_SPACE && gateObject.canMoveToNewMap())
-						gateObject.loadLevel();
+					if (!Handler.modifyingObjectList)
+					{
+						if (key == KeyEvent.VK_SPACE)
+							gateObject.loadLevel();
+					}
+					else
+						System.out.println("Failed to load");
 				}
 			}
 		}

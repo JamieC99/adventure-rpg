@@ -28,19 +28,31 @@ public class GUI
 				
 				if (playerObject.getPlayerNumber() == 1)
 				{
+					// Draw background
 					g.setColor(Color.BLACK);
 					g.fillRect(playerObject.getX()-8, playerObject.getY()-20, 64, 16); // Draw name box
 					
+					// Draw name
 					g.setColor(Color.CYAN);
 					g.drawString("Player 1", playerObject.getX()-2, playerObject.getY()-8);
+					
+					// Draw health bar
+					g.setColor(Color.RED);
+					g.fillRect(playerObject.getX()-8, playerObject.getY()-4, playerObject.getHealthPoints() / 100 * 64, 4);
 				}
 				else if (playerObject.getPlayerNumber() == 2)
 				{
+					// Draw background
 					g.setColor(Color.BLACK);
 					g.fillRect(playerObject.getX()-8, playerObject.getY()-20, 64, 16); // Draw name box
 					
+					// Draw name
 					g.setColor(Color.ORANGE);
 					g.drawString("Player 2", playerObject.getX()-2, playerObject.getY()-8);
+					
+					// Draw health bar
+					g.setColor(Color.RED);
+					g.fillRect(playerObject.getX()-8, playerObject.getY()-4, playerObject.getHealthPoints() / 100 * 64, 4);
 				}
 			}
 		}
