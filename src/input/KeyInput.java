@@ -59,21 +59,32 @@ public class KeyInput implements KeyListener
 						
 						if (!playerObject.rightCollide)
 							if (key == KeyEvent.VK_RIGHT) playerObject.moveX(playerObject.getMoveSpeed()); // Move right
+						
+						// Remove player 2
+						if (shiftPressed && key == KeyEvent.VK_UP)
+						{
+							Handler.removeObject(playerObject);
+							Handler.player2Active = false;
+						}
 					}
 				}
 				else // Spawn player 2 at player 1's position
+				{
 					if (key == KeyEvent.VK_UP)
+					{
 						Handler.addObject(new PlayerCharacter(playerObject.getX(), playerObject.getY(), 2, 0));
+					}
+				}
 			}
-			
-			// Move to a different part of the map when the player has entered a gate and pressed space
-			if (object instanceof Gate)
+			else
 			{
-				Gate gateObject = (Gate) object;
-				
-				if (gateObject.canMoveToNewMap())
-					if (key == KeyEvent.VK_SPACE)
+				if (object instanceof Gate)
+				{
+					Gate gateObject = (Gate) object;
+					
+					if (key == KeyEvent.VK_SPACE && gateObject.canMoveToNewMap())
 						gateObject.loadLevel();
+				}
 			}
 		}
 		
@@ -116,10 +127,7 @@ public class KeyInput implements KeyListener
 			shiftPressed = false;
 	}
 	
-	public void keyTyped(KeyEvent e) 
-	{
-
-	}
+	public void keyTyped(KeyEvent e){}
 	
 	public static boolean getShiftPressed()
 	{

@@ -44,7 +44,9 @@ public class Handler
 			for (int i = 0; i < objectList.size(); i++)
 			{
 				GameObject object = objectList.get(i);
-				object.paintComponent(g);
+				
+				if (object != null)
+					object.paintComponent(g);
 			}
 		}
 		
@@ -61,7 +63,12 @@ public class Handler
 			for (int i = 0; i < objectList.size(); i++)
 			{
 				GameObject object = objectList.get(i);
-				object.tick();
+				
+				if (!modifyingObjectList)
+				{
+					if (object != null)
+						object.tick();
+				}
 			}
 			
 			objectSort();
@@ -166,54 +173,57 @@ public class Handler
 	/** Level load function */
 	public static void loadLevel(String levelName)
 	{
-		// Clear world objects
-		modifyingObjectList = true;
-		levelEditor.currentLevel = levelName;
-		
-		clearLevel();
-		
-		// Read file
-		try (BufferedReader reader = new BufferedReader(new FileReader(levelName)))
+		if (!modifyingObjectList)
 		{
-			String line;
-			while ((line = reader.readLine()) != null)
+			// Clear world objects
+			modifyingObjectList = true;
+			levelEditor.currentLevel = levelName;
+			
+			clearLevel();
+			
+			// Read file
+			try (BufferedReader reader = new BufferedReader(new FileReader(levelName)))
 			{
-				String[] parts = line.split(",");
-				
-				if (parts.length == 4)
+				String line;
+				while ((line = reader.readLine()) != null)
 				{
-					// Get the class name position
-					String className = parts[0];
-					int x = Integer.parseInt(parts[1]);
-					int y = Integer.parseInt(parts[2]);
-					int type = 0;
-					String levelToLoad = "";
+					String[] parts = line.split(",");
 					
-					if (!className.equals("Gate"))
-						type = Integer.parseInt(parts[3]);
-					else
-						levelToLoad = parts[3];
-					
-					// Add the object to the list
-					switch (className)
+					if (parts.length == 4)
 					{
-						case "Tree": objectList.add(new Tree(x, y, type)); break;
-						case "House": objectList.add(new House(x, y, type)); break;
-						case "Path": objectList.add(new Path(x, y, type)); break;
-						case "Gate": objectList.add(new Gate(x, y, levelToLoad)); break;
+						// Get the class name position
+						String className = parts[0];
+						int x = Integer.parseInt(parts[1]);
+						int y = Integer.parseInt(parts[2]);
+						int type = 0;
+						String levelToLoad = "";
+						
+						if (!className.equals("Gate"))
+							type = Integer.parseInt(parts[3]);
+						else
+							levelToLoad = parts[3];
+						
+						// Add the object to the list
+						switch (className)
+						{
+							case "Tree": objectList.add(new Tree(x, y, type)); break;
+							case "House": objectList.add(new House(x, y, type)); break;
+							case "Path": objectList.add(new Path(x, y, type)); break;
+							case "Gate": objectList.add(new Gate(x, y, levelToLoad)); break;
+						}
 					}
 				}
+				
+				reader.close();
+				System.out.println("Level loaded");
 			}
-			
-			reader.close();
-			System.out.println("Level loaded");
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+	
+			modifyingObjectList = false;
 		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		modifyingObjectList = false;
 	}
 	
 	/** Sorts through every object in the object list to draw them in the correct order */

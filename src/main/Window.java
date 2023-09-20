@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 
 import javax.swing.ImageIcon;
@@ -19,11 +20,14 @@ public class Window extends JPanel
 	// Create frame
 	JFrame frame = new JFrame("Adventure RPG");
 	
-	// Default window size
-	private final int WIDTH = 1872, HEIGHT = 999;
-	
 	// The scale of the image based on the window width
 	private static float frameScale;
+	
+	/** Proper size of the frame */
+	private static Point frameEdgeBounds = new Point(1856, 960);
+	
+	// Default window size
+	private final int WIDTH = frameEdgeBounds.x + 16, HEIGHT = frameEdgeBounds.y + 39;
 	
 	public Window()
 	{
@@ -32,7 +36,7 @@ public class Window extends JPanel
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMaximumSize(new Dimension(1872, 999));
+		frame.setMaximumSize(new Dimension(WIDTH, HEIGHT));
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		
@@ -62,7 +66,8 @@ public class Window extends JPanel
 		g.fillRect(0, 0, WIDTH, HEIGHT * 2);
 		
 		// Draw background
-		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 0, 0, 1856, 960, null);
+		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 
+				0, 0, frameEdgeBounds.x, frameEdgeBounds.y, null);
 		
 		// Draw game objects
 		Handler.paintComponent(g);
@@ -74,5 +79,10 @@ public class Window extends JPanel
 	public static float getFrameScale()
 	{
 		return frameScale;
+	}
+	
+	public static Point getFrameBounds()
+	{
+		return frameEdgeBounds;
 	}
 }

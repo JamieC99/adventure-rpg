@@ -16,10 +16,14 @@ import javax.swing.JFileChooser;
 /** Loads different parts of the world when entered by the player */
 public class Gate extends GameObject
 {
+	/** Checks if the player is able to move to a different level */
 	public boolean moveToNewMap = false;
+	/** Checks if the gate is selected for level assignment */
 	private boolean selected = false;
-	
+	/** The level assigned to the gate */
 	private String levelToLoad = null;
+	/** Checks if the player is moving to the assigned level */
+	private boolean isLoading = false;
 	
 	public Gate(int x, int y, String levelToLoad)
 	{
@@ -68,22 +72,28 @@ public class Gate extends GameObject
 	{
 		moveToNewMap = false;
 		
-		// Move to a different map
+		// Move to the assigned level
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
-			GameObject object = Handler.getObjectList().get(i);
-				
-			// Get the player object
-			if (object instanceof PlayerCharacter)
+			if (Handler.modifyingObjectList)
+				break;
+			
+			if (!Handler.modifyingObjectList)
 			{
-				PlayerCharacter playerObject = (PlayerCharacter) object;
-				
-				// Check for collision with the players
-				if (getBounds().intersects(playerObject.getBounds()))
-				{
-					moveToNewMap = true;
-					break;
-				}
+			    GameObject object = Handler.getObjectList().get(i);
+			    
+		        // Get the player object
+		        if (object instanceof PlayerCharacter)
+		        {
+		            PlayerCharacter playerObject = (PlayerCharacter) object;
+		
+		            // Check for collision with the players
+		            if (getBounds().intersects(playerObject.getBounds()))
+		            {
+		                moveToNewMap = true;
+		                break; // No need to continue checking if collision is detected
+		            }
+		        }
 			}
 		}
 		
@@ -102,53 +112,64 @@ public class Gate extends GameObject
 	/** Move to another level when the player enters the gate */
 	public void loadLevel()
 	{
-		if (canMoveToNewMap())
+		// Check a level is not already loading
+		if (!isLoading)
 		{
-			Handler.loadLevelFromGate(levelToLoad);
-			movePlayers();
+			isLoading = true;
+			
+			if (canMoveToNewMap() && !Handler.modifyingObjectList)
+			{
+				movePlayers();
+				Handler.loadLevelFromGate(levelToLoad);
+			}
+			
+			isLoading = false;
 		}
 	}
 	
 	/** Shift players to the opposite side of the frame */
 	private void movePlayers()
 	{
-		if (Handler.player1Active)
+		if (Handler.player1Active && !Handler.modifyingObjectList)
 		{
 			for (int i = 0; i < Handler.getObjectList().size(); i++)
 			{
-				GameObject object = Handler.getObjectList().get(i);
-				
-				if (object instanceof PlayerCharacter)
+				if (Handler.getObjectList().get(i) != null)
 				{
-					PlayerCharacter playerObject = (PlayerCharacter) object;
+					GameObject object = Handler.getObjectList().get(i);
 					
-					// Move to right
-					if (getX() <= 64) 
-					{ 
-						playerObject.setX(1808); 
-						playerObject.setY(getY()); 
-						continue;
-					}
-					// Move to left
-					if (getX() >= 1744) 
-					{ 
-						playerObject.setX(0); 
-						playerObject.setY(getY()); 
-						continue;
-					}
-					// Move to bottom
-					if (getY() <= 64) 
-					{ 
-						playerObject.setY(896);
-						playerObject.setX(getX()); 
-						continue;
-					}
-					// Move to top
-					if (getY() >= 832) 
-					{ 
-						playerObject.setY(0);
-						playerObject.setX(getX());
-						continue;
+					if ((object instanceof PlayerCharacter) && object != null)
+					{
+						PlayerCharacter playerObject = (PlayerCharacter) object;
+						
+						// Move to right
+						if (getX() <= 64) 
+						{ 
+							playerObject.setX(1808); 
+							playerObject.setY(getY()); 
+							continue;
+						}
+						// Move to left
+						if (getX() >= 1744) 
+						{ 
+							playerObject.setX(0); 
+							playerObject.setY(getY()); 
+							continue;
+						}
+						// Move to bottom
+						if (getY() <= 64) 
+						{ 
+							playerObject.setY(896);
+							playerObject.setX(getX()); 
+							continue;
+						}
+						// Move to top
+						if (getY() >= 832) 
+						{ 
+							playerObject.setY(0);
+							playerObject.setX(getX());
+							continue;
+						}
 					}
 				}
 			}

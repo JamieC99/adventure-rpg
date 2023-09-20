@@ -105,12 +105,12 @@ public class LevelEditor extends JPanel
 			
 			// Clamp cursor to frame bounds
 			if (cursorX <= 0) cursorX = 0;
-			if (cursorX >= 1792) cursorX = 1792;
+			if (cursorX >= Window.getFrameBounds().x - 64) cursorX = Window.getFrameBounds().x - 64;
 			
 			if (cursorY <= 0) cursorY = 0;
-			if (cursorY >= 896) cursorY = 896;
+			if (cursorY >= Window.getFrameBounds().y - 64) cursorY = Window.getFrameBounds().y - 64;
 		}
-		else 
+		else
 		{
 			cursorX = 0;
 			cursorY = 0;
@@ -158,7 +158,6 @@ public class LevelEditor extends JPanel
 			button.paintComponent(g);
 		
 		// Change font
-		
 		Font originalFont = g.getFont();
 		Font menuFont = originalFont.deriveFont(Font.BOLD, 18);
 		g.setFont(menuFont);
@@ -185,23 +184,26 @@ public class LevelEditor extends JPanel
 	{
 		if (editMode)
 		{
-			Random random = new Random();
-			int treeType = 0;
-			
 			Handler.modifyingObjectList = true;
 			
-			for (int i = 0; i < 1856; i += 64)
+			for (int i = 0; i < Window.getFrameBounds().x; i += 64)
 			{
-				for (int j =- 32; j < 896; j += 64)
+				for (int j = 0; j < Window.getFrameBounds().y; j += 64)
 				{
-					treeType = random.nextInt(3); // Choose a random tree type
-					
-					Handler.addObject(new Tree(i, j, treeType));
+					addTree(i, j);
 				}
 			}
 			
 			Handler.modifyingObjectList = false;
 		}
+	}
+	
+	/** Add a tree at the given coordinates with a random type */
+	private void addTree(int x, int y)
+	{
+		Random random = new Random();
+		int treeType = random.nextInt(3);
+		Handler.addObject(new Tree(x, y-32, treeType));
 	}
 	
 	public void placeObject()
@@ -210,7 +212,7 @@ public class LevelEditor extends JPanel
 		{
 			// Place tree
 			if (selectedObjectType == ObjectType.tree)
-				Handler.addObject(new Tree(cursorX, cursorY - 32, 0));
+				addTree(cursorX, cursorY);
 			
 			// Place house
 			if (selectedObjectType == ObjectType.house)

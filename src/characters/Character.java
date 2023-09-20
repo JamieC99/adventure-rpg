@@ -1,6 +1,7 @@
 package characters;
 
 import main.GameObject;
+import main.Window;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -101,9 +102,9 @@ public class Character extends GameObject
 		y += velY;
 		
 		// Clamp movement to screen
-		if (x > 1808) x = 1808;
+		if (x > Window.getFrameBounds().x - 48) x = Window.getFrameBounds().x-48;
 		if (x < 0) x = 0;
-		if (y > 896) y = 896;
+		if (y > Window.getFrameBounds().y - 64) y = Window.getFrameBounds().y - 64;
 		if (y < 0) y = 0;
 	}
 	
