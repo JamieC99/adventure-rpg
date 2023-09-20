@@ -1,10 +1,14 @@
 Adventure-RPG TODO
 
 LEVEL EDITOR
-	Gate
-		ADD level selection - DONE
-		Refine level assigning
+	GATE
+		ADD: level selection - DONE
+		Refine level assigning - DONE
+		
+		NOTE: NullPointException when switching levels seems to 
+		have been solved using an isLoading flag.
 	
 	MENU
-		ADD 'Clear All' button - DONE
-		ADD Display for current level name
+		ADD: 'Clear All' button - DONE
+		ADD: Display for current level name - DONE
+		ADD: Method to switch object types - DONE

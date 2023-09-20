@@ -60,13 +60,17 @@ public class MouseInput implements MouseListener, MouseMotionListener
 		
 		// Level editor button press
 		for (Button buttonPressed : Handler.levelEditor.getButtonList())
-			if (buttonPressed.isSelected())
+		{
+			if (button == MouseEvent.BUTTON1)
 				buttonPressed.action();
+			else if (button == MouseEvent.BUTTON3)
+				buttonPressed.selectObjectVariation();
+		}
 			
 		// If the level editor is in edit mode
 		if (Handler.levelEditor.editMode)
 		{
-			// Add object. Only place an object if the grid is clear or shift is pressed
+			// Add object. Only place an object if the grid is clear or shift is also pressed
 			if (button == MouseEvent.BUTTON1 && (!objectIsSelected || KeyInput.getShiftPressed()))
 				Handler.levelEditor.placeObject();
 			

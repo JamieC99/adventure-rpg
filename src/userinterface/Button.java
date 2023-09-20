@@ -105,13 +105,13 @@ public class Button
 			if (buttonName == "Toggle Grid Lines")
 				Handler.levelEditor.showGridLines = !Handler.levelEditor.showGridLines;
 				
-			// Select tree
-			if (buttonName == "Add Tree")
-				Handler.levelEditor.selectedObjectType = ObjectType.tree;
-			
 			// Mass place trees
 			if (buttonName == "Mass Place Trees")
 				Handler.levelEditor.massPlaceTrees();
+			
+			// Select tree
+			if (buttonName == "Add Tree")
+				Handler.levelEditor.selectedObjectType = ObjectType.tree;
 			
 			// Select house
 			if (buttonName == "Add House")
@@ -124,6 +124,14 @@ public class Button
 			// Select gate
 			if (buttonName == "Add Gate")
 				Handler.levelEditor.selectedObjectType = ObjectType.gate;
+		}
+	}
+	
+	public void selectObjectVariation()
+	{
+		if (selected)
+		{
+			Handler.levelEditor.selectObjectVariation();
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -8,6 +9,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import main.Debug;
 import main.GameObject;
 
 public class Path extends GameObject
@@ -24,27 +26,13 @@ public class Path extends GameObject
 		width = 64;
 		height = 64;
 		
-		if (type == 0)
+		// Assign path type
+		switch(type)
 		{
-			spriteX = 0;
-			spriteY = 0;
-		}
-		else if (type == 1)
-		{
-			spriteX = 64;
-			spriteY = 0;
-			
-			solid = true;
-		}
-		else if (type == 2)
-		{
-			spriteX = 0;
-			spriteY = 64;
-		}
-		else if (type == 3)
-		{
-			spriteX = 64;
-			spriteY = 64;
+			case 0: spriteX = 0;  spriteY = 0;  			 break; // Stone
+			case 1: spriteX = 64; spriteY = 0; solid = true; break; // Water
+			case 2: spriteX = 0;  spriteY = 64; 			 break; // Dirt
+			case 3: spriteX = 64; spriteY = 64; 			 break; // Sand
 		}
 		
 		// Load sprite sheet
@@ -64,6 +52,12 @@ public class Path extends GameObject
 	public void paintComponent(Graphics g) 
 	{
 		g.drawImage(pathSprite, x, y, width, height, null);
+		
+		if (Debug.collisionBounds)
+		{
+			g.setColor(Color.RED);
+			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+		}
 	}
 
 	public Rectangle getBounds()

@@ -4,6 +4,7 @@ import input.*;
 import world.*;
 import main.*;
 import userinterface.*;
+import characters.PlayerCharacter;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,9 +14,8 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import characters.PlayerCharacter;
 
 public class LevelEditor extends JPanel
 {
@@ -35,6 +35,8 @@ public class LevelEditor extends JPanel
 	public boolean showGridLines = true;
 	/** Display the current level in the editor menu */
 	public String currentLevel;
+	/** The variable of the object to create */
+	private int objectVariation;
 	
 	// Object type
 	public enum ObjectType
@@ -120,7 +122,7 @@ public class LevelEditor extends JPanel
 			button.tick();
 	}
 	
-	// Draw the cursor
+	/** Draw the editor cursor */
 	public void drawCursor(Graphics g) 
 	{
 		if (editMode)
@@ -162,6 +164,8 @@ public class LevelEditor extends JPanel
 		Font menuFont = originalFont.deriveFont(Font.BOLD, 18);
 		g.setFont(menuFont);
 		g.setColor(Color.WHITE);
+		
+		g.drawString("Object: " + selectedObjectType.toString() + " Type: " + objectVariation, 4, 468);
 		
 		// Show level name
 		if (currentLevel != null)
@@ -220,7 +224,7 @@ public class LevelEditor extends JPanel
 			
 			// Place path
 			if (selectedObjectType == ObjectType.path)
-				Handler.addObject(new Path(cursorX, cursorY, 2));
+				Handler.addObject(new Path(cursorX, cursorY, objectVariation));
 			
 			// Place gate
 			if (selectedObjectType == ObjectType.gate)
@@ -255,6 +259,30 @@ public class LevelEditor extends JPanel
 			
 			Handler.modifyingObjectList = false;
 		}
+	}
+	
+	public void selectObjectVariation()
+	{
+		if (selectedObjectType == ObjectType.path)
+		{
+			String[] options = {"Stone", "Water", "Dirt", "Sand"};
+			
+			objectVariation = showObjectSelectDialog("Select an option", "Object Selection", options);
+		}
+	}
+	
+	private int showObjectSelectDialog(String message, String title, String[] options)
+	{
+		int result = JOptionPane.showOptionDialog(
+				null,
+				message,
+				title,
+				JOptionPane.DEFAULT_OPTION,
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				options,
+				options[0]);
+		return result;
 	}
 	
 	/** Return the list of buttons */
