@@ -5,8 +5,7 @@ LEVEL EDITOR
 		ADD: level selection - DONE
 		Refine level assigning - DONE
 		
-		NOTE: NullPointException when switching levels seems to 
-		have been solved using an isLoading flag.
+		NOTE: NullPointException occuring inconsistently when moving to a different level
 	
 	MENU
 		ADD: 'Clear All' button - DONE

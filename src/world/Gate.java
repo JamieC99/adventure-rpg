@@ -78,7 +78,7 @@ public class Gate extends GameObject
 			if (Handler.modifyingObjectList)
 				break;
 			
-			if (!Handler.modifyingObjectList)
+			if (!Handler.modifyingObjectList && !isLoading)
 			{
 			    GameObject object = Handler.getObjectList().get(i);
 			    
