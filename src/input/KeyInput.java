@@ -68,7 +68,7 @@ public class KeyInput implements KeyListener
 						}
 					}
 				}
-				else // Spawn player 2 at player 1's position
+				else // If player 2 is NOT active Spawn player 2 at player 1's position
 				{
 					if (key == KeyEvent.VK_UP)
 					{
@@ -76,8 +76,8 @@ public class KeyInput implements KeyListener
 					}
 				}
 			}
-			else
-			{
+			else // If the object IS NOT a player 
+			{ // Move through a gate to a different level
 				if (object instanceof Gate)
 				{
 					Gate gateObject = (Gate) object;
