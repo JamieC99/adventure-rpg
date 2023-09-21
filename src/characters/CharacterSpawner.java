@@ -17,7 +17,8 @@ public class CharacterSpawner extends GameObject
 		width = 64;
 		height = 64;
 		
-		spawnNPC();
+		if (!Handler.levelEditor.editMode)
+			spawnNPC();
 	}
 
 	public void paintComponent(Graphics g) 
@@ -41,8 +42,7 @@ public class CharacterSpawner extends GameObject
 	
 	public void spawnNPC()
 	{
-		if (!Handler.levelEditor.editMode)
-			Handler.addObject(new NonPlayerCharacter(x, y, type));
+		Handler.addObject(new NonPlayerCharacter(x, y, type));
 	}
 
 	public Rectangle getBounds() 

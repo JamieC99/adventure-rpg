@@ -85,18 +85,19 @@ public class Button
 				{
 					GameObject object = Handler.getObjectList().get(i);
 					
-					if (!Handler.levelEditor.editMode)
+					if (Handler.levelEditor.editMode)
+					{
+						if (object instanceof CharacterSpawner)
+						{
+							CharacterSpawner spawner = (CharacterSpawner) object;
+							spawner.spawnNPC();
+						}
+					}
+					else if (!Handler.levelEditor.editMode)
 					{
 						if (object instanceof NonPlayerCharacter)
 						{
 							Handler.removeObject(object);
-						}
-					}
-					else
-					{
-						if (object instanceof CharacterSpawner)
-						{
-							((CharacterSpawner) object).spawnNPC();
 						}
 					}
 				}
