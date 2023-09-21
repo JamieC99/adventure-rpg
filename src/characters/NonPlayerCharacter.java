@@ -14,7 +14,9 @@ import world.Path;
 
 public class NonPlayerCharacter extends Character
 {
-	/** The amount of time until the character changes direction */
+	/** The time elapsed until the character changes direction */
+	private int movementTimerElapsed = 0;
+	/** The amount of time to elapse for the character to choose a direction */
 	private int movementTimer = 0;
 	/** Stop = 0 Up = 1 Down = 2 Left = 3 Right = 4 */
 	private int direction = 0;
@@ -52,11 +54,11 @@ public class NonPlayerCharacter extends Character
 	public void collision()
 	{
 		// Collide with screen borders
-		if (y <= 0) 								 // Top bounds
+		if (y <= 0) // Top bounds
 			moveDown();
 		else if (y >= Window.getFrameBounds().y - height) // Bottom bounds
 			moveUp();
-		else if (x <= 0) 							  	 // Left bounds
+		else if (x <= 0) // Left bounds
 			moveRight();
 		else if (x >= Window.getFrameBounds().x-width) 	 // Right bounds
 			moveLeft();
@@ -70,9 +72,7 @@ public class NonPlayerCharacter extends Character
 				
 				if (object.getBounds() != null)
 				{
-					if (!(object instanceof PlayerCharacter)
-							&& !(object instanceof NonPlayerCharacter) 
-							&& !(object instanceof Path))
+					if (!(object instanceof PlayerCharacter) && !(object instanceof NonPlayerCharacter) && !(object instanceof Path))
 					{
 						if (topBounds().intersects(object.getBounds()))
 							moveDown();
@@ -93,9 +93,14 @@ public class NonPlayerCharacter extends Character
 	
 	private void chooseDirection()
 	{
-		movementTimer++;
+		if (direction == 0)
+			movementTimer = 400;
+		else
+			movementTimer = 50;
 		
-		if (movementTimer > random.nextInt(100) + 200)
+		movementTimerElapsed++;
+		
+		if (movementTimerElapsed > random.nextInt(250) + movementTimer)
 		{
 			direction = random.nextInt(5);
 			
@@ -108,7 +113,7 @@ public class NonPlayerCharacter extends Character
 				case 4: moveRight(); break;
 			}
 			
-			movementTimer = 0;
+			movementTimerElapsed = 0;
 		}
 	}
 	
