@@ -251,6 +251,7 @@ Tree,1792,288,0
 Tree,0,288,2
 Tree,1664,288,1
 Tree,1728,288,1
+CharacterSpawner,320,320,0
 Tree,1792,352,1
 Tree,0,352,1
 Tree,640,352,1
@@ -338,6 +339,7 @@ Tree,1280,672,0
 Tree,1344,672,2
 Tree,1664,672,2
 Tree,1728,672,1
+CharacterSpawner,320,704,4
 Tree,1792,736,1
 Tree,0,736,2
 Tree,1152,736,2

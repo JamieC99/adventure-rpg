@@ -126,7 +126,7 @@ public class Handler
 				{
 					GameObject object = objectList.get(i);
 					
-					if (!(object instanceof PlayerCharacter) && !(object instanceof Gate))
+					if (!(object instanceof PlayerCharacter) && !(object instanceof Gate) && !(object instanceof NonPlayerCharacter))
 					{
 						writer.println(object.getClass().getSimpleName() + "," + object.getX() + "," + object.getY() + "," + object.getType());
 					}
@@ -207,6 +207,7 @@ public class Handler
 							case "House": objectList.add(new House(x, y, type)); break;
 							case "Path": objectList.add(new Path(x, y, type)); break;
 							case "Gate": objectList.add(new Gate(x, y, levelToLoad)); break;
+							case "CharacterSpawner": objectList.add(new CharacterSpawner(x, y, type)); break;
 						}
 					}
 				}

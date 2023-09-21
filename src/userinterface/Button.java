@@ -2,6 +2,7 @@ package userinterface;
 
 import input.MouseInput;
 import main.Debug;
+import main.GameObject;
 import main.Handler;
 
 import java.awt.Color;
@@ -9,6 +10,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import characters.CharacterSpawner;
+import characters.NonPlayerCharacter;
 import editor.LevelEditor.ObjectType;
 
 public class Button
@@ -76,7 +79,31 @@ public class Button
 		{
 			// Toggle edit mode on and off
 			if (buttonName == "Toggle Edit Mode")
+			{
+				Handler.modifyingObjectList = true;
+				for (int i = 0; i < Handler.getObjectList().size(); i++)
+				{
+					GameObject object = Handler.getObjectList().get(i);
+					
+					if (!Handler.levelEditor.editMode)
+					{
+						if (object instanceof NonPlayerCharacter)
+						{
+							Handler.removeObject(object);
+						}
+					}
+					else
+					{
+						if (object instanceof CharacterSpawner)
+						{
+							((CharacterSpawner) object).spawnNPC();
+						}
+					}
+				}
+				Handler.modifyingObjectList = false;
+				
 				Handler.levelEditor.editMode = !Handler.levelEditor.editMode;
+			}
 			
 			// Toggle show collision bounds
 			if (buttonName == "Toggle Collision Bounds")
@@ -113,6 +140,10 @@ public class Button
 			if (buttonName == "Add Tree")
 				Handler.levelEditor.selectedObjectType = ObjectType.tree;
 			
+			// Select NPC
+			if (buttonName == "Add NPC Spawner")
+				Handler.levelEditor.selectedObjectType = ObjectType.npcSpawner;
+			
 			// Select house
 			if (buttonName == "Add House")
 				Handler.levelEditor.selectedObjectType = ObjectType.house;
@@ -130,9 +161,7 @@ public class Button
 	public void selectObjectVariation()
 	{
 		if (selected)
-		{
 			Handler.levelEditor.selectObjectVariation();
-		}
 	}
 	
 	public String getName()

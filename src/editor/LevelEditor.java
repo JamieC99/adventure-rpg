@@ -4,6 +4,7 @@ import input.*;
 import world.*;
 import main.*;
 import userinterface.*;
+import characters.CharacterSpawner;
 import characters.PlayerCharacter;
 
 import java.awt.Color;
@@ -44,7 +45,8 @@ public class LevelEditor extends JPanel
 		tree,
 		house,
 		path,
-		gate
+		gate,
+		npcSpawner
 	}
 	public ObjectType selectedObjectType;
 	
@@ -73,6 +75,7 @@ public class LevelEditor extends JPanel
 		
 		buttonList.add(new Button(0, 160, "Mass Place Trees"));
 		buttonList.add(new Button(0, 224, "Add Tree"));
+		buttonList.add(new Button(128, 224, "Add NPC Spawner"));
 		buttonList.add(new Button(0, 272, "Add House"));
 		buttonList.add(new Button(0, 320, "Add Path"));
 		buttonList.add(new Button(0, 368, "Add Gate"));
@@ -133,9 +136,7 @@ public class LevelEditor extends JPanel
 				for (int i = 0; i < 1856; i += 64)
 				{
 					for (int j = 0; j < 960; j += 64)
-					{
 						g.drawRect(i, j, 64, 64);
-					}
 				}
 			}
 			
@@ -191,12 +192,8 @@ public class LevelEditor extends JPanel
 			Handler.modifyingObjectList = true;
 			
 			for (int i = 0; i < Window.getFrameBounds().x; i += 64)
-			{
 				for (int j = 0; j < Window.getFrameBounds().y; j += 64)
-				{
 					addTree(i, j);
-				}
-			}
 			
 			Handler.modifyingObjectList = false;
 		}
@@ -219,6 +216,9 @@ public class LevelEditor extends JPanel
 			// Place tree
 			if (selectedObjectType == ObjectType.tree)
 				addTree(cursorX, cursorY);
+			
+			if (selectedObjectType == ObjectType.npcSpawner)
+				Handler.addObject(new CharacterSpawner(cursorX, cursorY, objectVariation));
 			
 			// Place house
 			if (selectedObjectType == ObjectType.house)
@@ -270,9 +270,14 @@ public class LevelEditor extends JPanel
 		if (selectedObjectType == ObjectType.path)
 		{
 			String[] options = {"Stone", "Water", "Dirt", "Sand"};
-			
 			objectVariation = showObjectSelectDialog("Select an option", "Object Selection", options);
 		}
+		else if (selectedObjectType == ObjectType.npcSpawner)
+		{
+			String[] options = {"Red", "Pink", "Yellow", "Green", "Purple"};
+			objectVariation = showObjectSelectDialog("Select an option", "NPC Selection", options);
+		}
+		
 	}
 	
 	private int showObjectSelectDialog(String message, String title, String[] options)

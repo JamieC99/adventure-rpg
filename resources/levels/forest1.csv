@@ -62,7 +62,6 @@ Path,768,320,2
 Path,704,320,2
 Path,640,320,2
 Path,640,256,2
-Path,640,192,2
 Path,640,128,2
 Path,704,64,2
 Path,768,64,2
@@ -122,7 +121,6 @@ Path,1216,832,2
 Path,1280,832,2
 Path,1152,768,2
 Path,1216,768,2
-Path,1280,768,2
 Path,960,128,2
 Path,1344,384,2
 Path,704,768,2
@@ -135,6 +133,8 @@ Path,384,832,2
 Path,448,832,2
 Path,448,896,2
 Path,384,896,2
+Path,640,192,2
+Path,1280,768,2
 Tree,0,-32,2
 Tree,64,-32,2
 Tree,128,-32,2
@@ -293,6 +293,7 @@ Tree,256,352,0
 Tree,0,416,0
 Tree,64,416,0
 Gate,1792,448,resources/levels/forest2.csv
+CharacterSpawner,576,448,1
 Tree,0,480,0
 Tree,64,480,0
 Gate,1792,512,resources/levels/forest2.csv
@@ -380,6 +381,7 @@ Tree,1728,736,2
 Tree,1792,736,1
 Tree,1024,736,0
 Tree,896,736,0
+CharacterSpawner,1280,768,3
 Tree,0,800,1
 Tree,64,800,1
 Tree,128,800,0

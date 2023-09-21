@@ -39,6 +39,9 @@ public class Character extends GameObject
 	// Time to wait to update the frame
 	private int animationDelay = 20;
 	
+	// Collision bounds
+	public boolean topCollide, bottomCollide, leftCollide, rightCollide;
+	
 	// Constructor
 	public Character(int x, int y, String imagePath, int type)
 	{
@@ -146,6 +149,30 @@ public class Character extends GameObject
 	public void paintComponent(Graphics g) {}
 
 	public void collision() {}
+
+	// Top collision box
+	public Rectangle topBounds()
+	{
+		return new Rectangle(x + 3, y + 24, width - 5, 1);
+	}
+	
+	// Bottom collision box
+	public Rectangle bottomBounds()
+	{
+		return new Rectangle(x + 3, y + height, width - 5, 1);
+	}
+	
+	// Left collision box
+	public Rectangle leftBounds()
+	{
+		return new Rectangle(x - 1, y + 27, 1, height - 29);
+	} 
+	
+	// Right collision box
+	public Rectangle rightBounds()
+	{
+		return new Rectangle(x + width, y + 27, 1, height - 29);
+	}
 	
 	/** Collision box used for triggers */
 	public Rectangle getBounds()

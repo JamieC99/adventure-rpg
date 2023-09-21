@@ -72,11 +72,19 @@ public class MouseInput implements MouseListener, MouseMotionListener
 		{
 			// Add object. Only place an object if the grid is clear or shift is also pressed
 			if (button == MouseEvent.BUTTON1 && (!objectIsSelected || KeyInput.getShiftPressed()))
+			{
+				Handler.modifyingObjectList = true;
 				Handler.levelEditor.placeObject();
+				Handler.modifyingObjectList = false;
+			}
 			
 			// Remove object
 			if (button == MouseEvent.BUTTON3)
+			{
+				Handler.modifyingObjectList = true;
 				Handler.levelEditor.removeObject();
+				Handler.modifyingObjectList = false;
+			}
 			
 			// Assign level to gate
 			for (int i = 0; i < Handler.getObjectList().size(); i++)
@@ -118,9 +126,12 @@ public class MouseInput implements MouseListener, MouseMotionListener
 		{
 			GameObject object = Handler.getObjectList().get(i);
 			
-			if (Handler.levelEditor.getCursorBounds().intersects(object.getBounds()))
+			if (object.getBounds() != null)
 			{
-				objectIsSelected = true;
+				if (Handler.levelEditor.getCursorBounds().intersects(object.getBounds()))
+				{
+					objectIsSelected = true;
+				}
 			}
 		}
 	}
