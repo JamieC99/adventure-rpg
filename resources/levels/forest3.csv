@@ -170,6 +170,7 @@ Path,1728,512,2
 Path,1728,448,2
 Path,1664,832,2
 Path,1600,832,2
+Path,1664,0,2
 Tree,0,-32,0
 Tree,64,-32,1
 Tree,128,-32,2
@@ -196,9 +197,9 @@ Tree,1408,-32,1
 Tree,1472,-32,0
 Tree,1536,-32,2
 Tree,1600,-32,2
-Tree,1664,-32,0
 Tree,1728,-32,2
 Tree,1792,-32,0
+Gate,1664,0,resources/levels/forest6.csv
 Tree,0,32,2
 Tree,512,32,0
 Tree,1728,32,0
