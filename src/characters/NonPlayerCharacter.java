@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 import main.Debug;
 import main.GameObject;
 import main.Handler;
@@ -30,6 +32,10 @@ public class NonPlayerCharacter extends Character
 	
 	public void paintComponent(Graphics g)
 	{
+		// Draw shadow
+		g.drawImage(new ImageIcon("resources/sprites/characters/char_shadow.png").getImage(), x, y + 48, width, height / 2, null);
+		
+		// Draw character sprite
 		g.drawImage(characterSprite, x, y, width, height, null);
 		
 		// Draw collision bounds
