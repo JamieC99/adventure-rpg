@@ -25,7 +25,7 @@ public class Window extends JPanel
 	private static Point frameEdgeBounds = new Point(1856, 960);
 	/** Default window size */
 	private final int WIDTH = frameEdgeBounds.x + 16, HEIGHT = frameEdgeBounds.y + 39;
-	private static float screenFade = 0;
+	private static float screenFadeValue = 0;
 	private static float fade = 0;
 	
 	public Window()
@@ -71,16 +71,17 @@ public class Window extends JPanel
 		// Draw game objects
 		Handler.paintComponent(g);
 		
+		// Screen fading
 		if (fade == 0)
-			if (screenFade > 0) screenFade -= 0.01f;
+			if (screenFadeValue > 0) screenFadeValue -= 0.01f;
 		if (fade == 1)
-			if (screenFade < 1) screenFade += 0.01f;
+			if (screenFadeValue < 1) screenFadeValue += 0.01f;
 		
-		if (screenFade <= 0) screenFade = 0;
-		if (screenFade >= 1) screenFade = 1;
+		if (screenFadeValue <= 0) screenFadeValue = 0;
+		if (screenFadeValue >= 1) screenFadeValue = 1;
 		
 		// Draw screen fade overlay
-		g.setColor(new Color(0, 0, 0, screenFade));
+		g.setColor(new Color(0, 0, 0, screenFadeValue));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		repaint();
@@ -98,22 +99,18 @@ public class Window extends JPanel
 		return frameEdgeBounds;
 	}
 	
-	public static void setFade0()
+	public static void fadeScreenFromBlack()
 	{
 		fade = 0;
 	}
 	
-	public static void setFade1()
+	public static void fadeScreenToBlack()
 	{
 		fade = 1;
 	}
 	
 	public static float getFadeValue()
 	{
-		return screenFade;
-	}
-	public static void setFadeValue(float value)
-	{
-		screenFade = value;
+		return screenFadeValue;
 	}
 }

@@ -112,29 +112,37 @@ public class Gate extends GameObject
 		}
 		else
 			selected = false;
+		
+		// Re-call the loadLevel method when the screen fades to back
+		if (isLoading)
+		{
+			if (Window.getFadeValue() == 1)
+				loadLevel();
+		}
 	}
 	
 	/** Move to another level when the player enters the gate */
 	public void loadLevel()
 	{
 		// Check a level is not already loading
-		if (!isLoading)
-		{
-		    isLoading = true;
-
-		    if (canMoveToNewMap() && !Handler.modifyingObjectList) 
-		    {
-	    		Window.setFadeValue(1);
-	    		
-	    		if (Window.getFadeValue() == 1)
-	    		{
-			        Handler.loadLevelFromGate(levelToLoad);
-			        movePlayers();
-			        Window.setFade0();
-	    		}
-		    }
-		    isLoading = false;
-		}
+	    if (canMoveToNewMap() && !Handler.modifyingObjectList) 
+	    {
+    		if (Window.getFadeValue() == 0)
+    		{
+    			Window.fadeScreenToBlack();
+    			isLoading = true;
+    		}
+    		else if (Window.getFadeValue() == 1)
+    		{
+    			isLoading = true;
+    			
+		        Handler.loadLevelFromGate(levelToLoad);
+		        movePlayers();
+		        Window.fadeScreenFromBlack();
+		        
+		        isLoading = false;
+    		}
+	    }
 	}
 	
 	/** Shift players to the opposite side of the frame */
