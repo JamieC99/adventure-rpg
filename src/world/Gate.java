@@ -3,6 +3,7 @@ package world;
 import main.Debug;
 import main.GameObject;
 import main.Handler;
+import main.Window;
 import characters.PlayerCharacter;
 
 import java.awt.Color;
@@ -119,15 +120,20 @@ public class Gate extends GameObject
 		// Check a level is not already loading
 		if (!isLoading)
 		{
-			isLoading = true;
-			
-			if (canMoveToNewMap() && !Handler.modifyingObjectList)
-			{
-				movePlayers();
-				Handler.loadLevelFromGate(levelToLoad);
-			}
-			
-			isLoading = false;
+		    isLoading = true;
+
+		    if (canMoveToNewMap() && !Handler.modifyingObjectList) 
+		    {
+	    		Window.setFadeValue(1);
+	    		
+	    		if (Window.getFadeValue() == 1)
+	    		{
+			        Handler.loadLevelFromGate(levelToLoad);
+			        movePlayers();
+			        Window.setFade0();
+	    		}
+		    }
+		    isLoading = false;
 		}
 	}
 	

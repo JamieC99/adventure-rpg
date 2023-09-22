@@ -17,17 +17,16 @@ public class Window extends JPanel
 {
 	private static final long serialVersionUID = -5674682140947704987L;
 	
-	// Create frame
+	/** Main game window */
 	JFrame frame = new JFrame("Adventure RPG");
-	
-	// The scale of the image based on the window width
+	/** The scale of the image based on the window width */
 	private static float frameScale;
-	
 	/** Proper size of the frame */
 	private static Point frameEdgeBounds = new Point(1856, 960);
-	
-	// Default window size
+	/** Default window size */
 	private final int WIDTH = frameEdgeBounds.x + 16, HEIGHT = frameEdgeBounds.y + 39;
+	private static float screenFade = 0;
+	private static float fade = 0;
 	
 	public Window()
 	{
@@ -66,11 +65,23 @@ public class Window extends JPanel
 		g.fillRect(0, 0, WIDTH, HEIGHT * 2);
 		
 		// Draw background
-		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(), 
+		g.drawImage(new ImageIcon("resources/sprites/environment/background.png").getImage(),
 				0, 0, frameEdgeBounds.x, frameEdgeBounds.y, null);
 		
 		// Draw game objects
 		Handler.paintComponent(g);
+		
+		if (fade == 0)
+			if (screenFade > 0) screenFade -= 0.01f;
+		if (fade == 1)
+			if (screenFade < 1) screenFade += 0.01f;
+		
+		if (screenFade <= 0) screenFade = 0;
+		if (screenFade >= 1) screenFade = 1;
+		
+		// Draw screen fade overlay
+		g.setColor(new Color(0, 0, 0, screenFade));
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		repaint();
 	}
@@ -81,8 +92,28 @@ public class Window extends JPanel
 		return frameScale;
 	}
 	
+	/** Return the frames boundaries */
 	public static Point getFrameBounds()
 	{
 		return frameEdgeBounds;
+	}
+	
+	public static void setFade0()
+	{
+		fade = 0;
+	}
+	
+	public static void setFade1()
+	{
+		fade = 1;
+	}
+	
+	public static float getFadeValue()
+	{
+		return screenFade;
+	}
+	public static void setFadeValue(float value)
+	{
+		screenFade = value;
 	}
 }
