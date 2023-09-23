@@ -222,7 +222,7 @@ public class LevelEditor extends JPanel
 			
 			// Place house
 			if (selectedObjectType == ObjectType.house)
-				Handler.addObject(new House(cursorX, cursorY, 0));
+				Handler.addObject(new House(cursorX, cursorY, objectVariation));
 			
 			// Place path
 			if (selectedObjectType == ObjectType.path)
@@ -276,6 +276,11 @@ public class LevelEditor extends JPanel
 		{
 			String[] options = {"Red", "Pink", "Yellow", "Green", "Purple"};
 			objectVariation = showObjectSelectDialog("Select an option", "NPC Selection", options);
+		}
+		else if (selectedObjectType == ObjectType.house)
+		{
+			String[] options = {"House 1", "House 2"};
+			objectVariation = showObjectSelectDialog("Selected an Option", "House Selection", options);
 		}
 		
 	}

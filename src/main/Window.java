@@ -7,14 +7,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class Window extends JPanel
 {
@@ -48,26 +44,15 @@ public class Window extends JPanel
 		frame.addKeyListener(new KeyInput());
 		frame.addMouseListener(new MouseInput());
 		frame.addMouseMotionListener(new MouseInput());
-		
-		// Create timer for screen fading
-		Timer timer = new Timer(1, new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				updateScreenFadeValue();
-				repaint();
-			}
-		});
-		timer.start();
 	}
 	
-	private void updateScreenFadeValue() 
+	public static void updateScreenFadeValue() 
 	{
 		// Screen fading
 		if (fade == 0)
-			if (screenFadeValue > 0) screenFadeValue -= 0.05f;
+			if (screenFadeValue > 0) screenFadeValue -= 0.02f;
 		if (fade == 1)
-			if (screenFadeValue < 1) screenFadeValue += 0.05f;
+			if (screenFadeValue < 1) screenFadeValue += 0.02f;
 		
 		if (screenFadeValue <= 0) screenFadeValue = 0;
 		if (screenFadeValue >= 1) screenFadeValue = 1;

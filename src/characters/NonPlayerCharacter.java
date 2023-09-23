@@ -1,16 +1,14 @@
 package characters;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Random;
-
-import javax.swing.ImageIcon;
-
 import main.Debug;
 import main.GameObject;
 import main.Handler;
 import main.Window;
-import world.Path;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Random;
+import javax.swing.ImageIcon;
 
 public class NonPlayerCharacter extends Character
 {
@@ -70,20 +68,17 @@ public class NonPlayerCharacter extends Character
 			{
 				GameObject object = Handler.getObjectList().get(i);
 				
-				if (object.getBounds() != null)
+				if (object.getBounds() != null && object.isSolid())
 				{
-					if (!(object instanceof PlayerCharacter) && !(object instanceof NonPlayerCharacter) && !(object instanceof Path))
-					{
-						if (topBounds().intersects(object.getBounds()))
-							moveDown();
-						else if (bottomBounds().intersects(object.getBounds()))
-							moveUp();
-						
-						else if (leftBounds().intersects(object.getBounds()))
-							moveRight();
-						else if (rightBounds().intersects(object.getBounds()))
-							moveLeft();
-					}
+					if (topBounds().intersects(object.getBounds()))
+						moveDown();
+					else if (bottomBounds().intersects(object.getBounds()))
+						moveUp();
+					
+					else if (leftBounds().intersects(object.getBounds()))
+						moveRight();
+					else if (rightBounds().intersects(object.getBounds()))
+						moveLeft();
 				}
 			}
 		}
