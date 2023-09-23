@@ -7,11 +7,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Window extends JPanel
 {
@@ -25,6 +28,7 @@ public class Window extends JPanel
 	private static Point frameEdgeBounds = new Point(1856, 960);
 	/** Default window size */
 	private final int WIDTH = frameEdgeBounds.x + 16, HEIGHT = frameEdgeBounds.y + 39;
+	
 	private static float screenFadeValue = 0;
 	private static float fade = 0;
 	
@@ -44,7 +48,30 @@ public class Window extends JPanel
 		frame.addKeyListener(new KeyInput());
 		frame.addMouseListener(new MouseInput());
 		frame.addMouseMotionListener(new MouseInput());
+		
+		// Create timer for screen fading
+		Timer timer = new Timer(20, new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				updateScreenFadeValue();
+				repaint();
+			}
+		});
+		timer.start();
 	}
+	
+	private void updateScreenFadeValue() 
+	{
+		// Screen fading
+		if (fade == 0)
+			if (screenFadeValue > 0) screenFadeValue -= 0.1f;
+		if (fade == 1)
+			if (screenFadeValue < 1) screenFadeValue += 0.1f;
+		
+		if (screenFadeValue <= 0) screenFadeValue = 0;
+		if (screenFadeValue >= 1) screenFadeValue = 1;
+    }
 	
 	// Rendering
 	public void paintComponent(Graphics g)
@@ -76,18 +103,6 @@ public class Window extends JPanel
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		repaint();
-	}
-	
-	public static void tick()
-	{
-		// Screen fading
-		if (fade == 0)
-			if (screenFadeValue > 0) screenFadeValue -= 0.02f;
-		if (fade == 1)
-			if (screenFadeValue < 1) screenFadeValue += 0.02f;
-		
-		if (screenFadeValue <= 0) screenFadeValue = 0;
-		if (screenFadeValue >= 1) screenFadeValue = 1;
 	}
 	
 	/** Return the scale of the frame */

@@ -38,15 +38,12 @@ public class Handler
 	public static void paintComponent(Graphics g)
 	{
 		// Draw world objects
-		if (!modifyingObjectList)
+		for (int i = 0; i < objectList.size(); i++)
 		{
-			for (int i = 0; i < objectList.size(); i++)
-			{
-				GameObject object = objectList.get(i);
-				
-				if (object != null)
-					object.paintComponent(g);
-			}
+			GameObject object = objectList.get(i);
+			
+			if (object != null)
+				object.paintComponent(g);
 		}
 		
 		levelEditor.drawCursor(g);
@@ -56,18 +53,15 @@ public class Handler
 	/** Update game objects */
 	public static void tick()
 	{
-		if (!modifyingObjectList)
+		for (int i = 0; i < objectList.size(); i++)
 		{
-			for (int i = 0; i < objectList.size(); i++)
-			{
-				GameObject object = objectList.get(i);
-
-				if (object != null)
-					object.tick();
-			}
+			GameObject object = objectList.get(i);
 			
-			objectSort();
+			if (object != null)
+				object.tick();
 		}
+		
+		objectSort();
 		
 		levelEditor.tick();
 		gui.tick();
