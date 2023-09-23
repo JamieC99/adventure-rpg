@@ -50,7 +50,7 @@ public class Window extends JPanel
 		frame.addMouseMotionListener(new MouseInput());
 		
 		// Create timer for screen fading
-		Timer timer = new Timer(20, new ActionListener()
+		Timer timer = new Timer(1, new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
@@ -65,9 +65,9 @@ public class Window extends JPanel
 	{
 		// Screen fading
 		if (fade == 0)
-			if (screenFadeValue > 0) screenFadeValue -= 0.1f;
+			if (screenFadeValue > 0) screenFadeValue -= 0.05f;
 		if (fade == 1)
-			if (screenFadeValue < 1) screenFadeValue += 0.1f;
+			if (screenFadeValue < 1) screenFadeValue += 0.05f;
 		
 		if (screenFadeValue <= 0) screenFadeValue = 0;
 		if (screenFadeValue >= 1) screenFadeValue = 1;
