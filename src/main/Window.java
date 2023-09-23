@@ -71,20 +71,23 @@ public class Window extends JPanel
 		// Draw game objects
 		Handler.paintComponent(g);
 		
-		// Screen fading
-		if (fade == 0)
-			if (screenFadeValue > 0) screenFadeValue -= 0.01f;
-		if (fade == 1)
-			if (screenFadeValue < 1) screenFadeValue += 0.01f;
-		
-		if (screenFadeValue <= 0) screenFadeValue = 0;
-		if (screenFadeValue >= 1) screenFadeValue = 1;
-		
 		// Draw screen fade overlay
 		g.setColor(new Color(0, 0, 0, screenFadeValue));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		repaint();
+	}
+	
+	public static void tick()
+	{
+		// Screen fading
+		if (fade == 0)
+			if (screenFadeValue > 0) screenFadeValue -= 0.02f;
+		if (fade == 1)
+			if (screenFadeValue < 1) screenFadeValue += 0.02f;
+		
+		if (screenFadeValue <= 0) screenFadeValue = 0;
+		if (screenFadeValue >= 1) screenFadeValue = 1;
 	}
 	
 	/** Return the scale of the frame */

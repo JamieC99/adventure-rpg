@@ -40,6 +40,7 @@ public class Main
 	public void tick()
 	{
 		Handler.tick();
+		Window.tick();
 	}
 	
 	public static void main(String[] args)
