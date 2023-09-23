@@ -23,13 +23,12 @@ public class Handler
 {
 	/** Linked list containing every game object */
 	private static LinkedList<GameObject> objectList = new LinkedList<GameObject>();
+	
 	public static LevelEditor levelEditor = new LevelEditor();
+	public static GUI gui = new GUI();
 	
 	/** Checks if the objectList is being loaded. */
 	public static boolean modifyingObjectList = false;
-	
-	public static GUI gui = new GUI();
-	
 	/** Active status for player 1 */
 	public static boolean player1Active = false;
 	/** Active status for player 2 */
@@ -51,7 +50,6 @@ public class Handler
 		}
 		
 		levelEditor.drawCursor(g);
-		
 		gui.paintComponent(g);
 	}
 	
@@ -72,7 +70,6 @@ public class Handler
 		}
 		
 		levelEditor.tick();
-		
 		gui.tick();
 	}
 	
