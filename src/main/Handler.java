@@ -172,35 +172,47 @@ public class Handler
 			// Read file
 			try (BufferedReader reader = new BufferedReader(new FileReader(levelName)))
 			{
+				String[] parts;
 				String line;
+				String levelToLoad;
+				int x, y, type;
+				String className;
+				
 				while ((line = reader.readLine()) != null)
 				{
-					String[] parts = line.split(",");
+					parts = line.split(",");
 					
-					if (parts.length == 4)
-					{
-						// Get the class name position
-						String className = parts[0];
-						int x = Integer.parseInt(parts[1]);
-						int y = Integer.parseInt(parts[2]);
-						int type = 0;
-						String levelToLoad = "";
-						
-						if (!className.equals("Gate"))
-							type = Integer.parseInt(parts[3]);
-						else
-							levelToLoad = parts[3];
-						
-						// Add the object to the list
-						switch (className)
-						{
-							case "Tree": objectList.add(new Tree(x, y, type)); break;
-							case "House": objectList.add(new House(x, y, type)); break;
-							case "Path": objectList.add(new Path(x, y, type)); break;
-							case "Gate": objectList.add(new Gate(x, y, levelToLoad)); break;
-							case "CharacterSpawner": objectList.add(new CharacterSpawner(x, y, type)); break;
-						}
-					}
+					// Get the class name position
+					className = parts[0];
+					x = Integer.parseInt(parts[1]);
+					y = Integer.parseInt(parts[2]);
+					type = 0;
+					levelToLoad = "";
+					
+					type = className.equals("Gate") ? 0 : Integer.parseInt(parts[3]);
+                    levelToLoad = className.equals("Gate") ? parts[3] : "";
+					
+					// Add the object to the list
+                    if (className.equals("Tree")) 
+                    {
+                        objectList.add(new Tree(x, y, type));
+                    } 
+                    else if (className.equals("House")) 
+                    {
+                        objectList.add(new House(x, y, type));
+                    }
+                    else if (className.equals("Path")) 
+                    {
+                        objectList.add(new Path(x, y, type));
+                    } 
+                    else if (className.equals("Gate")) 
+                    {
+                        objectList.add(new Gate(x, y, levelToLoad));
+                    } 
+                    else if (className.equals("CharacterSpawner")) 
+                    {
+                        objectList.add(new CharacterSpawner(x, y, type));
+                    }
 				}
 				
 				reader.close();
@@ -210,7 +222,7 @@ public class Handler
 			{
 				e.printStackTrace();
 			}
-	
+			
 			modifyingObjectList = false;
 		}
 	}
@@ -220,29 +232,27 @@ public class Handler
 	{
 		if (objectList != null && !modifyingObjectList)
 		{
-			synchronized (objectList)
+			Collections.sort(objectList, new Comparator<GameObject>() 
 			{
-				Collections.sort(objectList, new Comparator<GameObject>() 
-				{
-				    public int compare(GameObject obj1, GameObject obj2) 
-				    {
-				        // Check if either obj1 or obj2 is a Path
-				        boolean isObj1Path = obj1 instanceof Path;
-				        boolean isObj2Path = obj2 instanceof Path;
+			    public int compare(GameObject obj1, GameObject obj2) 
+			    {
+			        // Check if either obj1 or obj2 is a Path
+			        boolean isObj1Path = obj1 instanceof Path;
+			        boolean isObj2Path = obj2 instanceof Path;
 
-				        // If both are Paths or neither is a Path, compare based on y-coordinates
-				        if (isObj1Path == isObj2Path)
-				        {
-				            int y1 = (isObj1Path) ? Integer.MIN_VALUE : obj1.getY();
-				            int y2 = (isObj2Path) ? Integer.MIN_VALUE : obj2.getY();
-				            return Integer.compare(y1, y2);
-				        }
+			        // If both are Paths or neither is a Path, compare based on y-coordinates
+			        if (isObj1Path == isObj2Path)
+			        {
+			            int y1 = (isObj1Path) ? Integer.MIN_VALUE : obj1.getY();
+			            int y2 = (isObj2Path) ? Integer.MIN_VALUE : obj2.getY();
+			            
+			            return Integer.compare(y1, y2);
+			        }
 
-				        // If obj1 is a Path, it should come first
-				        return (isObj1Path) ? -1 : 1;
-				    }
-				});
-			}
+			        // If obj1 is a Path, it should come first
+			        return (isObj1Path) ? -1 : 1;
+			    }
+			});
 		}
 	}
 }

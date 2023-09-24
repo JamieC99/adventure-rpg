@@ -50,9 +50,9 @@ public class Window extends JPanel
 	{
 		// Screen fading
 		if (fade == 0)
-			if (screenFadeValue > 0) screenFadeValue -= 0.02f;
+			if (screenFadeValue > 0) screenFadeValue -= 0.01f;
 		if (fade == 1)
-			if (screenFadeValue < 1) screenFadeValue += 0.02f;
+			if (screenFadeValue < 1) screenFadeValue += 0.01f;
 		
 		if (screenFadeValue <= 0) screenFadeValue = 0;
 		if (screenFadeValue >= 1) screenFadeValue = 1;
@@ -82,6 +82,8 @@ public class Window extends JPanel
 		
 		// Draw game objects
 		Handler.paintComponent(g);
+		
+		updateScreenFadeValue();
 		
 		// Draw screen fade overlay
 		g.setColor(new Color(0, 0, 0, screenFadeValue));

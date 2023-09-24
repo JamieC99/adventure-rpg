@@ -82,7 +82,7 @@ public class Character extends GameObject
 					spriteX = 0;
 				
 				animationTimer = 0;
-			}	
+			}
 		}
 		else
 			spriteX = 48; // Standing still image
