@@ -22,6 +22,8 @@ public class PlayerCharacter extends Character
 	// Perform collision checking
 	public void collision()
 	{
+		System.out.println(moveSpeed);
+		
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
 			if (Handler.getObjectList() != null && !Handler.modifyingObjectList)
@@ -100,6 +102,11 @@ public class PlayerCharacter extends Character
 			g.fillRect(leftBounds().x, leftBounds().y, leftBounds().width, leftBounds().height);
 			g.fillRect(rightBounds().x, rightBounds().y, rightBounds().width, rightBounds().height);
 		}
+	}
+	
+	public void setMoveSpeed(float speed)
+	{
+		moveSpeed = speed;
 	}
 	
 	public int getPlayerNumber()
