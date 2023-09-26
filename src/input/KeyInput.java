@@ -11,8 +11,11 @@ public class KeyInput implements KeyListener
 {
 	private static boolean shiftPressed = false;
 	
+	@Override
 	public void keyPressed(KeyEvent e)
 	{
+		System.out.println("Check");
+		
 		int key = e.getKeyCode();
 		
 		for (int i = 0; i < Handler.getObjectList().size(); i++)

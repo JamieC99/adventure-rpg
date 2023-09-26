@@ -22,8 +22,6 @@ public class PlayerCharacter extends Character
 	// Perform collision checking
 	public void collision()
 	{
-		System.out.println(moveSpeed);
-		
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
 		{
 			if (Handler.getObjectList() != null && !Handler.modifyingObjectList)

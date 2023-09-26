@@ -74,7 +74,6 @@ public class NonPlayerCharacter extends Character
 						moveDown();
 					else if (bottomBounds().intersects(object.getBounds()))
 						moveUp();
-					
 					else if (leftBounds().intersects(object.getBounds()))
 						moveRight();
 					else if (rightBounds().intersects(object.getBounds()))
@@ -144,17 +143,14 @@ public class NonPlayerCharacter extends Character
 	
 	private static String getCharacterSprite(int type)
 	{
-		if (type == 0)
-			return "resources/sprites/characters/char_red_sheet.png";
-		else if (type == 1)			
-			return "resources/sprites/characters/char_pink_sheet.png";
-		else if (type == 2)
-			return "resources/sprites/characters/char_yellow_sheet.png";
-		else if (type == 3)
-			return "resources/sprites/characters/char_green_sheet.png";
-		else if (type == 4)
-			return "resources/sprites/characters/char_purple_sheet.png";
-		else
-			return null;
+		switch(type)
+		{
+			case 0: return "resources/sprites/characters/char_red_sheet.png";
+			case 1: return "resources/sprites/characters/char_pink_sheet.png";
+			case 2: return "resources/sprites/characters/char_yellow_sheet.png";
+			case 3: return "resources/sprites/characters/char_green_sheet.png";
+			case 4: return "resources/sprites/characters/char_purple_sheet.png";
+			default: return null;
+		}
 	}
 }
