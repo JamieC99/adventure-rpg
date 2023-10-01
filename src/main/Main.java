@@ -25,7 +25,7 @@ public class Main
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 
-		while(true)
+		while (true)
 		{
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -33,7 +33,7 @@ public class Main
 			while (delta >= 1)
 			{
 				tick();
-				Window.updateScreenFadeValue();
+				//Window.updateScreenFadeValue();
 				delta--;
 			}
 		}

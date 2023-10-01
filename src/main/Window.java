@@ -3,7 +3,6 @@ package main;
 import input.*;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -35,8 +34,6 @@ public class Window extends JPanel
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMaximumSize(new Dimension(WIDTH, HEIGHT));
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		
 		// Add panel to window
@@ -50,9 +47,9 @@ public class Window extends JPanel
 	{
 		// Screen fading
 		if (fade == 0)
-			if (screenFadeValue > 0) screenFadeValue -= 0.02f;
+			if (screenFadeValue > 0) screenFadeValue -= 0.01f;
 		if (fade == 1)
-			if (screenFadeValue < 1) screenFadeValue += 0.02f;
+			if (screenFadeValue < 1) screenFadeValue += 0.01f;
 		
 		if (screenFadeValue <= 0) screenFadeValue = 0;
 		if (screenFadeValue >= 1) screenFadeValue = 1;
@@ -83,7 +80,7 @@ public class Window extends JPanel
 		// Draw game objects
 		Handler.paintComponent(g);
 		
-		//updateScreenFadeValue();
+		updateScreenFadeValue();
 		
 		// Draw screen fade overlay
 		g.setColor(new Color(0, 0, 0, screenFadeValue));
