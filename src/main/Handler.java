@@ -142,12 +142,6 @@ public class Handler
 		}
 	}
 	
-	/** Load level when entered through a gate */
-	public static void loadLevelFromGate(String levelName)
-	{
-		loadLevel(levelName);
-	}
-	
 	/** Load level inside the level editor */
 	public static void loadLevelFromEditor()
 	{
@@ -237,7 +231,7 @@ public class Handler
 	{
 		if (objectList != null && !modifyingObjectList)
 		{
-			Collections.sort(objectList, new Comparator<GameObject>() 
+			Collections.sort(objectList, new Comparator<GameObject>()
 			{
 			    public int compare(GameObject obj1, GameObject obj2) 
 			    {

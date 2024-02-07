@@ -136,7 +136,7 @@ public class Gate extends GameObject
     		{
     			isLoading = true;
     			
-		        Handler.loadLevelFromGate(levelToLoad);
+		        Handler.loadLevel(levelToLoad);
 		        movePlayers();
 		        Window.fadeScreenFromBlack();
 		        

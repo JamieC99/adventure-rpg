@@ -282,7 +282,6 @@ public class LevelEditor extends JPanel
 			String[] options = {"House 1", "House 2"};
 			objectVariation = showObjectSelectDialog("Selected an Option", "House Selection", options);
 		}
-		
 	}
 	
 	private int showObjectSelectDialog(String message, String title, String[] options)
