@@ -80,13 +80,14 @@ public class Window extends JPanel
 		// Draw game objects
 		Handler.paintComponent(g);
 		
-		updateScreenFadeValue();
+		//updateScreenFadeValue();
 		
 		// Draw screen fade overlay
 		g.setColor(new Color(0, 0, 0, screenFadeValue));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		repaint();
+		if (!Handler.modifyingObjectList)
+			repaint();
 	}
 	
 	/** Return the scale of the frame */

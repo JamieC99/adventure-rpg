@@ -85,20 +85,23 @@ public class Gate extends GameObject
 				if (Handler.getObjectList() == null)
 					break;
 				
-			    GameObject object = Handler.getObjectList().get(i);
+				if (Handler.getObjectList().get(i) != null)
+				{
+					GameObject object = Handler.getObjectList().get(i);
 			    
-		        // Get the player object
-		        if (object instanceof PlayerCharacter)
-		        {
-		            PlayerCharacter playerObject = (PlayerCharacter) object;
-		
-		            // Check for collision with the players
-		            if (getBounds().intersects(playerObject.getBounds()))
-		            {
-		                moveToNewMap = true;
-		                break; // No need to continue checking if collision is detected
-		            }
-		        }
+			        // Get the player object
+			        if (object instanceof PlayerCharacter)
+			        {
+			            PlayerCharacter playerObject = (PlayerCharacter) object;
+			
+			            // Check for collision with the players
+			            if (getBounds().intersects(playerObject.getBounds()))
+			            {
+			                moveToNewMap = true;
+			                break; // No need to continue checking if collision is detected
+			            }
+			        }
+				}
 			}
 		}
 		
@@ -116,7 +119,7 @@ public class Gate extends GameObject
 		// Re-call the loadLevel method when the screen fades to back
 		if (isLoading)
 		{
-			if (Window.getFadeValue() == 1)
+			//if (Window.getFadeValue() == 1)
 				loadLevel();
 		}
 	}
@@ -127,21 +130,21 @@ public class Gate extends GameObject
 		// Check a level is not already loading
 	    if (canMoveToNewMap() && !Handler.modifyingObjectList) 
 	    {
-    		if (Window.getFadeValue() == 0)
-    		{
-    			Window.fadeScreenToBlack();
-    			isLoading = true;
-    		}
-    		else if (Window.getFadeValue() == 1)
-    		{
+    		//if (Window.getFadeValue() == 0)
+    		//{
+    			//Window.fadeScreenToBlack();
+    			//isLoading = true;
+    		//}
+    		//else if (Window.getFadeValue() == 1)
+    		//{
     			isLoading = true;
     			
 		        Handler.loadLevel(levelToLoad);
 		        movePlayers();
-		        Window.fadeScreenFromBlack();
+		        //Window.fadeScreenFromBlack();
 		        
 		        isLoading = false;
-    		}
+    		//}
 	    }
 	}
 	

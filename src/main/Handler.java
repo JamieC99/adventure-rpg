@@ -59,9 +59,12 @@ public class Handler
 		{
 			for (int i = 0; i < objectList.size(); i++)
 			{
+				if (modifyingObjectList)
+					break;
+				
 				GameObject object = objectList.get(i);
 				
-				if (object != null)
+				if (object != null && !modifyingObjectList)
 					object.tick();
 			}
 			

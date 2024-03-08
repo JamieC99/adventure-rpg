@@ -8,7 +8,7 @@ public class Main
 	{
 		Handler.addObject(new PlayerCharacter(928, 480, 1, 0));
 		
-		Handler.loadLevel("resources/levels/town2.csv");
+		Handler.loadLevel("resources/levels/village1.csv");
 		
 		// Create the game window
 		new Window();
