@@ -247,6 +247,8 @@ Tree,1600,32,0
 Tree,1664,32,2
 Tree,1728,32,2
 Tree,1536,32,1
+Gate,1792,128,resources/levels/village4.csv
+Gate,1792,192,resources/levels/village4.csv
 Tree,0,224,0
 Tree,1792,224,1
 Tree,1728,224,2

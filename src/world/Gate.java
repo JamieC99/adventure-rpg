@@ -3,7 +3,7 @@ package world;
 import main.Debug;
 import main.GameObject;
 import main.Handler;
-import main.Window;
+//import main.Window;
 import characters.PlayerCharacter;
 
 import java.awt.Color;

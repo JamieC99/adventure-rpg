@@ -148,6 +148,7 @@ Tree,1728,-32,1
 Tree,1792,-32,2
 House,384,0,0
 House,1536,0,1
+Gate,1152,0,resources/levels/village4.csv
 Tree,1216,32,0
 Tree,1088,32,0
 Tree,0,32,0
