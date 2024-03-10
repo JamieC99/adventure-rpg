@@ -68,12 +68,11 @@ public class Button
 	
 	public void tick()
 	{
+		// Check for intersection with the mouse. Button selection
 		if (Handler.levelEditor.editorFrame.getBounds().contains(MouseInput.getMousePoint()))
 		{
 			if (getBounds().intersects(MouseInput.getBounds()))
-			{
 				selected = true;
-			}
 			else
 				selected = false;
 		}
@@ -99,12 +98,14 @@ public class Button
 					
 					if (Handler.levelEditor.editMode)
 					{
+						// Spawn NPCs when in play mode
 						if (object instanceof CharacterSpawner)
 						{
 							CharacterSpawner spawner = (CharacterSpawner) object;
 							spawner.spawnNPC();
 						}
 					}
+					// Remove NPCs when in edit mode
 					else if (!Handler.levelEditor.editMode)
 					{
 						if (object instanceof NonPlayerCharacter)

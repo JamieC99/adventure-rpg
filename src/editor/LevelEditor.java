@@ -141,7 +141,7 @@ public class LevelEditor extends JPanel
 	
 	
 	/** Draw the editor cursor */
-	public void drawCursor(Graphics g) 
+	public void drawCursor(Graphics g)
 	{
 		if (editMode)
 		{

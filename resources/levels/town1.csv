@@ -313,3 +313,7 @@ Tree,192,864,1
 Tree,256,864,1
 Tree,320,864,2
 Tree,384,864,2
+Gate,1152,896,resources/levels/town4.csv
+Gate,1088,896,resources/levels/town4.csv
+Gate,576,896,resources/levels/town4.csv
+Gate,512,896,resources/levels/town4.csv
