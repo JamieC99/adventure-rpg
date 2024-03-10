@@ -7,6 +7,9 @@ import world.Gate;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
+
+
 public class KeyInput implements KeyListener
 {
 	private static boolean shiftPressed = false;
@@ -98,6 +101,9 @@ public class KeyInput implements KeyListener
 			shiftPressed = true;
 	}
 	
+	
+	
+	
 	public void keyReleased(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
@@ -132,7 +138,13 @@ public class KeyInput implements KeyListener
 			shiftPressed = false;
 	}
 	
+	
+	
+	
 	public void keyTyped(KeyEvent e){}
+	
+	
+	
 	
 	public static boolean getShiftPressed()
 	{

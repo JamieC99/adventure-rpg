@@ -34,6 +34,9 @@ public class Handler
 	/** Active status for player 2 */
 	public static boolean player2Active = false;
 	
+	
+	
+	
 	/** Paint the objects */
 	public static void paintComponent(Graphics g)
 	{
@@ -51,6 +54,9 @@ public class Handler
 		levelEditor.drawCursor(g);
 		gui.paintComponent(g);
 	}
+	
+	
+	
 	
 	/** Update game objects */
 	public static void tick()
@@ -72,8 +78,10 @@ public class Handler
 		}
 		
 		levelEditor.tick();
-		gui.tick();
 	}
+	
+	
+	
 	
 	/** Add a new object to the list */
 	public static void addObject(GameObject object)
@@ -81,12 +89,18 @@ public class Handler
 		objectList.add(object);
 	}
 	
+	
+	
+	
 	/** Remove an object from the list */
 	public static void removeObject(GameObject object)
 	{
 		objectList.remove(object);
 	}
 
+	
+	
+	
 	/** Clears all objects in a level except the players */
 	public static void clearLevel()
 	{
@@ -100,11 +114,17 @@ public class Handler
 		}
 	}
 	
+	
+	
+	
 	/** Return the object list */
 	public static LinkedList<GameObject> getObjectList()
 	{
 		return objectList;
 	}
+	
+	
+	
 	
 	/** Save level to a CSV file */
 	public static void saveLevel()
@@ -145,6 +165,9 @@ public class Handler
 		}
 	}
 	
+	
+	
+	
 	/** Load level inside the level editor */
 	public static void loadLevelFromEditor()
 	{
@@ -159,6 +182,9 @@ public class Handler
 			loadLevel(csvFileName);
 		}
 	}
+	
+	
+	
 	
 	/** Level load function */
 	public static void loadLevel(String levelName)
@@ -228,6 +254,9 @@ public class Handler
 			modifyingObjectList = false;
 		}
 	}
+	
+	
+	
 	
 	/** Sorts through every object in the object list to draw them in the correct order */
 	private static void objectSort()

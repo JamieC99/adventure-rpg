@@ -10,6 +10,9 @@ import java.awt.Graphics;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
+
+
+
 public class NonPlayerCharacter extends Character
 {
 	/** The time elapsed until the character changes direction */
@@ -28,10 +31,19 @@ public class NonPlayerCharacter extends Character
 		moveSpeed = 1f;
 		
 		chooseDirection();
+		
+		canTalk = true;
 	}
+	
+	
+	
 	
 	public void paintComponent(Graphics g)
 	{
+		// Display speech bubble if the character is speakable
+		if (canTalk)
+			g.drawImage(speechBubbleImage, x - 8, y - 40, 32, 32, null);
+		
 		// Draw shadow
 		g.drawImage(new ImageIcon("resources/sprites/characters/char_shadow.png").getImage(), x, y + 48, width, height / 2, null);
 		
@@ -46,8 +58,14 @@ public class NonPlayerCharacter extends Character
 			g.fillRect(bottomBounds().x, bottomBounds().y, bottomBounds().width, bottomBounds().height);
 			g.fillRect(leftBounds().x, leftBounds().y, leftBounds().width, leftBounds().height);
 			g.fillRect(rightBounds().x, rightBounds().y, rightBounds().width, rightBounds().height);
+			
+			g.setColor(Color.YELLOW);
+			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 	}
+	
+	
+	
 	
 	public void collision()
 	{
@@ -60,6 +78,7 @@ public class NonPlayerCharacter extends Character
 			moveRight();
 		else if (x >= Window.getFrameBounds().x-width) 	 // Right bounds
 			moveLeft();
+		
 		
 		// Collide with world objects
 		for (int i = 0; i < Handler.getObjectList().size(); i++)
@@ -82,8 +101,12 @@ public class NonPlayerCharacter extends Character
 			}
 		}
 		
+		
 		chooseDirection();
 	}
+	
+	
+	
 	
 	private void chooseDirection()
 	{
@@ -110,6 +133,74 @@ public class NonPlayerCharacter extends Character
 			movementTimerElapsed = 0;
 		}
 	}
+	
+	
+	
+	
+	public void talk()
+	{
+		PlayerCharacter playerObject = null;
+		
+		// Check if the character is in range of the player's speech bounds
+		for (int i = 0; i < Handler.getObjectList().size(); i++)
+		{
+			if (Handler.getObjectList() != null && !Handler.modifyingObjectList)
+			{
+				GameObject object = Handler.getObjectList().get(i);
+				
+				if (object instanceof PlayerCharacter)
+				{
+					playerObject = (PlayerCharacter) object;
+					
+					if (getBounds().intersects(playerObject.speechBounds()))
+					{
+						inTalkRange = true;
+						speechBubbleIndex = 32;
+					}
+					else
+					{
+						inTalkRange = false;
+						speechBubbleIndex = 0;
+					}
+					
+					speechBubbleImage = speechBubbleSheet.getSubimage(speechBubbleIndex, 0, 32, 32);
+				}
+			}
+		}
+		
+		if (inTalkRange)
+		{
+			// Stop animation
+			spriteX = 0;
+			
+			// Face the player when talking
+			if (playerObject != null)
+			{
+				// Face the player when talking
+				// Face up
+				if (playerObject.getY() < y && playerObject.getX() > x-24 && playerObject.getX() < x + 24)
+					spriteY = 192;
+				
+				// Face down
+				if (playerObject.getY() > y && playerObject.getX() > x-24 && playerObject.getX() < x + 24)
+					spriteY = 0;
+				
+				// Face left
+				if (playerObject.getX() < x && playerObject.getY() > y-32 && playerObject.getY() < y + 32)
+					spriteY = 64;
+				
+				// Face right
+				if (playerObject.getX() > x && playerObject.getY() > y-32 && playerObject.getY() < y + 32)
+					spriteY = 128;
+				
+				// Reassign image
+				characterSprite = spriteSheet.getSubimage(spriteX, spriteY, width, height);
+			}
+		}
+	}
+	
+	
+	
 	
 	private void moveUp()
 	{
@@ -140,6 +231,9 @@ public class NonPlayerCharacter extends Character
 		moveX(0);
 		moveY(0);
 	}
+	
+	
+	
 	
 	private static String getCharacterSprite(int type)
 	{

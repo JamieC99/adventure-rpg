@@ -20,12 +20,18 @@ public abstract class GameObject
 	/** The level to load for a Gate object */
 	protected String levelToLoad;
 	
+	
+	
+	
 	public GameObject(int x, int y, int type)
 	{
 		this.x = x;
 		this.y = y;
 		this.type = type;
 	}
+	
+	
+	
 	
 	public GameObject(int x, int y, String levelToLoad) 
 	{
@@ -34,11 +40,17 @@ public abstract class GameObject
 		this.levelToLoad = levelToLoad;
 	}
 
+	
+	
+	
 	/** Return the x position */
 	public int getX()
 	{
 		return x;
 	}
+	
+	
+	
 	
 	/** Return the y position */
 	public int getY()
@@ -46,11 +58,17 @@ public abstract class GameObject
 		return y;
 	}
 	
+	
+	
+	
 	/** Set x position */
 	public void setX(int x)
 	{
 		this.x = x;
 	}
+	
+	
+	
 	
 	/** Set y position */
 	public void setY(int y)
@@ -58,11 +76,17 @@ public abstract class GameObject
 		this.y = y;
 	}
 	
+	
+	
+	
 	/** Return the object width */
 	public int getWidth()
 	{
 		return width;
 	}
+	
+	
+	
 	
 	/** Return the object height */
 	public int getHeight()
@@ -70,11 +94,17 @@ public abstract class GameObject
 		return height;
 	}
 	
+	
+	
+	
 	/** Gets if this is a solid object */
 	public boolean isSolid()
 	{
 		return solid;
 	}
+	
+	
+	
 	
 	/** Return the variation of the object */
 	public int getType()
@@ -82,16 +112,28 @@ public abstract class GameObject
 		return type;
 	}
 	
+	
+	
+	
 	public String getLevelToLoad()
 	{
 		return levelToLoad;
 	}
 	
+	
+	
+	
 	/** Update the object's behaviours */
 	public void tick() {}
 	
+	
+	
+	
 	/** Draw the object */
 	public abstract void paintComponent(Graphics g);
+	
+	
+	
 	
 	/** Collision box */
 	public abstract Rectangle getBounds();

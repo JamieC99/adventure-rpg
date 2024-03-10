@@ -8,6 +8,9 @@ import java.awt.Rectangle;
 import main.GameObject;
 import main.Handler;
 
+
+
+
 public class CharacterSpawner extends GameObject
 {
 	public CharacterSpawner(int x, int y, int type)
@@ -21,6 +24,9 @@ public class CharacterSpawner extends GameObject
 			spawnNPC();
 	}
 
+	
+	
+	
 	public void paintComponent(Graphics g) 
 	{
 		if (Handler.levelEditor.editMode)
@@ -40,11 +46,17 @@ public class CharacterSpawner extends GameObject
 		}
 	}
 	
+	
+	
+	
 	public void spawnNPC()
 	{
 		Handler.addObject(new NonPlayerCharacter(x, y, type));
 	}
 
+	
+	
+	
 	public Rectangle getBounds() 
 	{
 		return null;

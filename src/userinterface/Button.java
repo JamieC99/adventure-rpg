@@ -20,12 +20,18 @@ public class Button
 	private String buttonName;
 	private boolean selected = false;
 	
+	
+	
+	
 	public Button(int x, int y, String name)
 	{
 		this.x = x;
 		this.y = y;
 		buttonName = name;
 	}
+	
+	
+	
 	
 	public void paintComponent(Graphics g)
 	{
@@ -57,6 +63,9 @@ public class Button
 		g.setFont(originalFont);
 	}
 	
+	
+	
+	
 	public void tick()
 	{
 		if (Handler.levelEditor.editorFrame.getBounds().contains(MouseInput.getMousePoint()))
@@ -71,6 +80,9 @@ public class Button
 		else
 			selected = false;
 	}
+	
+	
+	
 	
 	/** Perform the actions for all the buttons */
 	public void action()
@@ -159,21 +171,33 @@ public class Button
 		}
 	}
 	
+	
+	
+	
 	public void selectObjectVariation()
 	{
 		if (selected)
 			Handler.levelEditor.selectObjectVariation();
 	}
 	
+	
+	
+	
 	public String getName()
 	{
 		return buttonName;
 	}
 	
+	
+	
+	
 	public boolean isSelected()
 	{
 		return selected;
 	}
+	
+	
+	
 	
 	public Rectangle getBounds()
 	{

@@ -14,6 +14,9 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+
+
+
 /** Loads different parts of the world when entered by the player */
 public class Gate extends GameObject
 {
@@ -37,6 +40,9 @@ public class Gate extends GameObject
 		solid = false;
 	}
 
+	
+	
+	
 	public void paintComponent(Graphics g)
 	{
 		if (Handler.levelEditor.editMode)
@@ -68,6 +74,9 @@ public class Gate extends GameObject
 			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 	}
+	
+	
+	
 	
 	public void tick()
 	{
@@ -116,13 +125,16 @@ public class Gate extends GameObject
 		else
 			selected = false;
 		
-		// Re-call the loadLevel method when the screen fades to back
-		if (isLoading)
-		{
+		// Re-call the loadLevel method when the screen fades to black
+		//if (isLoading)
+		//{
 			//if (Window.getFadeValue() == 1)
-				loadLevel();
-		}
+				//loadLevel();
+		//}
 	}
+	
+	
+	
 	
 	/** Move to another level when the player enters the gate */
 	public void loadLevel()
@@ -147,6 +159,9 @@ public class Gate extends GameObject
     		//}
 	    }
 	}
+	
+	
+	
 	
 	/** Shift players to the opposite side of the frame */
 	private void movePlayers()
@@ -197,6 +212,9 @@ public class Gate extends GameObject
 		}
 	}
 	
+	
+	
+	
 	/** Assign the desired level to the gate in the level editor */
 	public void assignLevel()
 	{
@@ -213,6 +231,9 @@ public class Gate extends GameObject
 			}
 		}
 	}
+	
+	
+	
 	
 	public String getLevelToLoad()
 	{

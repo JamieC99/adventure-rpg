@@ -13,9 +13,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+
+
+
 public class Tree extends GameObject
 {
 	private BufferedImage spriteSheet, treeSprite;
+	
+	
+	
 	
 	public Tree(int x, int y, int type)
 	{
@@ -40,6 +46,9 @@ public class Tree extends GameObject
 		treeSprite = spriteSheet.getSubimage(type, 0, 128, 160);
 	}
 
+	
+	
+	
 	public void paintComponent(Graphics g) 
 	{
 		// Draw shadow
@@ -56,6 +65,9 @@ public class Tree extends GameObject
 		}
 	}
 
+	
+	
+	
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x + 14, y + 62, width-32, height-62);

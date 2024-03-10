@@ -12,10 +12,16 @@ import javax.imageio.ImageIO;
 import main.Debug;
 import main.GameObject;
 
+
+
+
 public class Path extends GameObject
 {
 	private BufferedImage spriteSheet, pathSprite;
 	private int spriteX, spriteY;
+	
+	
+	
 	
 	public Path(int x, int y, int type) 
 	{
@@ -47,6 +53,9 @@ public class Path extends GameObject
 		pathSprite = spriteSheet.getSubimage(spriteX, spriteY, width, height);
 	}
 
+	
+	
+	
 	public void paintComponent(Graphics g) 
 	{
 		g.drawImage(pathSprite, x, y, width, height, null);
@@ -58,6 +67,9 @@ public class Path extends GameObject
 		}
 	}
 
+	
+	
+	
 	public Rectangle getBounds()
 	{
 		return new Rectangle(x, y, width, height);

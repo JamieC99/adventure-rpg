@@ -61,11 +61,5 @@ public class GUI
 		
 			g.setFont(originalFont);
 		}
-		
-	}
-	
-	public void tick()
-	{
-		
 	}
 }

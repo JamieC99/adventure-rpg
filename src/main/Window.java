@@ -27,6 +27,9 @@ public class Window extends JPanel
 	private static float screenFadeValue = 0;
 	private static float fade = 0;
 	
+	
+	
+	
 	public Window()
 	{
 		// Setup window
@@ -43,6 +46,9 @@ public class Window extends JPanel
 		frame.addMouseMotionListener(new MouseInput());
 	}
 	
+	
+	
+	
 	public static void updateScreenFadeValue() 
 	{
 		// Screen fading
@@ -54,6 +60,9 @@ public class Window extends JPanel
 		if (screenFadeValue <= 0) screenFadeValue = 0;
 		if (screenFadeValue >= 1) screenFadeValue = 1;
     }
+	
+	
+	
 	
 	// Rendering
 	public void paintComponent(Graphics g)
@@ -89,6 +98,9 @@ public class Window extends JPanel
 		if (!Handler.modifyingObjectList)
 			repaint();
 	}
+	
+	
+	
 	
 	/** Return the scale of the frame */
 	public static float getFrameScale()

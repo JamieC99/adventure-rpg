@@ -4,8 +4,12 @@ import main.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
+
+
+
 
 public class PlayerCharacter extends Character
 {
@@ -19,6 +23,9 @@ public class PlayerCharacter extends Character
 		this.playerNumber = playerNumber;
 	}
 
+	
+	
+	
 	// Perform collision checking
 	public void collision()
 	{
@@ -67,6 +74,9 @@ public class PlayerCharacter extends Character
 		}
 	}
 	
+	
+	
+	
 	private static String getPlayerImage(int playerNumber) 
 	{
         if (playerNumber == 1)
@@ -82,6 +92,18 @@ public class PlayerCharacter extends Character
         else
         	return null;
     }
+	
+	
+	
+	
+	/** The bounds in which a character must be within to talk */
+	public Rectangle speechBounds()
+	{
+		return new Rectangle(x - 32, y - 24, 112, 112);
+	}
+	
+	
+	
 	
 	public void paintComponent(Graphics g)
 	{
@@ -99,13 +121,25 @@ public class PlayerCharacter extends Character
 			g.fillRect(bottomBounds().x, bottomBounds().y, bottomBounds().width, bottomBounds().height);
 			g.fillRect(leftBounds().x, leftBounds().y, leftBounds().width, leftBounds().height);
 			g.fillRect(rightBounds().x, rightBounds().y, rightBounds().width, rightBounds().height);
+			
+			g.setColor(Color.BLUE);
+			g.drawRect(speechBounds().x, speechBounds().y, speechBounds().width, speechBounds().height);
+			
+			g.setColor(Color.YELLOW);
+			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 		}
 	}
+	
+	
+	
 	
 	public void setMoveSpeed(float speed)
 	{
 		moveSpeed = speed;
 	}
+	
+	
+	
 	
 	public int getPlayerNumber()
 	{

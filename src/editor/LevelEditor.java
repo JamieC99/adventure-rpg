@@ -18,6 +18,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
+
+
 public class LevelEditor extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +42,9 @@ public class LevelEditor extends JPanel
 	/** The variable of the object to create */
 	private int objectVariation;
 	
+	
+	
+	
 	// Object type
 	public enum ObjectType
 	{
@@ -49,6 +55,9 @@ public class LevelEditor extends JPanel
 		npcSpawner
 	}
 	public ObjectType selectedObjectType;
+	
+	
+	
 	
 	public LevelEditor()
 	{
@@ -80,6 +89,9 @@ public class LevelEditor extends JPanel
 		buttonList.add(new Button(0, 320, "Add Path"));
 		buttonList.add(new Button(0, 368, "Add Gate"));
 	}
+	
+	
+	
 	
 	public void tick()
 	{
@@ -125,6 +137,9 @@ public class LevelEditor extends JPanel
 			button.tick();
 	}
 	
+	
+	
+	
 	/** Draw the editor cursor */
 	public void drawCursor(Graphics g) 
 	{
@@ -147,6 +162,9 @@ public class LevelEditor extends JPanel
 			g.drawRect(cursorX-1, cursorY-1, gridSizeX + 2, gridSizeY + 2);
 		}
 	}
+	
+	
+	
 	
 	// Draw the level editor interface
 	public void paintComponent(Graphics g)
@@ -184,6 +202,9 @@ public class LevelEditor extends JPanel
 		repaint();
 	}
 	
+	
+	
+	
 	/** Creates trees across the whole level */
 	public void massPlaceTrees()
 	{
@@ -199,6 +220,9 @@ public class LevelEditor extends JPanel
 		}
 	}
 	
+	
+	
+	
 	/** Add a tree at the given coordinates with a random type */
 	private void addTree(int x, int y)
 	{
@@ -206,6 +230,9 @@ public class LevelEditor extends JPanel
 		int treeType = random.nextInt(3);
 		Handler.addObject(new Tree(x, y-32, treeType));
 	}
+	
+	
+	
 	
 	public void placeObject()
 	{
@@ -236,6 +263,9 @@ public class LevelEditor extends JPanel
 		}
 	}
 	
+	
+	
+	
 	public void removeObject()
 	{
 		if (editMode && !editorFrame.getBounds().contains(MouseInput.getMousePoint()))
@@ -265,6 +295,9 @@ public class LevelEditor extends JPanel
 		}
 	}
 	
+	
+	
+	
 	public void selectObjectVariation()
 	{
 		if (selectedObjectType == ObjectType.path)
@@ -284,6 +317,9 @@ public class LevelEditor extends JPanel
 		}
 	}
 	
+	
+	
+	
 	private int showObjectSelectDialog(String message, String title, String[] options)
 	{
 		int result = JOptionPane.showOptionDialog(
@@ -298,21 +334,33 @@ public class LevelEditor extends JPanel
 		return result;
 	}
 	
+	
+	
+	
 	/** Return the list of buttons */
 	public LinkedList<Button> getButtonList()
 	{
 		return buttonList;
 	}
 	
+	
+	
+	
 	public int getCursorX()
 	{
 		return cursorX;
 	}
 	
+	
+	
+	
 	public int getCursorY()
 	{
 		return cursorY;
 	}
+	
+	
+	
 	
 	public Rectangle getCursorBounds()
 	{
