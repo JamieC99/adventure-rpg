@@ -61,6 +61,10 @@ public class NonPlayerCharacter extends Character
 			
 			g.setColor(Color.YELLOW);
 			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+		
+			// Display coordinates
+			g.setColor(Color.WHITE);
+			g.drawString("X: " + x + " Y: " + y, x - 12, y-32);
 		}
 	}
 	
@@ -146,24 +150,27 @@ public class NonPlayerCharacter extends Character
 		{
 			if (Handler.getObjectList() != null && !Handler.modifyingObjectList)
 			{
-				GameObject object = Handler.getObjectList().get(i);
-				
-				if (object instanceof PlayerCharacter)
+				if (!Handler.modifyingObjectList)
 				{
-					playerObject = (PlayerCharacter) object;
+					GameObject object = Handler.getObjectList().get(i);
 					
-					if (getBounds().intersects(playerObject.speechBounds()))
+					if (object instanceof PlayerCharacter)
 					{
-						inTalkRange = true;
-						speechBubbleIndex = 32;
+						playerObject = (PlayerCharacter) object;
+						
+						if (getBounds().intersects(playerObject.speechBounds()))
+						{
+							inTalkRange = true;
+							speechBubbleIndex = 32;
+						}
+						else
+						{
+							inTalkRange = false;
+							speechBubbleIndex = 0;
+						}
+						
+						speechBubbleImage = speechBubbleSheet.getSubimage(speechBubbleIndex, 0, 32, 32);
 					}
-					else
-					{
-						inTalkRange = false;
-						speechBubbleIndex = 0;
-					}
-					
-					speechBubbleImage = speechBubbleSheet.getSubimage(speechBubbleIndex, 0, 32, 32);
 				}
 			}
 		}

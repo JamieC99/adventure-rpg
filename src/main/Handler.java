@@ -38,6 +38,7 @@ public class Handler
 	
 	
 	
+	
 	/** Paint the objects */
 	public static void paintComponent(Graphics g)
 	{
@@ -114,6 +115,8 @@ public class Handler
 			if (!(object instanceof PlayerCharacter))
 				iterator.remove();
 		}
+		
+		System.out.println("Level Clear");
 	}
 	
 	
@@ -246,7 +249,7 @@ public class Handler
 				}
 				
 				reader.close();
-				System.out.println("Level loaded " + ++timesLoaded);
+				System.out.println("Level loaded " + ++timesLoaded + " List Size: " + getObjectList().size());
 			}
 			catch (IOException e)
 			{
@@ -263,7 +266,7 @@ public class Handler
 	/** Sorts through every object in the object list to draw them in the correct order */
 	private static void objectSort()
 	{
-		if (!modifyingObjectList)
+		if (!modifyingObjectList && Handler.getObjectList() != null)
 		{
 			Collections.sort(objectList, new Comparator<GameObject>()
 			{

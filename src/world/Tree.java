@@ -70,6 +70,6 @@ public class Tree extends GameObject
 	
 	public Rectangle getBounds()
 	{
-		return new Rectangle(x + 14, y + 62, width-32, height-62);
+		return new Rectangle(x + 14, y + 61, width-32, height-61);
 	}
 }

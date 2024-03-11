@@ -26,6 +26,7 @@ public class Character extends GameObject
 	
 	/**
 		Position of the desired image in the sprite sheet
+		spriteX = 0   // IDLE
 		spriteY = 0   // DOWN
 		spriteY = 64  // LEFT
 		spriteY = 128 // RIGHT
@@ -220,13 +221,13 @@ public class Character extends GameObject
 	// Left collision box
 	public Rectangle leftBounds()
 	{
-		return new Rectangle(x - 1, y + 27, 1, height - 29);
+		return new Rectangle(x - 1, y + 28, 1, height - 30);
 	} 
 	
 	// Right collision box
 	public Rectangle rightBounds()
 	{
-		return new Rectangle(x + width, y + 27, 1, height - 29);
+		return new Rectangle(x + width, y + 28, 1, height - 30);
 	}
 	
 	/** Collision box used for triggers */

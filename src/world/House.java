@@ -49,9 +49,9 @@ public class House extends GameObject
 		houseSprite = spriteSheet.getSubimage(spriteX, spriteY, width, height);
 	}
 
-	
-	
-	
+
+
+
 	public void paintComponent(Graphics g) 
 	{
 		// Draw house
@@ -62,6 +62,9 @@ public class House extends GameObject
 		{
 			g.setColor(Color.RED);
 			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+			
+			g.setColor(Color.WHITE);
+			g.drawString("HOUSE" + y, x + width / 2 - 20, y + height - 32);
 		}
 	}
 
@@ -70,6 +73,6 @@ public class House extends GameObject
 	
 	public Rectangle getBounds()
 	{
-		return new Rectangle(x, y + 62, width, height-62);
+		return new Rectangle(x, y + 61, width, height-61);
 	}
 }

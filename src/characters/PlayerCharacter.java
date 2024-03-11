@@ -127,6 +127,10 @@ public class PlayerCharacter extends Character
 			
 			g.setColor(Color.YELLOW);
 			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+			
+			// Display coordinates
+			g.setColor(Color.WHITE);
+			g.drawString("X: " + x + " Y: " + y, x - 12, y-32);
 		}
 	}
 	
