@@ -168,15 +168,15 @@ public class NonPlayerCharacter extends Character
 			}
 		}
 		
+		// When the NPC is close enough to the player to talk
 		if (inTalkRange)
 		{
-			// Stop animation
-			spriteX = 0;
+			// Idle frame
+			spriteX = 48;
 			
 			// Face the player when talking
 			if (playerObject != null)
 			{
-				// Face the player when talking
 				// Face up
 				if (playerObject.getY() < y && playerObject.getX() > x-24 && playerObject.getX() < x + 24)
 					spriteY = 192;
@@ -234,7 +234,7 @@ public class NonPlayerCharacter extends Character
 	
 	
 	
-	
+	/** Assign the sprite sheet to the NPC */
 	private static String getCharacterSprite(int type)
 	{
 		switch(type)

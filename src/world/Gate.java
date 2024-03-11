@@ -83,34 +83,25 @@ public class Gate extends GameObject
 		if (!isLoading)
 			moveToNewMap = false;
 		
-		// Move to the assigned level
-		for (int i = 0; i < Handler.getObjectList().size(); i++)
+		if (!Handler.modifyingObjectList && !isLoading)
 		{
-			if (Handler.modifyingObjectList)
-				break;
-			
-			if (!Handler.modifyingObjectList && !isLoading)
+			// Move to the assigned level
+			for (int i = 0; i < Handler.getObjectList().size(); i++)
 			{
-				if (Handler.getObjectList() == null)
-					break;
-				
-				if (Handler.getObjectList().get(i) != null)
-				{
-					GameObject object = Handler.getObjectList().get(i);
-			    
-			        // Get the player object
-			        if (object instanceof PlayerCharacter)
-			        {
-			            PlayerCharacter playerObject = (PlayerCharacter) object;
-			
-			            // Check for collision with the players
-			            if (getBounds().intersects(playerObject.getBounds()))
-			            {
-			                moveToNewMap = true;
-			                break; // No need to continue checking if collision is detected
-			            }
-			        }
-				}
+				GameObject object = Handler.getObjectList().get(i);
+		    
+		        // Get the player object
+		        if (object instanceof PlayerCharacter)
+		        {
+		            PlayerCharacter playerObject = (PlayerCharacter) object;
+		
+		            // Check for collision with the players
+		            if (getBounds().intersects(playerObject.getBounds()))
+		            {
+		                moveToNewMap = true;
+		                break; // No need to continue checking if collision is detected
+		            }
+		        }
 			}
 		}
 		

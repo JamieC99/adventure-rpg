@@ -1,6 +1,7 @@
 package main;
 
 import input.*;
+import dialogue.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,6 +28,7 @@ public class Window extends JPanel
 	private static float screenFadeValue = 0;
 	private static float fade = 0;
 	
+	public static DialogueBox dialogueBox = new DialogueBox();
 	
 	
 	
@@ -88,6 +90,8 @@ public class Window extends JPanel
 		
 		// Draw game objects
 		Handler.paintComponent(g);
+		
+		dialogueBox.paintComponent(g);
 		
 		//updateScreenFadeValue();
 		

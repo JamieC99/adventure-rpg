@@ -34,6 +34,7 @@ public class Handler
 	/** Active status for player 2 */
 	public static boolean player2Active = false;
 	
+	private static int timesLoaded = 0;
 	
 	
 	
@@ -51,6 +52,7 @@ public class Handler
 					object.paintComponent(g);
 			}
 		}
+		
 		levelEditor.drawCursor(g);
 		gui.paintComponent(g);
 	}
@@ -244,7 +246,7 @@ public class Handler
 				}
 				
 				reader.close();
-				System.out.println("Level loaded");
+				System.out.println("Level loaded " + ++timesLoaded);
 			}
 			catch (IOException e)
 			{
@@ -261,7 +263,7 @@ public class Handler
 	/** Sorts through every object in the object list to draw them in the correct order */
 	private static void objectSort()
 	{
-		if (objectList != null && !modifyingObjectList)
+		if (!modifyingObjectList)
 		{
 			Collections.sort(objectList, new Comparator<GameObject>()
 			{
