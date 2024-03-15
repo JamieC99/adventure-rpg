@@ -145,6 +145,7 @@ public class LevelEditor extends JPanel
 	{
 		if (editMode)
 		{
+			// Show grid lines
 			if (showGridLines)
 			{
 				g.setColor(Color.BLACK);
