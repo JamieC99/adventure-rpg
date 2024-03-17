@@ -39,7 +39,6 @@ public class Main
 			while (delta >= 1)
 			{
 				tick();
-				//Window.updateScreenFadeValue();
 				delta--;
 			}
 		}

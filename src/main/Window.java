@@ -93,14 +93,14 @@ public class Window extends JPanel
 		
 		dialogueBox.paintComponent(g);
 		
-		//updateScreenFadeValue();
+		updateScreenFadeValue();
 		
 		// Draw screen fade overlay
 		g.setColor(new Color(0, 0, 0, screenFadeValue));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		if (!Handler.modifyingObjectList)
-			repaint();
+		//if (!Handler.modifyingObjectList)
+		repaint();
 	}
 	
 	

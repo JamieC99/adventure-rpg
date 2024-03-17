@@ -32,7 +32,7 @@ public class NonPlayerCharacter extends Character
 		
 		chooseDirection();
 		
-		canTalk = true;
+		canTalk = false;
 	}
 	
 	

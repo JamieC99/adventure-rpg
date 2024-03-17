@@ -3,7 +3,7 @@ package world;
 import main.Debug;
 import main.GameObject;
 import main.Handler;
-//import main.Window;
+import main.Window;
 import characters.PlayerCharacter;
 
 import java.awt.Color;
@@ -122,11 +122,11 @@ public class Gate extends GameObject
 			selected = false;
 		
 		// Re-call the loadLevel method when the screen fades to black
-		//if (isLoading)
-		//{
-			//if (Window.getFadeValue() == 1)
-				//loadLevel();
-		//}
+		if (isLoading)
+		{
+			if (Window.getFadeValue() == 1)
+				loadLevel();
+		}
 	}
 	
 	
@@ -138,21 +138,21 @@ public class Gate extends GameObject
 		// Check a level is not already loading
 	    if (canMoveToNewMap() && !Handler.modifyingObjectList) 
 	    {
-    		//if (Window.getFadeValue() == 0)
-    		//{
-    			//Window.fadeScreenToBlack();
-    			//isLoading = true;
-    		//}
-    		//else if (Window.getFadeValue() == 1)
-    		//{
+    		if (Window.getFadeValue() == 0)
+    		{
+    			Window.fadeScreenToBlack();
+    			isLoading = true;
+    		}
+    		else if (Window.getFadeValue() == 1)
+    		{
     			isLoading = true;
     			
 		        Handler.loadLevel(levelToLoad);
 		        movePlayers();
-		        //Window.fadeScreenFromBlack();
+		        Window.fadeScreenFromBlack();
 		        
 		        isLoading = false;
-    		//}
+    		}
 	    }
 	}
 	

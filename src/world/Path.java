@@ -37,6 +37,9 @@ public class Path extends GameObject
 			case 1: spriteX = 64; spriteY = 0;  solid = true;  break; // Water
 			case 2: spriteX = 0;  spriteY = 64; solid = false; break; // Dirt
 			case 3: spriteX = 64; spriteY = 64; solid = false; break; // Sand
+			case 4: spriteX = 128; spriteY = 64; solid = true; break; // Cliff face Dirt
+			case 5: spriteX = 128; spriteY = 0; solid  = true; break; // Cliff bridge
+			case 6: spriteX = 192; spriteY = 0; solid = true; break; // Cliff face stone
 		}
 		
 		// Load sprite sheet

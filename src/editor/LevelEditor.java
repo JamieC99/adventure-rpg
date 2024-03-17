@@ -303,7 +303,7 @@ public class LevelEditor extends JPanel
 	{
 		if (selectedObjectType == ObjectType.path)
 		{
-			String[] options = {"Stone", "Water", "Dirt", "Sand"};
+			String[] options = {"Stone", "Water", "Dirt", "Sand", "Cliff Face Dirt", "Bridge Face", "Cliff Face Stone"};
 			objectVariation = showObjectSelectDialog("Select an option", "Object Selection", options);
 		}
 		else if (selectedObjectType == ObjectType.npcSpawner)
