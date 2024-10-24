@@ -20,9 +20,6 @@ public class Path extends GameObject
 	private BufferedImage spriteSheet, pathSprite;
 	private int spriteX, spriteY;
 	
-	
-	
-	
 	public Path(int x, int y, int type) 
 	{
 		super(x, y, type);

@@ -123,7 +123,7 @@ public abstract class GameObject
 	
 	
 	
-	/** Update the object's behaviours */
+	/** Update the object's behaviors */
 	public void tick() {}
 	
 	

@@ -30,8 +30,6 @@ public class Window extends JPanel
 	
 	public static DialogueBox dialogueBox = new DialogueBox();
 	
-	
-	
 	public Window()
 	{
 		// Setup window

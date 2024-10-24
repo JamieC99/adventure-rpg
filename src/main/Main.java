@@ -2,9 +2,6 @@ package main;
 
 import characters.PlayerCharacter;
 
-
-
-
 public class Main
 {
 	public Main()
@@ -19,9 +16,6 @@ public class Main
 		// Run the game
 		run();
 	}
-	
-	
-	
 	
 	// Main game loop
 	public void run()
@@ -44,17 +38,11 @@ public class Main
 		}
 	}
 	
-	
-	
-	
 	// Main tick method. Updates every game object
 	public void tick()
 	{
 		Handler.tick();
 	}
-	
-	
-	
 	
 	public static void main(String[] args)
 	{

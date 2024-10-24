@@ -208,6 +208,8 @@ Tree,1536,-32,0
 Tree,1664,-32,2
 Tree,1728,-32,2
 Tree,1792,-32,1
+Gate,576,0,resources/levels/forest1.csv
+Gate,1600,0,resources/levels/forest1.csv
 Tree,448,32,2
 Tree,512,32,1
 Tree,1664,32,2
