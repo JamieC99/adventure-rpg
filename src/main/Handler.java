@@ -36,9 +36,6 @@ public class Handler
 	
 	private static int timesLoaded = 0;
 	
-	
-	
-	
 	/** Paint the objects */
 	public static void paintComponent(Graphics g)
 	{
@@ -57,9 +54,6 @@ public class Handler
 		levelEditor.drawCursor(g);
 		gui.paintComponent(g);
 	}
-	
-	
-	
 	
 	/** Update game objects */
 	public static void tick()
