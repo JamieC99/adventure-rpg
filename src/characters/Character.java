@@ -91,7 +91,7 @@ public class Character extends GameObject
 	
 	
 	
-	private void animate()
+	public void animate()
 	{
 		// Play the animation when the character is moving
 		if (velX != 0 || velY != 0)

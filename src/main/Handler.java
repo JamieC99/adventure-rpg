@@ -63,7 +63,7 @@ public class Handler
 			for (int i = 0; i < objectList.size(); i++)
 			{
 				if (modifyingObjectList)
-					break;
+					continue;
 				
 				GameObject object = objectList.get(i);
 				
